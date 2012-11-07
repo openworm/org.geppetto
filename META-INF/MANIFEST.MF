@@ -1,5 +1,8 @@
 Manifest-Version: 1.0
-Application-Name: SimulationEngine
+Bundle-ManifestVersion: 2
+Bundle-Name: Org.openworm.simulationengine
+Bundle-SymbolicName: org.openworm.simulationengine
+Bundle-Version: 1.0.0.qualifier
 Application-Version: 1.0.0
 Application-SymbolicName: org.openworm.simulationengine
-
+Application-Name: OpenWorm Simulation Engine

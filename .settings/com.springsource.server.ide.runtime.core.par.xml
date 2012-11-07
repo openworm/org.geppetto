@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<com.springsource.server.ide.par:Par xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:com.springsource.server.ide.par="http:///com/springsource/server/ide/par.ecore">
-  <bundle symbolicName="org.openworm.simulationengine.core"/>
-  <bundle symbolicName="org.openworm.simulationengine.samplesimulation"/>
-  <bundle symbolicName="org.openworm.simulationengine.samplesimulator"/>
-  <bundle symbolicName="org.openworm.simulationengine.samplesolver"/>
-</com.springsource.server.ide.par:Par>
