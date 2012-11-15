@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plan name="multi-artifact.plan" version="1.0.0" scoped="true" atomic="true"
+        xmlns="http://www.springsource.org/schema/dm-server/plan"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="
+            http://www.springsource.org/schema/dm-server/plan 
+            http://www.springsource.org/schema/dm-server/plan/springsource-dm-server-plan.xsd">
+
+    <artifact type="bundle" name="org.openworm.simulationengine.core" version="1.0.0"/>
+    <artifact type="bundle" name="org.openworm.simulationengine.samplesolver" version="1.0.0"/>
+    <artifact type="bundle" name="org.openworm.simulationengine.samplesimulator" version="1.0.0"/>
+    <artifact type="bundle" name="org.openworm.simulationengine.samplesimulation" version="1.0.0"/>
+    <artifact type="bundle" name="org.openworm.simulationengine.model.sph" version="1.0.0"/>
+    <artifact type="bundle" name="org.openworm.simulationengine.solver.sph" version="1.0.0"/>
+    <artifact type="bundle" name="org.openworm.simulationengine.simulator.sph" version="1.0.0"/>
+    <artifact type="bundle" name="org.openworm.simulationengine.simulation" version="1.0.0"/>
+    <artifact type="bundle" name="org.openworm.simulationengine.frontend" version="1.0.0"/>
+
+</plan>
