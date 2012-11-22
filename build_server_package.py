@@ -1,3 +1,4 @@
+from __future__ import with_statement
 import os
 #########################################
 # Downloads a Virgo server and the OpenWorm
@@ -12,7 +13,6 @@ import os
 os.environ['JAVA_HOME'] = '/usr'
 os.environ['MAVEN_HOME'] = '/home/ubuntu/notebooks/apache-maven-2.2.1'
 #######################################
-from __future__ import with_statement
 import urllib
 import tempfile, shutil, zipfile, re
 from fabric.api import *
