@@ -1,11 +1,19 @@
+import os
 #########################################
 # Downloads a Virgo server and the OpenWorm
 # bundles and creates a zip file that contains
 # a configured Virgo server
 # by: Stephen Larson (stephen@openworm.org)
+#
+# To use:
+# * Make sure Fabric is installed:
+#   http://docs.fabfile.org/en/1.5/installation.html
+# * Set JAVA_HOME and MAVEN_HOME directories below:
+os.environ['JAVA_HOME'] = '/usr'
+os.environ['MAVEN_HOME'] = '/home/ubuntu/notebooks/apache-maven-2.2.1'
 #######################################
 from __future__ import with_statement
-import urllib, os
+import urllib
 import tempfile, shutil, zipfile, re
 from fabric.api import *
 import os.path as op
@@ -41,11 +49,9 @@ with lcd(tempdir):
     print local('mkdir -p package/openworm', capture=True)
     print local('mv virgo-tomcat-server-3.6.0.M01/* package/openworm/', capture=True)
 
-#set key environment variables
-os.environ['JAVA_HOME'] = '/usr'
+#set server home in temp directory
 server_home = op.join(tempdir, 'package/openworm')
 os.environ['SERVER_HOME'] = server_home
-os.environ['MAVEN_HOME'] = '/home/ubuntu/notebooks/apache-maven-2.2.1'
 
 #use Maven to build all the OpenWorm code bundles 
 #and place the contents in the Virgo installation
@@ -81,6 +87,6 @@ with lcd(server_home):
 #zip up the contents of the virgo directory for distribution
 archive_name = os.path.expanduser(os.path.join('~', 'openworm-snapshot'))
 root_dir = os.path.expanduser(os.path.join(tempdir, 'package'))
-#make_archive(archive_name, 'gztar', root_dir)
 snapshot = shutil.make_archive(archive_name, 'zip', root_dir)
+
 print 'Your snapshot is ready: ' + snapshot
