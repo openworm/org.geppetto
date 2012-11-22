@@ -18,6 +18,13 @@ import tempfile, shutil, zipfile, re
 from fabric.api import *
 import os.path as op
 
+#check to make sure Maven is pointed to appropriately
+try:
+   with open(op.join(os.environ['MAVEN_HOME'], 'bin/mvn')) as f: pass
+except IOError as e:
+   sys.exit("Can't find mvn under " + os.environ['MAVEN_HOME'] + "-- is MAVEN_HOME set appropriately?")
+   
+
 urls = ['http://ftp.osuosl.org/pub/eclipse//virgo/milestone/VP/3.6.0.M01/virgo-tomcat-server-3.6.0.M01.zip']
 
 openwormpackages = ['org.openworm.simulationengine.core', 'org.openworm.simulationengine',
@@ -42,6 +49,7 @@ for u in urls:
     (zFile, x) = urllib.urlretrieve(u)
     vz = zipfile.ZipFile(zFile)
     vz.extractall(tempdir)
+    os.remove(zFile)
     
 #make an openworm directory and move the contents of virgo into it
 #so the final package has a nice name
@@ -89,4 +97,10 @@ archive_name = os.path.expanduser(os.path.join('~', 'openworm-snapshot'))
 root_dir = os.path.expanduser(os.path.join(tempdir, 'package'))
 snapshot = shutil.make_archive(archive_name, 'zip', root_dir)
 
+#delete the temp directory
+print 'Deleting temp directory'
+shutil.rmtree(tempdir)
+
+
 print 'Your snapshot is ready: ' + snapshot
+    
