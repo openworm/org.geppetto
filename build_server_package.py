@@ -14,7 +14,7 @@ os.environ['JAVA_HOME'] = '/usr'
 os.environ['MAVEN_HOME'] = '/home/ubuntu/notebooks/apache-maven-2.2.1'
 #######################################
 import urllib
-import tempfile, shutil, zipfile, re
+import tempfile, shutil, zipfile, re, sys
 from fabric.api import *
 import os.path as op
 
@@ -103,4 +103,3 @@ shutil.rmtree(tempdir)
 
 
 print 'Your snapshot is ready: ' + snapshot
-    
