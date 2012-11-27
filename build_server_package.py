@@ -7,6 +7,7 @@ import os
 # by: Stephen Larson (stephen@openworm.org)
 #
 # To use:
+# * Make sure Maven (http://maven.apache.org) is installed
 # * Make sure Fabric is installed:
 #   http://docs.fabfile.org/en/1.5/installation.html
 # * Set JAVA_HOME and MAVEN_HOME directories below:
