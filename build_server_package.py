@@ -12,7 +12,7 @@ import os
 #   http://docs.fabfile.org/en/1.5/installation.html
 # * Set JAVA_HOME and MAVEN_HOME directories below:
 os.environ['JAVA_HOME'] = '/usr'
-os.environ['MAVEN_HOME'] = '/home/ubuntu/notebooks/apache-maven-2.2.1'
+os.environ['MAVEN_HOME'] = '/usr'
 #######################################
 import urllib
 import tempfile, shutil, zipfile, re, sys
@@ -25,18 +25,20 @@ try:
 except IOError as e:
    sys.exit("Can't find mvn under " + os.environ['MAVEN_HOME'] + "-- is MAVEN_HOME set appropriately?")
    
+virgo_version = "3.6.0.RELEASE"
 
-urls = ['http://ftp.osuosl.org/pub/eclipse//virgo/milestone/VP/3.6.0.M01/virgo-tomcat-server-3.6.0.M01.zip']
+urls = ["http://www.eclipse.org/downloads/download.php?file=/virgo/release/VP/%s/virgo-tomcat-server-%s.zip&r=1"%(virgo_version, virgo_version)]
 
-openwormpackages = ['org.openworm.simulationengine.core', 'org.openworm.simulationengine',
-'org.openworm.simulationengine.samplesimulation', 
-'org.openworm.simulationengine.frontend',
+openwormpackages = ['org.openworm.simulationengine.core',
 'org.openworm.simulationengine.samplesolver',
+'org.openworm.simulationengine.samplesimulator',
+'org.openworm.simulationengine.samplesimulation',
 'org.openworm.simulationengine.model.sph',
 'org.openworm.simulationengine.solver.sph',
 'org.openworm.simulationengine.simulator.sph',
 'org.openworm.simulationengine.simulation',
-'org.openworm.simulationengine.samplesimulator']
+'org.openworm.simulationengine.frontend',
+'org.openworm.simulationengine']
 
 for p in openwormpackages:
     urls = urls + ['https://github.com/openworm/' + p + '/archive/master.zip']
@@ -47,6 +49,7 @@ tempdir = tempfile.mkdtemp()
 
 #download and unpack all packages into a temp directory
 for u in urls:
+    print "Downloading: %s and unzipping into %s..."%(u,tempdir)
     (zFile, x) = urllib.urlretrieve(u)
     vz = zipfile.ZipFile(zFile)
     vz.extractall(tempdir)
@@ -56,7 +59,7 @@ for u in urls:
 #so the final package has a nice name
 with lcd(tempdir):
     print local('mkdir -p package/openworm', capture=True)
-    print local('mv virgo-tomcat-server-3.6.0.M01/* package/openworm/', capture=True)
+    print local("mv virgo-tomcat-server-%s/* package/openworm/"%(virgo_version), capture=True)
 
 #set server home in temp directory
 server_home = op.join(tempdir, 'package/openworm')
@@ -65,7 +68,9 @@ os.environ['SERVER_HOME'] = server_home
 #use Maven to build all the OpenWorm code bundles 
 #and place the contents in the Virgo installation
 for p in openwormpackages:
-    dirp = op.join(tempdir, p + '-master')
+    with lcd(tempdir):
+        print local('mv %s-master %s'%(p, p), capture=True)
+    dirp = op.join(tempdir, p)
     print '**************************'
     print 'BUILDING ' + dirp
     print '**************************'
@@ -76,7 +81,7 @@ for p in openwormpackages:
             print local('cp target/* $SERVER_HOME/repository/usr/', capture=True)
 
 #put the .plan file in the pickup folder        
-with lcd(op.join(tempdir, 'org.openworm.simulationengine' + '-master')):
+with lcd(op.join(tempdir, 'org.openworm.simulationengine')):
     print local('cp owsefull.plan $SERVER_HOME/pickup/', capture=True)
 
 #fix the properties file
@@ -99,8 +104,8 @@ root_dir = os.path.expanduser(os.path.join(tempdir, 'package'))
 snapshot = shutil.make_archive(archive_name, 'zip', root_dir)
 
 #delete the temp directory
-print 'Deleting temp directory'
-shutil.rmtree(tempdir)
+########################print 'Deleting temp directory'
+########################shutil.rmtree(tempdir)
 
 
 print 'Your snapshot is ready: ' + snapshot
