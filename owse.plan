@@ -6,11 +6,11 @@
             http://www.springsource.org/schema/dm-server/plan 
             http://www.springsource.org/schema/dm-server/plan/springsource-dm-server-plan.xsd">
 
-    <artifact type="bundle" name="org.openworm.simulationengine.core" version="1.0.0"/>
-    <artifact type="bundle" name="org.openworm.simulationengine.model.sph" version="1.0.0"/>
-    <artifact type="bundle" name="org.openworm.simulationengine.solver.sph" version="1.0.0"/>
-    <artifact type="bundle" name="org.openworm.simulationengine.simulator.sph" version="1.0.0"/>
-    <artifact type="bundle" name="org.openworm.simulationengine.simulation" version="1.0.0"/>
-    <artifact type="bundle" name="org.openworm.simulationengine.frontend" version="1.0.0"/>
+    <artifact type="bundle" name="org.geppetto.core" version="1.0.0"/>
+    <artifact type="bundle" name="org.geppetto.model.sph" version="1.0.0"/>
+    <artifact type="bundle" name="org.geppetto.solver.sph" version="1.0.0"/>
+    <artifact type="bundle" name="org.geppetto.simulator.sph" version="1.0.0"/>
+    <artifact type="bundle" name="org.geppetto.simulation" version="1.0.0"/>
+    <artifact type="bundle" name="org.geppetto.frontend" version="1.0.0"/>
 
 </plan>

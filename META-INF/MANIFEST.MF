@@ -1,8 +1,8 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Org.openworm.simulationengine
-Bundle-SymbolicName: org.openworm.simulationengine
+Bundle-Name: org.geppetto
+Bundle-SymbolicName: org.geppetto
 Bundle-Version: 1.0.0.qualifier
 Application-Version: 1.0.0
-Application-SymbolicName: org.openworm.simulationengine
+Application-SymbolicName: org.geppetto
 Application-Name: OpenWorm Simulation Engine
