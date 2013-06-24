@@ -16,5 +16,4 @@
     <artifact type="bundle" name="org.geppetto.testbackend" version="0.0.1"/>
     <artifact type="bundle" name="org.geppetto.simulation" version="0.0.1"/>
     <artifact type="bundle" name="org.geppetto.frontend" version="0.0.1"/>
-
 </plan>
