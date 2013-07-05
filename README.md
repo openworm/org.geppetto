@@ -1,4 +1,4 @@
-# Main bundle for the Simulation Engine for the OpenWorm project
+# Geppetto parent bundle
 
 http://openworm.org
 
