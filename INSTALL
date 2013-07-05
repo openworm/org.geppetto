@@ -1,12 +1,13 @@
 ====================================================================================================
 Geppetto Install Instructions
+[https://github.com/openworm/OpenWorm/wiki/Geppetto---Install-instructions]
 ====================================================================================================
 
 These steps presume you have Java installed and have set your JAVA_HOME correctly to point at it.  To set JAVA_HOME, you can use the following instructions: Windows [http://wso2.org/project/wsas/java/1.1/docs/setting-java-home.html] / Linux [http://www.cyberciti.biz/faq/linux-unix-set-java_home-path-variable/]
 
 
 1. Install OpenCL drivers:
-	- On Ubuntu 12.04 [http://develnoter.blogspot.co.uk/2012/05/installing-opencl-in-ubuntu-1204.html]
+	- On Linux [https://github.com/openworm/org.geppetto.solver.sph/blob/master/INSTALL]
 	- On Mac OS X (Should already be installed)
 	- On Windows (Should already be installed) [http://software.intel.com/en-us/vcsource/tools/opencl-sdk]
 
