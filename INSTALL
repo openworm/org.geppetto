@@ -6,11 +6,11 @@ These steps presume you have Java installed and have set your JAVA_HOME correctl
 
 
 1. Install OpenCL drivers:
-	- On Ubuntu 12.04 [http://develnoter.blogspot.co.uk/2012/05/installing-opencl-in-ubuntu-1204.html[
+	- On Ubuntu 12.04 [http://develnoter.blogspot.co.uk/2012/05/installing-opencl-in-ubuntu-1204.html]
 	- On Mac OS X (Should already be installed)
 	- On Windows (Should already be installed) [http://software.intel.com/en-us/vcsource/tools/opencl-sdk]
 
-2. Download Geppetto release and unpack the downloaded archive to a directory (${GEPPETTO_HOME} from now on)
+2. Download Geppetto release and unpack the downloaded archive to a directory (${GEPPETTO_HOME} from here on)
 
 3. Start the Virgo Kernel
 	./${GEPPETTO_HOME}/bin/startup.sh (or .bat on Windows)
@@ -29,4 +29,8 @@ You can try loading any of these sample simulations (just copy and paste the URL
 Common Issues
 ====================================================================================================
 
-The most common reason your set up will not load is because your OpenCL drivers are not installed properly.  Sometimes this will manifest itself in console errors that look like segmentation faults.  Double check that you have properly installed OpenCL.  If you still can’t load this, please drop a line to openworm-discuss@googlegroups.com. In the worst case scenario, you can disable the OpenCL support by removing references to sph in geppetto.plan
+The most common reason your set up will not load is because your OpenCL drivers are not installed properly.  
+Sometimes this will manifest itself in console errors that look like segmentation faults. 
+Double check that you have properly installed OpenCL. 
+ If you still cannot load this, please drop a line to openworm-discuss@googlegroups.com. 
+ In the worst case scenario, you can disable the OpenCL support by removing references to sph in geppetto.plan.
