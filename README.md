@@ -1,10 +1,9 @@
 
-
 <p align="center">
   <img src="https://raw.github.com/openworm/org.geppetto.frontend/master/src/main/webapp/images/geppetto-logo@2x.png" alt="Geppetto logo"/>
 </p>
 
-# Geppetto 
+# [Geppetto](http://www.geppetto.org/)
 
 Geppetto is a web-based multi-algorithm, multi-scale simulation platform engineered to support the simulation of complex biological systems and their surrounding environment. 
 
@@ -30,7 +29,7 @@ Geppetto is an open-source project with a growing community, if you want to cont
 
 For an overview of Geppetto visit its [website](http://www.geppetto.org/), for more details its [wiki page](https://github.com/openworm/OpenWorm/wiki/Geppetto--Overview).
 
-You can find the user documentation [here](docs.geppetto.org).
+You can find the user documentation [here](http://docs.geppetto.org/).
 
 For installation instructions click [here](https://github.com/openworm/OpenWorm/wiki/Geppetto---Install-instructions).
 
