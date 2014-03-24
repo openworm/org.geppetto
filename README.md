@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/openworm/org.geppetto.png?label=ready&title=Ready)](https://waffle.io/openworm/org.geppetto)
 <p align="center">
   <img src="https://raw.github.com/openworm/org.geppetto.frontend/master/src/main/webapp/images/geppetto-logo@2x.png" alt="Geppetto logo"/>
 </p>
