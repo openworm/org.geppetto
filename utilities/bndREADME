@@ -1,0 +1,1 @@
+java -jar bnd.jar wrap filetosgfi.jar
