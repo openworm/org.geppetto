@@ -28,8 +28,6 @@ def main(argv):
 	if(len(argv) == 0):
 		incorrectInput(argv, 'Too few paramaters')
 
-
-	#Print out branch of each repo
 	if(argv[0] == 'branches'):
 		command = ['git','rev-parse','--abbrev-ref','HEAD']
 
