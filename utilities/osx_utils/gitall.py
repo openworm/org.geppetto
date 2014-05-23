@@ -32,6 +32,7 @@ def main(argv):
 	#Print out branch of each repo
 	if(argv[0] == 'branches'):
 		command = ['git','rev-parse','--abbrev-ref','HEAD']
+
 	elif(argv[0] == 'checkout'):
 		if(len(argv) == 2):
 			command = ['git','checkout',argv[1]]
@@ -39,25 +40,18 @@ def main(argv):
 			incorrectInput(argv, 'Expected two paramaters')
 
 
-	elif(argv[0] == 'pull'):
+	elif(argv[0] == 'pull' | argv[0] == 'fetch'):
 		if(len(argv) == 1):
-			command = ['git','pull']
+			command = ['git',argv[0]]
 		elif(len(argv) ==2):
-			command = ['git','pull',argv[1]]
+			command = ['git',argv[0],argv[1]]
 		elif(len(argv) ==3):
-			command = ['git','pull',argv[1],argv[2]]
+			command = ['git',argv[0],argv[1],argv[2]]
 		else:
 			incorrectInput(argv, 'Too many paramaters')
 
-	elif(argv[0] == 'fetch'):
-		if(len(argv) == 1):
-			command = ['git','fetch']
-		elif(len(argv) ==2):
-			command = ['git','fetch',argv[1]]
-		elif(len(argv) ==3):
-			command = ['git','fetch',argv[1],argv[2]]
-		else:
-			incorrectInput(argv, 'Too many paramaters')
+	else:
+		incorrectInput(argv, 'Unrecognized command')
 
 	for repo in config['repos']:
 		print repo['name']+'  '+subprocess.check_output(command, cwd = config['sourcesdir']+'/'+repo['name'])
