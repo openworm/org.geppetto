@@ -18,7 +18,6 @@ def copyext(targetdir, extension):
 	        shutil.copy2(file, serverHome+'/repository/usr/')
 
 def main(argv):
-	targetDir = '.' if len(argv) == 0 else argv[0];
 	serverHome = os.environ['SERVER_HOME']
 
 	for repo in config['repos']:
