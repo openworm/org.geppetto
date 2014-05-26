@@ -38,7 +38,7 @@ def main(argv):
 			incorrectInput(argv, 'Expected two paramaters')
 
 
-	elif(argv[0] == 'pull' | argv[0] == 'fetch'):
+	elif(argv[0] == 'pull' or argv[0] == 'fetch'):
 		if(len(argv) == 1):
 			command = ['git',argv[0]]
 		elif(len(argv) ==2):
