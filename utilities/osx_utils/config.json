@@ -2,10 +2,6 @@
 	"sourcesdir":"[path to your Geppetto sources]",
 	"repos":[
 		{
-			"name":"OpenWorm",
-			"url":"https://github.com/openworm/OpenWorm.git"
-		},
-		{
 			"name":"org.geppetto",
 			"url":"https://github.com/openworm/org.geppetto.git"
 		},
