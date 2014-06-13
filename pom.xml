@@ -9,7 +9,6 @@
 	<modules>
 		<module>../org.geppetto.core</module>
 		<module>../org.geppetto.model.sph</module>
-		<module>../org.neuroml.model</module>
 		<module>../org.geppetto.model.neuroml</module>
 		<module>../org.geppetto.solver.sph</module>
 		<module>../org.geppetto.simulator.sph</module>
