@@ -36,7 +36,8 @@ import os
 # bundles and creates a zip file that contains
 # a configured Virgo server
 # by: Stephen Larson (stephen@openworm.org)
-#
+#     Matteo Cantarelli (matteo@openworm.org)
+#     Padraig Gleeson
 # To use:
 # * Make sure Maven (http://maven.apache.org) is installed
 # * Make sure Fabric is installed:
@@ -58,11 +59,7 @@ except IOError as e:
    
 virgo_version = "3.6.2.RELEASE"
 
-urls = ["http://www.eclipse.org/downloads/download.php?file=/virgo/release/VP/%s/virgo-tomcat-server-%s.zip&r=1"%(virgo_version, virgo_version),
-"https://github.com/LEMS/jLEMS/archive/api.zip",
-"https://github.com/NeuroML/org.neuroml.model.injectingplugin/archive/master.zip",
-"https://github.com/NeuroML/org.neuroml.model/archive/master.zip"
-]
+urls = ["http://www.eclipse.org/downloads/download.php?file=/virgo/release/VP/%s/virgo-tomcat-server-%s.zip&mirror_id=96&r=1"%(virgo_version, virgo_version)]
 
 openwormpackages = ['org.geppetto.core',
 'org.geppetto.model.sph',
@@ -103,13 +100,9 @@ os.environ['SERVER_HOME'] = server_home
 
 #use Maven to build all the OpenWorm code bundles 
 #and place the contents in the Virgo installation
-openwormpackages = ['jLems','org.neuroml.model.injectingplugin','org.neuroml.model']+openwormpackages
 for p in openwormpackages:
     with lcd(tempdir):
-        if(p=='jLems'):
-            print local('mv %s-api %s'%(p, p), capture=True) #hack, assumption that all bundles come from master doesn't stand
-        else:
-            print local('mv %s-master %s'%(p, p), capture=True)
+        print local('mv %s-master %s'%(p, p), capture=True)
     dirp = op.join(tempdir, p)
     print '**************************'
     print 'BUILDING ' + dirp
