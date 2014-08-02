@@ -5,7 +5,7 @@
 
 # [Geppetto](http://www.geppetto.org/)
 
-#### [Website](http://www.geppetto.org/) | [Documentation](http://docs.geppetto.org/) | [Wiki](https://github.com/openworm/OpenWorm/wiki/Geppetto--Overview) | [Install Instructions](http://docs.geppetto.org/en/latest/install.html) | [Releases](https://github.com/openworm/org.geppetto/releases/)
+#### [Website](http://www.geppetto.org/) | [Documentation](http://docs.geppetto.org/) | [Install Instructions](http://docs.geppetto.org/en/latest/install.html) | [Releases](https://github.com/openworm/org.geppetto/releases/)
 #### [Contribution guidelines](http://docs.geppetto.org/en/latest/contribute.html#how-to-contribute-code-to-geppetto) | [Development progress](https://waffle.io/openworm/org.geppetto)
 
 
