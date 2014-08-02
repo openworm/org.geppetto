@@ -5,8 +5,8 @@
 
 # [Geppetto](http://www.geppetto.org/)
 
-#### [Website](http://www.geppetto.org/) | [Documentation](http://docs.geppetto.org/) | [Wiki](https://github.com/openworm/OpenWorm/wiki/Geppetto--Overview) | [Install Instructions](https://github.com/openworm/OpenWorm/wiki/Geppetto---Install-instructions) | [Releases](https://github.com/openworm/org.geppetto/releases/)
-#### [Contribution guidelines](https://github.com/openworm/org.geppetto/wiki/How-to-contribute-to-Geppetto) | [Development progress](https://waffle.io/openworm/org.geppetto)
+#### [Website](http://www.geppetto.org/) | [Documentation](http://docs.geppetto.org/) | [Wiki](https://github.com/openworm/OpenWorm/wiki/Geppetto--Overview) | [Install Instructions](http://docs.geppetto.org/en/latest/install.html) | [Releases](https://github.com/openworm/org.geppetto/releases/)
+#### [Contribution guidelines](http://docs.geppetto.org/en/latest/contribute.html#how-to-contribute-code-to-geppetto) | [Development progress](https://waffle.io/openworm/org.geppetto)
 
 
 Geppetto is a web-based multi-algorithm, multi-scale simulation platform engineered to support the simulation of complex biological systems and their surrounding environment. 
