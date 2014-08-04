@@ -1,5 +1,5 @@
 {
-	"sourcesdir":"[path to your Geppetto sources (separate with / on OSX/Linux and \\ on Windows)]",
+	"sourcesdir":"Replace this by the path of your Geppetto sources folder",
 	"repos":[
 		{
 			"name":"org.geppetto",
