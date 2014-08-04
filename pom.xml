@@ -15,5 +15,6 @@
 		<module>../org.geppetto.simulator.jlems</module>
 		<module>../org.geppetto.simulation</module>
 		<module>../org.geppetto.frontend</module>
+		<module>../org.geppetto.testbackend</module>
 	</modules>
 </project>

@@ -40,14 +40,6 @@
 		{
 			"name":"org.geppetto.frontend",
 			"url":"https://github.com/openworm/org.geppetto.frontend.git"
-		},
-		{
-			"name":"org.neuroml.model",
-			"url":"https://github.com/NeuroML/org.neuroml.model.git"
-		},
-		{
-			"name":"org.neuroml.model.injectingplugin",
-			"url":"https://github.com/NeuroML/org.neuroml.model.injectingplugin.git"
 		}
 	]
 }
