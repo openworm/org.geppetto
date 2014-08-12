@@ -1,4 +1,4 @@
-OpenWorm Utilities
+Geppetto Utilities
 ==================
 
 ##OpenWorm Development Environment Builder
