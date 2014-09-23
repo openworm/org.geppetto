@@ -4,7 +4,7 @@
 	<groupId>org.geppetto</groupId>
 	<artifactId>org.geppetto</artifactId>
 	<name>Geppetto</name>
-	<version>0.1.6</version>
+	<version>0.1.7</version>
 	<packaging>pom</packaging>
 	<modules>
 		<module>../org.geppetto.core</module>
