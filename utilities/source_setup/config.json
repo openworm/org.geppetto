@@ -1,5 +1,5 @@
 {
-	"sourcesdir":"Replace this by the path of your Geppetto sources folder",
+	"sourcesdir":"/Users/mlolson/Projects/openworm/release",
 	"repos":[
 		{
 			"name":"org.geppetto",

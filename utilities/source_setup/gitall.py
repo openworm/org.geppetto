@@ -28,14 +28,30 @@ def main(argv):
 	if(len(argv) == 0):
 		incorrectInput(argv, 'Too few paramaters')
 
-	if(argv[0] == 'branches'):
+	elif(argv[0] == 'push'):
+		command = ['git','push',argv[1],argv[2]]
+
+	elif(argv[0] == 'add'):
+		command = ['git','add',argv[1]]
+
+	elif(argv[0] == 'commit'):
+		command = ['git','commit',argv[1],argv[2]]
+
+	elif(argv[0] == 'branches'):
 		command = ['git','rev-parse','--abbrev-ref','HEAD']
+
+	elif(argv[0] == 'remote'):
+		for repo in config['repos']:
+			print repo['name']+'  '+subprocess.check_output(['git','remote','add','mlolson','https://github.com/mlolson/'+repo['name']+'.git'], cwd = os.path.join(config['sourcesdir'], repo['name']))
+		return
 
 	elif(argv[0] == 'checkout'):
 		if(len(argv) == 2):
 			command = ['git','checkout',argv[1]]
+		elif(len(argv) == 3):
+			command = ['git','checkout',argv[1],argv[2]]
 		else:
-			incorrectInput(argv, 'Expected two paramaters')
+			incorrectInput(argv, 'Expected <=3 paramaters')
 
 
 	elif(argv[0] == 'pull' or argv[0] == 'fetch'):
