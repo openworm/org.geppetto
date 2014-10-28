@@ -1,10 +1,7 @@
 {
-	"sourcesdir":"/Users/mlolson/Projects/openworm/release",
+	"sourcesdir":"../../../",
 	"repos":[
-		{
-			"name":"org.geppetto",
-			"url":"https://github.com/openworm/org.geppetto.git"
-		},
+		
 		{
 			"name":"org.geppetto.core",
 			"url":"https://github.com/openworm/org.geppetto.core.git"
@@ -40,6 +37,10 @@
 		{
 			"name":"org.geppetto.frontend",
 			"url":"https://github.com/openworm/org.geppetto.frontend.git"
+		},
+		{
+			"name":"org.wormsim.frontend",
+			"url":"https://github.com/openworm/org.wormsim.frontend.git"
 		}
 	]
 }
