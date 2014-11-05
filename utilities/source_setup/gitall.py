@@ -40,8 +40,8 @@ def main(argv):
 	elif(argv[0] == 'branches'):
 		command = ['git','rev-parse','--abbrev-ref','HEAD']
 
-    elif(argv[0] == 'reset'):
-        command = ['git','reset','--hard','HEAD']
+	elif(argv[0] == 'reset'):
+        	command = ['git','reset','--hard','HEAD']
 
 	elif(argv[0] == 'remote'):
 		for repo in config['repos']:
