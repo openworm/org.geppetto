@@ -37,10 +37,6 @@
 		{
 			"name":"org.geppetto.frontend",
 			"url":"https://github.com/openworm/org.geppetto.frontend.git"
-		},
-		{
-			"name":"org.wormsim.frontend",
-			"url":"https://github.com/openworm/org.wormsim.frontend.git"
 		}
 	]
 }
