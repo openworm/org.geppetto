@@ -32,7 +32,8 @@ This is the umbrella project that keeps together all the different modules curre
 Geppetto is an open-source project with a growing community, if you want to contribute (with either new simulators support, visualisation widgets or backend magic) please do get in touch at <info@geppetto.org> or fork any of the bundles and do what you please.
 
 
-#### [Website](http://www.geppetto.org/) | [Documentation](http://docs.geppetto.org/) | [Wiki](https://github.com/openworm/OpenWorm/wiki/Geppetto--Overview) | [Install Instructions](https://github.com/openworm/OpenWorm/wiki/Geppetto---Install-instructions) | [Releases](https://github.com/openworm/org.geppetto/releases/)
+#### [Website](http://www.geppetto.org/) | [Documentation](http://docs.geppetto.org/) | [Install Instructions](http://docs.geppetto.org/en/latest/install.html) | [Releases](https://github.com/openworm/org.geppetto/releases/)
+#### [Contribution guidelines](http://docs.geppetto.org/en/latest/contribute.html#how-to-contribute-code-to-geppetto) | [Development progress](https://waffle.io/openworm/org.geppetto)
 
 Geppetto is released under the [MIT](http://opensource.org/licenses/MIT) license.
 
