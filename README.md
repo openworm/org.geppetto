@@ -5,6 +5,8 @@
 
 # [Geppetto](http://www.geppetto.org/)
 
+[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/openworm/org.geppetto?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 #### [Website](http://www.geppetto.org/) | [Documentation](http://docs.geppetto.org/) | [Install Instructions](http://docs.geppetto.org/en/latest/install.html) | [Releases](https://github.com/openworm/org.geppetto/releases/)
 #### [Contribution guidelines](http://docs.geppetto.org/en/latest/contribute.html#how-to-contribute-code-to-geppetto) | [Development progress](https://waffle.io/openworm/org.geppetto)
 
