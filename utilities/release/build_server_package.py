@@ -43,8 +43,8 @@ import os
 # * Make sure Fabric is installed:
 #   http://docs.fabfile.org/en/1.5/installation.html
 # * Set JAVA_HOME and MAVEN_HOME directories below:
-os.environ['JAVA_HOME'] = '/usr'
-os.environ['MAVEN_HOME'] = '/usr'
+os.environ['JAVA_HOME'] = '/usr/bin/'
+os.environ['MAVEN_HOME'] = '/usr/local/'
 #######################################
 import urllib
 import tempfile, shutil, zipfile, re, sys
@@ -56,7 +56,7 @@ try:
    with open(op.join(os.environ['MAVEN_HOME'], 'bin/mvn')) as f: pass
 except IOError as e:
    sys.exit("Can't find mvn under " + os.environ['MAVEN_HOME'] + "-- is MAVEN_HOME set appropriately?")
-   
+
 virgo_version = "3.6.2.RELEASE"
 
 urls = ["http://www.eclipse.org/downloads/download.php?file=/virgo/release/VP/%s/virgo-tomcat-server-%s.zip&mirror_id=96&r=1"%(virgo_version, virgo_version)]
@@ -74,7 +74,7 @@ openwormpackages = ['org.geppetto.core',
 
 for p in openwormpackages:
     urls = urls + ['https://github.com/openworm/' + p + '/archive/master.zip']
-    
+
 print urls
 
 tempdir = tempfile.mkdtemp()
@@ -86,7 +86,7 @@ for u in urls:
     vz = zipfile.ZipFile(zFile)
     vz.extractall(tempdir)
     os.remove(zFile)
-    
+
 #make an openworm directory and move the contents of virgo into it
 #so the final package has a nice name
 with lcd(tempdir):
@@ -98,7 +98,7 @@ with lcd(tempdir):
 server_home = op.join(tempdir, 'package/geppetto')
 os.environ['SERVER_HOME'] = server_home
 
-#use Maven to build all the OpenWorm code bundles 
+#use Maven to build all the OpenWorm code bundles
 #and place the contents in the Virgo installation
 for p in openwormpackages:
     with lcd(tempdir):
@@ -113,7 +113,7 @@ for p in openwormpackages:
             print local('cp target/classes/lib/* $SERVER_HOME/repository/usr/', capture=True)
             print local('cp target/* $SERVER_HOME/repository/usr/', capture=True)
 
-#put the .plan file in the pickup folder      
+#put the .plan file in the pickup folder
 with lcd(op.join(tempdir, 'org.geppetto')):
     print local('cp geppetto.plan $SERVER_HOME/pickup/', capture=True)
     print local('cp INSTALL $SERVER_HOME/', capture=True)
@@ -126,7 +126,7 @@ with lcd(op.join(tempdir, 'org.geppetto')):
 #these do carry over into the archive
 with lcd(server_home):
     print local('chmod -R +x ./bin', capture=True)
-    
+
 #zip up the contents of the virgo directory for distribution
 archive_name = os.path.expanduser(os.path.join('~', 'geppetto-snapshot'))
 root_dir = os.path.expanduser(os.path.join(tempdir, 'package'))
