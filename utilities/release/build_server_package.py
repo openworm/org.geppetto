@@ -57,17 +57,11 @@ try:
 except IOError as e:
    sys.exit("Can't find mvn under " + os.environ['MAVEN_HOME'] + "-- is MAVEN_HOME set appropriately?")
 
-virgo_version = "3.6.2.RELEASE"
-
-urls = ["http://www.eclipse.org/downloads/download.php?file=/virgo/release/VP/%s/virgo-tomcat-server-%s.zip&mirror_id=96&r=1"%(virgo_version, virgo_version)]
+virgo_version = "3.6.3.RELEASE"
+urls = ["https://dl.dropboxusercontent.com/u/7538688/virgo-tomcat-server-3.6.3.RELEASE.zip?dl=1"]
 
 openwormpackages = ['org.geppetto.core',
-'org.geppetto.model.sph',
 'org.geppetto.model.neuroml',
-'org.geppetto.solver.sph',
-'org.geppetto.simulator.sph',
-'org.geppetto.simulator.jlems',
-'org.geppetto.testbackend',
 'org.geppetto.simulation',
 'org.geppetto.frontend',
 'org.geppetto']

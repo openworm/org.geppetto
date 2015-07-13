@@ -35,6 +35,14 @@
 			"url":"https://github.com/openworm/org.geppetto.testbackend.git"
 		},
 		{
+			"name":"org.geppetto.persistence",
+			"url":"https://github.com/openworm/org.geppetto.persistence.git"
+		},
+		{
+			"name":"org.geppetto.simulator.external",
+			"url":"https://github.com/openworm/org.geppetto.simulator.external.git"
+		},
+		{
 			"name":"org.geppetto.frontend",
 			"url":"https://github.com/openworm/org.geppetto.frontend.git"
 		}
