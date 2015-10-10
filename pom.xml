@@ -9,6 +9,7 @@
 	<modules>
 		<module>../org.geppetto.core</module>
 		<module>../org.geppetto.model.neuroml</module>
+		<module>../org.geppetto.model.swc</module>
 		<module>../org.geppetto.simulation</module>
 		<module>../org.geppetto.frontend</module>
 	</modules>

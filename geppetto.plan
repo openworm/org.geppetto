@@ -9,6 +9,7 @@
     <artifact type="bundle" name="org.geppetto.core" version="0.2.6"/>
     <!-- <artifact type="bundle" name="org.geppetto.model.sph" version="0.2.6"/> -->
     <artifact type="bundle" name="org.geppetto.model.neuroml" version="0.2.6"/>
+    <artifact type="bundle" name="org.geppetto.model.swc" version="0.2.6"/>
     <!-- <artifact type="bundle" name="org.geppetto.solver.sph" version="0.2.6"/>
     <artifact type="bundle" name="org.geppetto.simulator.sph" version="0.2.6"/>
     <artifact type="bundle" name="org.geppetto.simulator.jlems" version="0.2.6"/>
