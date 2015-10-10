@@ -62,6 +62,7 @@ urls = ["https://dl.dropboxusercontent.com/u/7538688/virgo-tomcat-server-3.6.3.R
 
 openwormpackages = ['org.geppetto.core',
 'org.geppetto.model.neuroml',
+'org.geppetto.model.swc',
 'org.geppetto.simulation',
 'org.geppetto.frontend',
 'org.geppetto']
