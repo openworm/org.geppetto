@@ -45,6 +45,10 @@
 		{
 			"name":"org.geppetto.frontend",
 			"url":"https://github.com/openworm/org.geppetto.frontend.git"
+		},
+		{
+			"name":"org.geppetto.model.swc",
+			"url":"https://github.com/openworm/org.geppetto.model.swc"
 		}
 	]
 }
