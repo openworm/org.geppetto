@@ -7,6 +7,7 @@
 	<version>0.2.7</version>
 	<packaging>pom</packaging>
 	<modules>
+		<module>../org.geppetto.model</module>
 		<module>../org.geppetto.core</module>
 		<module>../org.geppetto.model.neuroml</module>
 		<module>../org.geppetto.model.swc</module>
