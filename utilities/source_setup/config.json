@@ -1,7 +1,10 @@
 {
 	"sourcesdir":"../../../",
 	"repos":[
-		
+		{
+			"name":"org.geppetto.model",
+			"url":"https://github.com/openworm/org.geppetto.model.git"
+		},
 		{
 			"name":"org.geppetto.core",
 			"url":"https://github.com/openworm/org.geppetto.core.git"
