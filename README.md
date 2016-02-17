@@ -31,7 +31,7 @@ This is the umbrella project that keeps together all the different modules curre
      * [org.geppetto.simulator.jlems](https://github.com/openworm/org.geppetto.simulator.jlems) [![Build Status](https://travis-ci.org/openworm/org.geppetto.simulator.jlems.png?branch=master)](https://travis-ci.org/openworm/org.geppetto.simulator.jlems)
      * [org.geppetto.simulator.external](https://github.com/openworm/org.geppetto.simulator.external) [![Build Status](https://travis-ci.org/openworm/org.geppetto.simulator.external.png?branch=master)](https://travis-ci.org/openworm/org.geppetto.simulator.external)
      * [org.geppetto.model.swc](https://github.com/openworm/org.geppetto.model.swc) [![Build Status](https://travis-ci.org/openworm/org.geppetto.model.swc.png?branch=master)](https://travis-ci.org/openworm/org.geppetto.model.swc)
-   * Fluid mechanics simulation (Last release 0.2.7)
+   * Fluid mechanics simulation (Release 0.2.7)
      * [org.geppetto.model.sph](https://github.com/openworm/org.geppetto.model.sph) [![Build Status](https://travis-ci.org/openworm/org.geppetto.model.sph.png?branch=master)](https://travis-ci.org/openworm/org.geppetto.model.sph)
      * [org.geppetto.solver.sph](https://github.com/openworm/org.geppetto.solver.sph) [![Build Status](https://travis-ci.org/openworm/org.geppetto.solver.sph.png?branch=master)](https://travis-ci.org/openworm/org.geppetto.solver.sph)
      * [org.geppetto.simulator.sph](https://github.com/openworm/org.geppetto.simulator.sph) [![Build Status](https://travis-ci.org/openworm/org.geppetto.simulator.sph.png?branch=master)](https://travis-ci.org/openworm/org.geppetto.simulator.sph)
