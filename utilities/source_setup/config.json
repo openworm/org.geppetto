@@ -52,6 +52,10 @@
 		{
 			"name":"org.geppetto.model.swc",
 			"url":"https://github.com/openworm/org.geppetto.model.swc"
+		},
+		{
+			"name":"org.geppetto.datasources",
+			"url":"https://github.com/openworm/org.geppetto.datasources"
 		}
 	]
 }
