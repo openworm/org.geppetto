@@ -1,6 +1,3 @@
-[![Stories in Ready](https://badge.waffle.io/openworm/org.geppetto.png?label=ready&title=Ready)](https://waffle.io/openworm/org.geppetto)
-[![StackShare](http://img.shields.io/badge/tech-stack-0690fa.svg?style=flat)](http://stackshare.io/tarelli/geppetto)
-
 <p align="center">
   <img src="https://dl.dropboxusercontent.com/u/7538688/geppetto%20logo.png?dl=1" alt="Geppetto logo"/>
 </p>
@@ -8,6 +5,8 @@
 # [Geppetto](http://www.geppetto.org/)
 
 [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/openworm/org.geppetto?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Stories in Ready](https://badge.waffle.io/openworm/org.geppetto.png?label=ready&title=Ready)](https://waffle.io/openworm/org.geppetto)
+[![StackShare](http://img.shields.io/badge/tech-stack-0690fa.svg?style=flat)](http://stackshare.io/tarelli/geppetto)
 
 #### [Website](http://www.geppetto.org/) | [Documentation](http://docs.geppetto.org/) | [Install Instructions](http://docs.geppetto.org/en/latest/install.html) | [Releases](https://github.com/openworm/org.geppetto/releases/)
 #### [Contribution guidelines](http://docs.geppetto.org/en/latest/contribute.html#how-to-contribute-code-to-geppetto) | [Development progress](https://waffle.io/openworm/org.geppetto)
