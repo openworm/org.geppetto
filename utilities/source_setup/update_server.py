@@ -33,8 +33,10 @@ def main(argv):
         if not eclipse:
             copyext(targetdir, 'jar')
             copyext(targetdir, 'war')
+            copyext(targetdir, 'libd')
         copyext(os.path.join(targetdir, 'classes', 'lib'), 'jar')
         copyext(os.path.join(targetdir, 'classes', 'lib'), 'war')
+        copyext(os.path.join(targetdir, 'classes', 'lib'), 'libd')
 
     if not eclipse:
 	    shutil.copy2(os.path.join(sourcesdir, 'org.geppetto', 'geppetto.plan'), os.path.join(serverHome, 'pickup'))
