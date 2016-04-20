@@ -10,32 +10,11 @@
 			"url":"https://github.com/openworm/org.geppetto.core.git"
 		},
 		{
-			"name":"org.geppetto.model.sph",
-			"url":"https://github.com/openworm/org.geppetto.model.sph.git"
-		},
-		{
 			"name":"org.geppetto.model.neuroml",
 			"url":"https://github.com/openworm/org.geppetto.model.neuroml.git"
 		},
-		{
-			"name":"org.geppetto.solver.sph",
-			"url":"https://github.com/openworm/org.geppetto.solver.sph.git"
-		},
-		{
-			"name":"org.geppetto.simulator.sph",
-			"url":"https://github.com/openworm/org.geppetto.simulator.sph.git"
-		},
-		{
-			"name":"org.geppetto.simulator.jlems",
-			"url":"https://github.com/openworm/org.geppetto.simulator.jlems.git"
-		},
-		{
 			"name":"org.geppetto.simulation",
 			"url":"https://github.com/openworm/org.geppetto.simulation.git"
-		},
-		{
-			"name":"org.geppetto.testbackend",
-			"url":"https://github.com/openworm/org.geppetto.testbackend.git"
 		},
 		{
 			"name":"org.geppetto.persistence",
