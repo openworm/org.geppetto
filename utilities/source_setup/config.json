@@ -13,16 +13,9 @@
 			"name":"org.geppetto.model.neuroml",
 			"url":"https://github.com/openworm/org.geppetto.model.neuroml.git"
 		},
+		{
 			"name":"org.geppetto.simulation",
 			"url":"https://github.com/openworm/org.geppetto.simulation.git"
-		},
-		{
-			"name":"org.geppetto.persistence",
-			"url":"https://github.com/openworm/org.geppetto.persistence.git"
-		},
-		{
-			"name":"org.geppetto.simulator.external",
-			"url":"https://github.com/openworm/org.geppetto.simulator.external.git"
 		},
 		{
 			"name":"org.geppetto.frontend",
@@ -35,6 +28,10 @@
 		{
 			"name":"org.geppetto.datasources",
 			"url":"https://github.com/openworm/org.geppetto.datasources"
+		},
+		{
+			"name":"uk.ac.vfb.geppetto",
+                        "url":"https://github.com/VirtualFlyBrain/uk.ac.vfb.geppetto.git"
 		}
 	]
 }

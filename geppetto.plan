@@ -13,6 +13,7 @@
     <artifact type="bundle" name="org.geppetto.model.swc" version="0.2.8"/>
     <artifact type="bundle" name="org.geppetto.simulation" version="0.2.8"/>
     <artifact type="bundle" name="org.geppetto.frontend" version="0.2.8"/>
+    <artifact type="bundle" name="org.geppetto.datasources" version="0.2.8"/>
     
     <artifact type="bundle" name="uk.ac.vfb.geppetto" version="0.2.8"/>
 
