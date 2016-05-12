@@ -60,7 +60,8 @@ except IOError as e:
 virgo_version = "3.6.3.RELEASE"
 urls = ["https://dl.dropboxusercontent.com/u/7538688/virgo-tomcat-server-3.6.3.RELEASE.zip?dl=1"]
 
-openwormpackages = ['org.geppetto.core',
+openwormpackages = ['org.geppetto.model',
+'org.geppetto.core',
 'org.geppetto.model.neuroml',
 'org.geppetto.model.swc',
 'org.geppetto.simulation',
