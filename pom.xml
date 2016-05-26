@@ -9,11 +9,15 @@
 	<modules>
 		<module>../org.geppetto.model</module>
 		<module>../org.geppetto.core</module>
-		<module>../org.geppetto.datasources</module>
 		<module>../org.geppetto.model.neuroml</module>
 		<module>../org.geppetto.model.swc</module>
 		<module>../org.geppetto.simulation</module>
 		<module>../org.geppetto.frontend</module>
-		<module>../uk.ac.vfb.geppetto</module>
+		
+		<!-- <module>../org.geppetto.datasources</module> -->
+		<!-- <module>../org.geppetto.model.swc</module> -->
+		<!-- <module>../org.geppetto.simulator.external</module> -->
+		<!-- <module>../org.geppetto.persistence</module> -->
+		
 	</modules>
 </project>
