@@ -19,8 +19,6 @@
     <artifact type="bundle" name="org.geppetto.datasources" version="0.3.0"/>
     <artifact type="bundle" name="org.geppetto.persistence" version="0.3.0"/>
     <artifact type="bundle" name="org.geppetto.model.nwb" version="0.3.0"/> 
-    <artifact type="bundle" name="org.geppetto.model.sph" version="0.3.0"/> 
-    <artifact type="bundle" name="org.geppetto.simulator.sph" version="0.3.0"/>
     <artifact type="bundle" name="org.geppetto.testbackend" version="0.3.0"/> -->
     
     
