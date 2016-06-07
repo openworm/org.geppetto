@@ -27,7 +27,7 @@
 		},
 		{
 			"name":"org.geppetto.model.nwb",
-			"url":"https://github.com/openworm/org.geppetto.model.swc"
+			"url":"https://github.com/openworm/org.geppetto.model.nwb"
 		},
 		{
 			"name":"org.geppetto.datasources",
