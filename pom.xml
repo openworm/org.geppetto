@@ -4,7 +4,7 @@
 	<groupId>org.geppetto</groupId>
 	<artifactId>org.geppetto</artifactId>
 	<name>Geppetto</name>
-	<version>0.2.9</version>
+	<version>0.3.0</version>
 	<packaging>pom</packaging>
 	<modules>
 		<module>../org.geppetto.model</module>
@@ -13,5 +13,12 @@
 		<module>../org.geppetto.model.swc</module>
 		<module>../org.geppetto.simulation</module>
 		<module>../org.geppetto.frontend</module>
+		
+		<!-- <module>../org.geppetto.datasources</module> -->
+		<!-- <module>../org.geppetto.model.nwb </module> -->
+		<!-- <module>../org.geppetto.simulator.external</module> -->
+		<!-- <module>../org.geppetto.persistence</module> -->
+		<!-- <module>../org.geppetto.testbackend</module> -->
+		
 	</modules>
 </project>
