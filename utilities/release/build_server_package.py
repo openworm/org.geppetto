@@ -32,7 +32,7 @@
 from __future__ import with_statement
 import os
 #########################################
-# Downloads a Virgo server and the OpenWorm
+# Downloads a Virgo server and the Geppetto
 # bundles and creates a zip file that contains
 # a configured Virgo server
 # by: Stephen Larson (stephen@openworm.org)
@@ -57,10 +57,10 @@ try:
 except IOError as e:
    sys.exit("Can't find mvn under " + os.environ['MAVEN_HOME'] + "-- is MAVEN_HOME set appropriately?")
 
-virgo_version = "3.6.3.RELEASE"
-urls = ["https://dl.dropboxusercontent.com/u/7538688/virgo-tomcat-server-3.6.3.RELEASE.zip?dl=1"]
+virgo_version = "3.6.4.RELEASE"
+urls = ["http://www.mirrorservice.org/sites/download.eclipse.org/eclipseMirror/virgo/release/VP/3.6.4.RELEASE/virgo-tomcat-server-3.6.4.RELEASE.zip"]
 
-openwormpackages = ['org.geppetto.model',
+geppettomodules = ['org.geppetto.model',
 'org.geppetto.core',
 'org.geppetto.model.neuroml',
 'org.geppetto.model.swc',
@@ -68,7 +68,7 @@ openwormpackages = ['org.geppetto.model',
 'org.geppetto.frontend',
 'org.geppetto']
 
-for p in openwormpackages:
+for p in geppettomodules:
     urls = urls + ['https://github.com/openworm/' + p + '/archive/master.zip']
 
 print urls
@@ -96,7 +96,7 @@ os.environ['SERVER_HOME'] = server_home
 
 #use Maven to build all the OpenWorm code bundles
 #and place the contents in the Virgo installation
-for p in openwormpackages:
+for p in geppettomodules:
     with lcd(tempdir):
         print local('mv %s-master %s'%(p, p), capture=True)
     dirp = op.join(tempdir, p)
@@ -130,4 +130,4 @@ snapshot = shutil.make_archive(archive_name, 'zip', root_dir)
 
 #delete the temp directory
 
-print 'Your snapshot is ready: ' + snapshot
+print 'Your Geppetto snapshot is ready: ' + snapshot
