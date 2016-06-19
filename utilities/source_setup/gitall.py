@@ -42,6 +42,9 @@ def main(argv):
 
 	elif(argv[0] == 'reset'):
         	command = ['git','reset','--hard','HEAD']
+	
+	elif(argv[0] == 'status'):
+		command = ['git',argv[0]]		
 
 	elif(argv[0] == 'remote'):
 		for repo in config['repos']:

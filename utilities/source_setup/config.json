@@ -1,8 +1,8 @@
 {
 	"sourcesdir":"../../../",
 	"repos":[
-		
 		{
+<<<<<<< HEAD
 			"name":"org.geppetto.core",
 			"url":"https://github.com/openworm/org.geppetto.core.git",
 			"auto_install":"yes"
@@ -16,6 +16,14 @@
 			"name":"org.geppetto.model.sph",
 			"url":"https://github.com/openworm/org.geppetto.model.sph.git",
 			"auto_install":"no"
+=======
+			"name":"org.geppetto.model",
+			"url":"https://github.com/openworm/org.geppetto.model.git"
+		},
+		{
+			"name":"org.geppetto.core",
+			"url":"https://github.com/openworm/org.geppetto.core.git"
+>>>>>>> 9ba9e848529ea2f600b8848a0a3e7193d5c58c50
 		},
 		{
 			"name":"org.geppetto.model.neuroml",
@@ -23,6 +31,7 @@
 			"auto_install":"no"
 		},
 		{
+<<<<<<< HEAD
 			"name":"org.geppetto.solver.sph",
 			"url":"https://github.com/openworm/org.geppetto.solver.sph.git",
 			"auto_install":"no"
@@ -38,11 +47,14 @@
 			"auto_install":"no"
 		},
 		{
+=======
+>>>>>>> 9ba9e848529ea2f600b8848a0a3e7193d5c58c50
 			"name":"org.geppetto.simulation",
 			"url":"https://github.com/openworm/org.geppetto.simulation.git",
 			"auto_install":"yes"
 		},
 		{
+<<<<<<< HEAD
 			"name":"org.geppetto.testbackend",
 			"url":"https://github.com/openworm/org.geppetto.testbackend.git",
 			"auto_install":"no"
@@ -61,6 +73,14 @@
 			"name":"org.geppetto.frontend",
 			"url":"https://github.com/openworm/org.geppetto.frontend.git",
 			"auto_install":"yes"
+=======
+			"name":"org.geppetto.frontend",
+			"url":"https://github.com/openworm/org.geppetto.frontend.git"
+		},
+		{
+			"name":"org.geppetto.model.swc",
+			"url":"https://github.com/openworm/org.geppetto.model.swc"
+>>>>>>> 9ba9e848529ea2f600b8848a0a3e7193d5c58c50
 		}
 	]
 }

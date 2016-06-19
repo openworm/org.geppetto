@@ -4,6 +4,11 @@
 #	If a target directory is not passed as the
 #	first argument, the sourcesdir specified in
 #	config.json is used
+#	If config.json is used, org.geppetto.core,
+#	model, frontend and simulation are
+#	included automatically.
+#	The user can chose to select the rest
+#	
 #
 
 import os, sys, subprocess, json
