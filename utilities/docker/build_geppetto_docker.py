@@ -1,9 +1,9 @@
 from __future__ import with_statement
-import tempfile, os, shlex, subprocess
+import tempfile, os, shlex, subprocess, glob, shutil
 
 #########################################
 # Launches Geppetto via Docker
-# Will be running on http://localhost:8080
+# Will be running on http://localhost:8080/org.geppetto.frontend
 # by: Stephen Larson (stephen@openworm.org)
 # To use:
 # * Make sure Docker (http://docker.com) is installed and running
@@ -12,7 +12,7 @@ import tempfile, os, shlex, subprocess
 ##########################################
 
 def execute(argv):
-    args = shlex.split(raw_cmd)
+    args = shlex.split(argv)
     subprocess.call(args)
 
 geppettomodules = ['org.geppetto.model',
@@ -20,32 +20,33 @@ geppettomodules = ['org.geppetto.model',
 'org.geppetto.model.neuroml',
 'org.geppetto.model.swc',
 'org.geppetto.simulation',
-'org.geppetto.frontend',
-'org.geppetto']
+'org.geppetto.frontend']
 
-os.mkdir("~/virgo/pickup")
-os.mkdir("~/virgo/usr")
+pwd = os.getcwd()
+
+if not os.path.exists("virgo"):
+    os.makedirs("virgo/pickup")
+    os.makedirs("virgo/usr")
 
 #use Maven to build all the OpenWorm code bundles
 #and place the contents in the Virgo installation
 for p in geppettomodules:
-    #clone the repo
-    subprocess.call(["git", "clone", "https://github.com/openworm/" + p + ".git"])
-    os.chdir(p)
 
-    #build the code using a docker image that arrives, does the maven build, and disappears
-    execute("docker run -it --rm --name my-maven-project -v '$PWD':/usr/src/mymaven -v ~/.m2:/root/.m2 -w /usr/src/mymaven maven:3.2-jdk-7 mvn clean install")
+    if not os.path.exists(pwd + "/" + p):
+      #clone the repo
+      subprocess.call(["git", "clone", "https://github.com/openworm/" + p + ".git"])
 
-    #copy files into virgo
-    execute("cp target/classes/lib/* ~/virgo/usr")
-    execute("cp target/* ~/virgo/usr")
+      #build the code using a docker image that arrives, does the maven build, and disappears
+      execute("docker run -it --rm --name my-maven-project -v " + pwd + "/" + p + ":/usr/src/mymaven -v " + pwd + "/.m2:/root/.m2 -w /usr/src/mymaven maven:3.2-jdk-7 mvn clean install")
 
-    os.chdir("..")
+      #copy files into virgo
+      for file in glob.glob(pwd + "/" + p + "/target/classes/lib/*.[a-z]*"):
+        shutil.copy(file, pwd+"/virgo/usr")
+      for file in glob.glob(pwd + "/" + p + '/target/*.[a-z]*'):
+        shutil.copy(file, pwd+"/virgo/usr")
 
-execute("cp org.geppetto/geppetto.plan ~/virgo/pickup")
+shutil.copy("org.geppetto/geppetto.plan", "virgo/pickup")
 
-os.chdir("utilities/docker/virgo-tomcat-server-3.6.4-RELEASE-jre-7")
+execute("docker build -t slarson/virgo-tomcat-server:3.6.4-RELEASE-jre-7 "+pwd+"/org.geppetto/utilities/docker/virgo-tomcat-server-3.6.4-RELEASE-jre-7/")
 
-execute("docker build -t slarson/virgo-tomcat-server:3.6.4-RELEASE-jre-7 .")
-
-execute("docker run --name='virgo-tomcat-server' --publish=8080:8080 -v ~/virgo/pickup:/home/virgo/pickup -v ~/virgo/usr:/home/virgo/repository/usr -t slarson/virgo-tomcat-server:3.6.4-RELEASE-jre-7")
+execute("docker run --name='virgo-tomcat-server' --publish=8080:8080 -v "+pwd+"/virgo/pickup:/home/virgo/pickup -v "+pwd+"/virgo/usr:/home/virgo/repository/usr -t slarson/virgo-tomcat-server:3.6.4-RELEASE-jre-7")
