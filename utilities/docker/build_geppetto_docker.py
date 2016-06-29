@@ -69,6 +69,7 @@ execute("docker build -t slarson/virgo-tomcat-server:3.6.4-RELEASE-jre-7 "+pwd+"
 
 #run the virgo docker image on port 8080 and map the volumes to the virgo directories
 # we populated.
+#TODO: move the run part out of this script and make this a pure build script
 execute("docker run --name='virgo-tomcat-server' --publish=8080:8080 -v "+pwd+"/virgo/pickup:/home/virgo/pickup -v "+pwd+"/virgo/usr:/home/virgo/repository/usr -t slarson/virgo-tomcat-server:3.6.4-RELEASE-jre-7")
 
 #Ideally, this is all we'd have to run in the end.
