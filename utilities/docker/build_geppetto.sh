@@ -5,7 +5,7 @@
 
 #If run with:
 #   build_geppetto.sh clean
-# will clear out the working directories in case you get stuck in a partial state
+# it will clear out the working directories in case you get stuck in a partial state
 
 if [[ $1 == "clean" ]]; then
     echo "Cleaning"

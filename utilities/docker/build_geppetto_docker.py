@@ -9,6 +9,13 @@ import tempfile, os, shlex, subprocess, glob, shutil
 # * Make sure Docker (http://docker.com) is installed and running
 # * Make sure git is installed: https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
 # * Currently only works on linux-based systems
+# * Run this via build_geppetto.sh and follow instructions - this is path-sensitive.
+#
+# Things that don't need to be installed locally for this to work:
+# * Any third-party python libraries
+# * Java
+# * Maven
+# * Virgo / Tomcat
 ##########################################
 
 def execute(argv):
@@ -37,16 +44,22 @@ for p in geppettomodules:
       subprocess.call(["git", "clone", "https://github.com/openworm/" + p + ".git"])
 
       #build the code using a docker image that arrives, does the maven build, and disappears
+      # keeps the .m2 directory constant throughout this loop.
       execute("docker run -it --rm --name my-maven-project -v " + pwd + "/" + p + ":/usr/src/mymaven -v " + pwd + "/.m2:/root/.m2 -w /usr/src/mymaven maven:3.2-jdk-7 mvn clean install")
 
-      #copy files into virgo
+      #copy files into virgo directories
       for file in glob.glob(pwd + "/" + p + "/target/classes/lib/*.[a-z]*"):
         shutil.copy(file, pwd+"/virgo/usr")
       for file in glob.glob(pwd + "/" + p + '/target/*.[a-z]*'):
         shutil.copy(file, pwd+"/virgo/usr")
 
+#copy plan file into virgo pickup directory
 shutil.copy("org.geppetto/geppetto.plan", "virgo/pickup")
 
+#build the virgo docker image from the custom Dockefile we made
+#TODO: Build and push this to docker hub, then get rid of this line
 execute("docker build -t slarson/virgo-tomcat-server:3.6.4-RELEASE-jre-7 "+pwd+"/org.geppetto/utilities/docker/virgo-tomcat-server-3.6.4-RELEASE-jre-7/")
 
+#run the virgo docker image on port 8080 and map the volumes to the virgo directories
+# we populated.
 execute("docker run --name='virgo-tomcat-server' --publish=8080:8080 -v "+pwd+"/virgo/pickup:/home/virgo/pickup -v "+pwd+"/virgo/usr:/home/virgo/repository/usr -t slarson/virgo-tomcat-server:3.6.4-RELEASE-jre-7")
