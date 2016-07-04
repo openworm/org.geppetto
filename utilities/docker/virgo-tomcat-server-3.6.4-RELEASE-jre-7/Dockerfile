@@ -16,4 +16,7 @@ EXPOSE 8080
 RUN chmod u+x /home/virgo/bin/*.sh
 RUN chown -R virgo:virgo /home/virgo
 USER virgo
+
+VOLUME /home/virgo
+
 CMD ["/home/virgo/bin/startup.sh"]
