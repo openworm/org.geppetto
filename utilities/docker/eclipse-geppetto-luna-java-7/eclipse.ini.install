@@ -15,11 +15,11 @@ openFile
 -application
 org.eclipse.equinox.p2.director
 -metadataRepository
-http://download.eclipse.org/releases/luna,http://download.eclipse.org/mylyn/releases/luna,http://download.eclipse.org/eclipse/updates/4.4,http://download.eclipse.org/webtools/repository/luna,http://download.eclipse.org/virgo/snapshot/tooling
+http://download.eclipse.org/releases/luna,http://download.eclipse.org/mylyn/releases/luna,http://download.eclipse.org/eclipse/updates/4.4,http://download.eclipse.org/webtools/repository/luna,http://download.eclipse.org/virgo/release/BNDLR/1.1.0.RELEASE/updatesite/,http://download.eclipse.org/virgo/updatesite/3.6.2.RELEASE/,file:/home/developer/archive/org.eclipse.virgo.ide.site/target/site/
 -artifactRepository
-http://download.eclipse.org/releases/luna,http://download.eclipse.org/mylyn/releases/luna,http://download.eclipse.org/eclipse/updates/4.4,http://download.eclipse.org/webtools/repository/luna,http://download.eclipse.org/virgo/snapshot/tooling
+http://download.eclipse.org/releases/luna,http://download.eclipse.org/mylyn/releases/luna,http://download.eclipse.org/eclipse/updates/4.4,http://download.eclipse.org/webtools/repository/luna,http://download.eclipse.org/virgo/release/BNDLR/1.1.0.RELEASE/updatesite/,http://download.eclipse.org/virgo/updatesite/3.6.2.RELEASE/,file:/home/developer/archive/org.eclipse.virgo.ide.site/target/site/
 -installIU
-org.eclipse.virgo.ide.feature.feature.group
+org.eclipse.virgo.bundlor.feature.group,org.eclipse.virgo.util.feature.group,org.eclipse.virgo.ide.feature.feature.group
 --launcher.appendVmargs
 -vmargs
 -Dosgi.requiredJavaVersion=1.6
