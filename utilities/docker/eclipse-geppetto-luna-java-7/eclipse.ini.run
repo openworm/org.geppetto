@@ -1,12 +1,13 @@
 -startup
-plugins/org.eclipse.equinox.launcher_1.3.100.v20150511-1540.jar
+plugins/org.eclipse.equinox.launcher_1.3.0.v20140415-2008.jar
 --launcher.library
-plugins/org.eclipse.equinox.launcher.gtk.linux.x86_64_1.1.300.v20150602-1417
+plugins/org.eclipse.equinox.launcher.gtk.linux.x86_64_1.1.200.v20150204-1316
 -product
 org.eclipse.epp.package.jee.product
 --launcher.defaultAction
 openFile
 -nosplash
+org.eclipse.platform
 --launcher.XXMaxPermSize
 256m
 --launcher.defaultAction
@@ -14,6 +15,7 @@ openFile
 -consoleLog
 --launcher.appendVmargs
 -vmargs
--Dosgi.requiredJavaVersion=1.7
+-Dosgi.requiredJavaVersion=1.6
+-XX:MaxPermSize=256m
 -Xms256m
 -Xmx1024m
