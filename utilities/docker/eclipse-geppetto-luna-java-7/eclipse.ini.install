@@ -15,11 +15,9 @@ openFile
 -application
 org.eclipse.equinox.p2.director
 -metadataRepository
-http://download.eclipse.org/releases/mars,http://download.eclipse.org/mylyn/releases/mars,http://download.eclipse.org/eclipse
-/updates/4.5,http://download.eclipse.org/webtools/repository/mars,http://download.eclipse.org/virgo/snapshot/tooling
+http://download.eclipse.org/releases/luna,http://download.eclipse.org/mylyn/releases/luna,http://download.eclipse.org/eclipse/updates/4.4,http://download.eclipse.org/webtools/repository/luna,http://download.eclipse.org/virgo/snapshot/tooling
 -artifactRepository
-http://download.eclipse.org/releases/mars,http://download.eclipse.org/mylyn/releases/mars,http://download.eclipse.org/eclipse
-/updates/4.5,http://download.eclipse.org/webtools/repository/mars,http://download.eclipse.org/virgo/snapshot/tooling
+http://download.eclipse.org/releases/luna,http://download.eclipse.org/mylyn/releases/luna,http://download.eclipse.org/eclipse/updates/4.4,http://download.eclipse.org/webtools/repository/luna,http://download.eclipse.org/virgo/snapshot/tooling
 -installIU
 org.eclipse.virgo.ide.feature.feature.group
 --launcher.appendVmargs
