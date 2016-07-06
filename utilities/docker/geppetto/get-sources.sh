@@ -1,6 +1,6 @@
 #!/bin/bash
 
-mkdir workspace
+mkdir -p workspace
 cd workspace
 python ../get-geppetto-git-repos.py
 cd ..
