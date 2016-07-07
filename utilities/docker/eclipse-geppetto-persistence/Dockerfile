@@ -21,10 +21,12 @@ RUN apt-get update \
  && rm -rf ${MYSQL_DATA_DIR} \
  && rm -rf /var/lib/apt/lists/*
 
-USER developer
-#END INSTALL MYSQL
-
 ADD init.sql geppetto/
 ADD db-entrypoint.sh geppetto/
+ADD db-entrypoint2.sh geppetto/
+RUN geppetto/db-entrypoint2.sh
+
+USER developer
+#END INSTALL MYSQL
 
 CMD /usr/local/bin/eclipse

@@ -143,7 +143,7 @@ fi
 
 # default behaviour is to launch mysqld_safe
 if [[ -z ${1} ]]; then
-  apply_configuration_fixes
+  #apply_configuration_fixes
   remove_debian_systen_maint_password
   initialize_mysql_database
   create_users_and_databases
