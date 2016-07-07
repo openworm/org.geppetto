@@ -18,10 +18,22 @@ VOLUME /home/developer/.m2
 #END ECLIPSE installed
 
 #VIRGO INSTALL
+USER root
 RUN apt-get update && apt-get install -y curl bsdtar
-RUN curl -L 'http://www.eclipse.org/downloads/download.php?file=/virgo/release/VP/3.6.4.RELEASE/virgo-tomcat-server-3.6.4.RELEASE.zip&mirror_id=580&r=1' | bsdtar --strip-components 1 -C /home/virgo -xzf -
-RUN chmod u+x /home/virgo/bin/*.sh
-ENV SERVER_HOME /home/virgo
+USER developer
+RUN mkdir -p /home/developer/virgo
+RUN curl -L 'http://www.eclipse.org/downloads/download.php?file=/virgo/release/VP/3.6.4.RELEASE/virgo-tomcat-server-3.6.4.RELEASE.zip&mirror_id=580&r=1' | bsdtar --strip-components 1 -C /home/developer/virgo -xzf -
+RUN chmod u+x /home/developer/virgo/bin/*.sh
+ENV SERVER_HOME /home/developer/virgo
+VOLUME /home/developer/virgo
 #END VIRGO INSTALL
+
+#GET GEPPETTO SOURCES
+ADD get-sources.sh /home/developer
+ADD get-getppetto-git-repos.py /home/developer
+RUN get-sources.sh
+VOLUME /home/developer/workspace
+#END GET GEPPETTO SOURCES
+
 
 CMD /usr/local/bin/eclipse
