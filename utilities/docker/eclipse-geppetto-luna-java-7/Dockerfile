@@ -14,8 +14,14 @@ RUN /usr/local/bin/eclipse
 COPY eclipse.ini.run /opt/eclipse/eclipse.ini
 
 RUN mkdir /home/developer/.m2 && chown developer:developer .m2
-VOLUME /home/developer/.m2
+#VOLUME /home/developer/.m2
 #END ECLIPSE installed
+
+##The original plan was to have these installed with separate docker images
+# However, in practice, having inter-image communication via volumes turned out
+# to be a huge performance bottleneck because eclipse needs to copy files between
+# volumes every time there is a build.  The file transfer speed is at least 10x
+# slower using volumes than when it is all on the same file system.
 
 #VIRGO INSTALL
 USER root

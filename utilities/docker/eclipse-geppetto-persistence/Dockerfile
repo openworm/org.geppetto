@@ -8,6 +8,5 @@ RUN cd workspace/ && git clone http://github.com/openworm/org.geppetto.persisten
 
 RUN mkdir -p geppetto/
 ADD db.properties geppetto/
-RUN cd workspace/org.geppetto.persistence && mvn exec:java -Dexec.mainClass="org.geppetto.persistence.util.DBTestData" -Dexec.classpathScope=runtime
 
 CMD /usr/local/bin/eclipse

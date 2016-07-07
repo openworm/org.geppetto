@@ -7,4 +7,6 @@ chmod 777 .m2
 sudo docker run --name geppetto-mysql -e MYSQL_ROOT_PASSWORD=geppetto -d mysql:latest
 #mysql -h hostname -u user database < path/to/test.sql
 sudo docker run -it --link geppetto-mysql:mysql --rm mysql sh -c 'exec mysql -h"$MYSQL_PORT_3306_TCP_ADDR" -P"$MYSQL_PORT_3306_TCP_PORT" -uroot -p"$MYSQL_ENV_MYSQL_ROOT_PASSWORD" -e "dropcreate database geppetto;flush privileges;create user user_name identified by password;grant all privileges on geppetto.* to user_name@localhost identified by password;"'
-sudo docker run -ti --publish=8080:8080 -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix -v $PWD/.m2:/home/developer/.m2 --link geppetto-mysql:mysql slarson/eclipse-geppetto:persistence /bin/bash
+sudo docker run -it --link geppetto-mysql:mysql --rm slarson/eclipse-geppetto:persistence
+#cd workspace/org.geppetto.persistence && mvn exec:java -Dexec.mainClass="org.geppetto.persistence.util.DBTestData" -Dexec.classpathScope=runtime
+sudo docker run -ti --publish=8080:8080 -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix -v $PWD/.m2:/home/developer/.m2 --link geppetto-mysql:mysql slarson/eclipse-geppetto:persistence sh -c 'cd workspace/org.geppetto.persistence; mvn exec:java -Dexec.mainClass="org.geppetto.persistence.util.DBTestData" -Dexec.classpathScope=runtime; /bin/bash'
