@@ -6,6 +6,9 @@ USER developer
 RUN cd workspace/ && git clone http://github.com/openworm/org.geppetto.persistence \
   && cd org.geppetto.persistence && mvn install
 
+ADD config.json workspace/org.geppetto/utilities/source_setup
+RUN cd workspace/org.geppetto/utilities/source_setup && python update_server.py eclipse
+
 RUN mkdir -p geppetto/
 ADD db.properties geppetto/
 
@@ -22,11 +25,18 @@ RUN apt-get update \
  && rm -rf /var/lib/apt/lists/*
 
 ADD init.sql geppetto/
-ADD db-entrypoint.sh geppetto/
-ADD db-entrypoint2.sh geppetto/
-RUN geppetto/db-entrypoint2.sh
+
+RUN mkdir -p ${MYSQL_DATA_DIR} && mkdir -p ${MYSQL_RUN_DIR} && \
+  mkdir -p ${MYSQL_LOG_DIR}
 
 USER developer
+
 #END INSTALL MYSQL
+
+ADD db-entrypoint2.sh geppetto/
+RUN sudo chmod +x geppetto/db-entrypoint2.sh
+
+COPY workspace.tar.gz /home/developer/workspace
+RUN cd workspace && tar -xvzf workspace.tar.gz
 
 CMD /usr/local/bin/eclipse
