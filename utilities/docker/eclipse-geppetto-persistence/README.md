@@ -5,7 +5,9 @@
 * Install Docker
 * run ./run.sh
 
-And you'll get this: http://www.giphy.com/gifs/26BRJFePcQAdHogXC
+And you'll get this: 
+
+![Installed Version](http://i.giphy.com/26BRJFePcQAdHogXC.gif)
 
 Alternately, to also have shell access:
 
