@@ -7,4 +7,4 @@ cd /home/developer/workspace/org.geppetto.persistence
 mvn install
 mvn install
 mvn exec:java -Dexec.mainClass="org.geppetto.persistence.util.DBTestData" -Dexec.classpathScope=runtime
-
+/usr/local/bin/eclipse

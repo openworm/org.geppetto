@@ -33,10 +33,10 @@ USER developer
 
 #END INSTALL MYSQL
 
-ADD db-entrypoint2.sh geppetto/
-RUN sudo chmod +x geppetto/db-entrypoint2.sh
+ADD entrypoint.sh geppetto/
+RUN sudo chmod +x geppetto/entrypoint.sh
 
 COPY workspace.tar.gz /home/developer/workspace
 RUN cd workspace && tar -xvzf workspace.tar.gz
 
-CMD /usr/local/bin/eclipse
+CMD /home/developer/geppetto/entrypoint.sh

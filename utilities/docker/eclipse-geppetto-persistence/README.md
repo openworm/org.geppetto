@@ -3,12 +3,18 @@
 ## How to run
 
 * Install Docker
-* run ./run-bash.sh
-* Within the prompt, `eclipse &` to launch eclipse
+* run ./run.sh
+
+Alternately, to also have shell access:
+
+* run ./run-bash.sh instead of run.sh
+* eclipse & to launch eclipse
+
+When you first get in, do new run as->maven installs on org.geppetto and org.geppetto.persistence.  Then do a clean on the virgo server and start it.
 
 ## Pre-requisites
 
-* Docker is a CPU and hard disk hog.  Make sure you have enough of both before you start.
+* Docker is a CPU and hard disk hog.  Make sure you have at least 30GB free space and not a lot of other programs running on a decent machine before you start.
 
 ## What this does
 
@@ -27,3 +33,4 @@
 ## Known issues
 
 * While the database is set up properly and running, the persistence bundle seems to have trouble talking to it until a series of run as-> maven install and virgo server resets are done.
+* The version of Maven used to do builds is not the one Eclipse is using.  The maven repo directories are also different.  If these were the same, the environment may be more sane & take less disk space.
