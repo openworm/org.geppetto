@@ -5,6 +5,8 @@
 * Install Docker
 * run ./run.sh
 
+And you'll get this: http://www.giphy.com/gifs/26BRJFePcQAdHogXC
+
 Alternately, to also have shell access:
 
 * run ./run-bash.sh instead of run.sh
