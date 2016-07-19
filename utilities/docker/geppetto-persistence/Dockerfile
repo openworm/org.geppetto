@@ -39,12 +39,6 @@ RUN cd workspace/org.geppetto && mvn install && cd ../org.geppetto.persistence &
 #VOLUME /home/developer/workspace
 #END GET GEPPETTO SOURCES
 
-COPY config.json workspace/org.geppetto/utilities/source_setup/
-RUN cd workspace/org.geppetto/utilities/source_setup && python update_server.py
-
-RUN mkdir -p geppetto/
-COPY db.properties geppetto/
-
 #INSTALL MYSQL
 USER root
 ENV MYSQL_USER=mysql \
@@ -57,14 +51,19 @@ RUN apt-get update \
  && rm -rf ${MYSQL_DATA_DIR} \
  && rm -rf /var/lib/apt/lists/*
 
-COPY init.sql geppetto/
-
 RUN mkdir -p ${MYSQL_DATA_DIR} && mkdir -p ${MYSQL_RUN_DIR} && \
   mkdir -p ${MYSQL_LOG_DIR}
 
 #END INSTALL MYSQL
 
 USER developer
+
+COPY config.json workspace/org.geppetto/utilities/source_setup/
+COPY geppetto.plan workspace/org.geppetto/
+RUN mkdir -p geppetto/
+COPY db.properties geppetto/
+COPY init.sql geppetto/
+
 
 COPY entrypoint.sh geppetto/
 RUN sudo chmod +x geppetto/entrypoint.sh

@@ -1,1 +1,1 @@
-sudo docker logs geppetto
+sudo docker logs -f geppetto

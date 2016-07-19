@@ -7,4 +7,6 @@ cd /home/developer/workspace/org.geppetto.persistence
 mvn install
 mvn install
 mvn exec:java -Dexec.mainClass="org.geppetto.persistence.util.DBTestData" -Dexec.classpathScope=runtime
+cd /home/developer/workspace/org.geppetto/utilities/source_setup
+python update_server.py
 /home/developer/virgo/bin/startup.sh
