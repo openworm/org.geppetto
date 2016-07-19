@@ -15,7 +15,7 @@ import tempfile, os, shlex, subprocess, glob, shutil
 
 geppettomodules = ['org.geppetto.model',
 'org.geppetto.core',
-'org.geppetto.persistence'
+'org.geppetto.persistence',
 'org.geppetto.model.neuroml',
 'org.geppetto.model.swc',
 'org.geppetto.simulation',

@@ -1,6 +1,22 @@
 FROM java:7
 MAINTAINER Stephen Larson "slarson@openworm.org"
 
+RUN apt-get update && apt-get install -y sudo
+
+RUN useradd -ms /bin/bash developer
+
+RUN mkdir -p /home/developer && mkdir -p /etc/sudoers.d \
+    echo "developer:x:1000:1000:Developer,,,:/home/developer:/bin/bash" >> /etc/passwd && \
+    echo "developer:x:1000:" >> /etc/group && \
+    echo "developer ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/developer && \
+    chmod 0440 /etc/sudoers.d/developer && \
+    chown developer:developer -R /home/developer && \
+    chown root:root /usr/bin/sudo && chmod 4755 /usr/bin/sudo
+
+USER developer
+ENV HOME /home/developer
+WORKDIR /home/developer
+
 #VIRGO INSTALL
 USER root
 RUN apt-get update && apt-get install -y curl bsdtar maven
@@ -19,12 +35,9 @@ USER root
 RUN chmod +x get-sources.sh
 USER developer
 RUN ./get-sources.sh
-RUN cd workspace/org.geppetto && mvn install
+RUN cd workspace/org.geppetto && mvn install && cd ../org.geppetto.persistence && mvn install
 #VOLUME /home/developer/workspace
 #END GET GEPPETTO SOURCES
-
-RUN cd workspace/ && git clone http://github.com/openworm/org.geppetto.persistence \
-  && cd org.geppetto.persistence && mvn install
 
 COPY config.json workspace/org.geppetto/utilities/source_setup/
 RUN cd workspace/org.geppetto/utilities/source_setup && python update_server.py
