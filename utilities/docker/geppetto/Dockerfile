@@ -1,12 +1,45 @@
-FROM slarson:virgo-tomcat-server:3.6.4-RELEASE-jre-7
-MAINTAINER Stephen Larson <stephen@openworm.org>
-LABEL Description="Geppetto 3.3.0 running on Virgo Tomcat Server 3.6.4-RELEASE running on Java 7"
+FROM java:7
+MAINTAINER Stephen Larson "slarson@openworm.org"
 
-#Previous to doing the docker build on this Dockerfile, we'll need to have built geppetto
-# and packed its contents into the appropriate usr and pickup directories.
-#COPY [the virgo/usr and virgo/pickup directories that have been built into this directory]
+RUN apt-get update && apt-get install -y sudo
 
-EXPOSE 8080
+RUN useradd -ms /bin/bash developer
 
-USER virgo
-CMD ["/home/virgo/bin/startup.sh"]
+RUN mkdir -p /home/developer && mkdir -p /etc/sudoers.d \
+    echo "developer:x:1000:1000:Developer,,,:/home/developer:/bin/bash" >> /etc/passwd && \
+    echo "developer:x:1000:" >> /etc/group && \
+    echo "developer ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/developer && \
+    chmod 0440 /etc/sudoers.d/developer && \
+    chown developer:developer -R /home/developer && \
+    chown root:root /usr/bin/sudo && chmod 4755 /usr/bin/sudo
+
+USER developer
+ENV HOME /home/developer
+WORKDIR /home/developer
+
+#VIRGO INSTALL
+USER root
+RUN apt-get update && apt-get install -y curl bsdtar maven
+USER developer
+RUN mkdir -p /home/developer/virgo
+RUN curl -L 'http://www.eclipse.org/downloads/download.php?file=/virgo/release/VP/3.6.4.RELEASE/virgo-tomcat-server-3.6.4.RELEASE.zip&mirror_id=580&r=1' | bsdtar --strip-components 1 -C /home/developer/virgo -xzf -
+RUN chmod u+x /home/developer/virgo/bin/*.sh
+ENV SERVER_HOME /home/developer/virgo
+#VOLUME /home/developer/virgo
+#END VIRGO INSTALL
+
+#GET GEPPETTO SOURCES
+
+USER developer
+RUN mkdir -p workspace && cd workspace && git clone http://github.com/openworm/org.geppetto \
+    && chmod -R 777 workspace
+RUN cd workspace/org.geppetto/utilities/source_setup && python gitall.py pull
+RUN cd workspace/org.geppetto && mvn install
+#END GET GEPPETTO SOURCES
+
+RUN mkdir -p geppetto/
+
+COPY entrypoint.sh geppetto/
+RUN sudo chmod +x geppetto/entrypoint.sh
+
+CMD /home/developer/geppetto/entrypoint.sh
