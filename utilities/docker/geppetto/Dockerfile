@@ -29,11 +29,13 @@ ENV SERVER_HOME /home/developer/virgo
 #END VIRGO INSTALL
 
 #GET GEPPETTO SOURCES
-
+USER root
+RUN mkdir -p workspace && cd workspace && git clone http://github.com/openworm/org.geppetto
+RUN chmod -R 777 workspace
 USER developer
-RUN mkdir -p workspace && cd workspace && git clone http://github.com/openworm/org.geppetto \
-    && chmod -R 777 workspace
-RUN cd workspace/org.geppetto/utilities/source_setup && python gitall.py pull
+RUN cd workspace/org.geppetto/utilities/source_setup && python setup.py
+RUN sudo chmod -R 777 workspace
+
 RUN cd workspace/org.geppetto && mvn install
 #END GET GEPPETTO SOURCES
 
