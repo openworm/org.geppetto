@@ -42,6 +42,7 @@ RUN cd workspace/org.geppetto && mvn install
 RUN mkdir -p geppetto/
 
 COPY entrypoint.sh geppetto/
-RUN sudo chmod +x geppetto/entrypoint.sh
+COPY check_update.sh geppetto/
+RUN sudo chmod +x geppetto/*.sh
 
 CMD /home/developer/geppetto/entrypoint.sh
