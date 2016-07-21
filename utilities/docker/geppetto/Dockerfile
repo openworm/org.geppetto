@@ -36,7 +36,7 @@ USER developer
 RUN cd workspace/org.geppetto/utilities/source_setup && python setup.py
 RUN sudo chmod -R 777 workspace
 
-RUN cd workspace/org.geppetto && mvn install
+#RUN cd workspace/org.geppetto && mvn install
 #END GET GEPPETTO SOURCES
 
 RUN mkdir -p geppetto/

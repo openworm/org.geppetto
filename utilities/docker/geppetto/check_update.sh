@@ -10,5 +10,9 @@ python gitall.py reset
 python gitall.py checkout development
 python gitall.py checkout $BRANCH
 cd /home/developer/workspace/org.geppetto/
+git checkout development
+mvn install
+else
+cd /home/developer/workspace/org.geppetto/
 mvn install
 fi
