@@ -7,9 +7,14 @@ gitter: http://gitter.im/openworm/org.geppetto
 outputs: 
   - openworm/org.wormsim.frontend
 children:
-  - openworm/org.wormsim.frontend
   - openworm/org.geppetto.core
   - openworm/org.geppetto.simulation
   - openworm/org.geppetto.frontend
   - openworm/org.geppetto.persistence
   - openworm/org.geppetto.datasources
+  - openworm/org.geppetto.model.neuroml
+  - openworm/org.geppetto.model.swc
+  - openworm/org.geppetto.model.nwb
+  - openworm/org.geppetto.simulator.external
+  - openworm/org.geppetto.testbackend
+  - openworm/org.geppetto.docs
