@@ -12,7 +12,7 @@
 	<!-- Instructs Spring to scan for internal service components to instantiate and configure -->
 	<context:annotation-config/>	
 	<context:component-scan base-package="org.geppetto.simulator.external.services" />
-		a
+		
 	<!-- Add flag for Simulation Run Mode --> 
 	<bean id="neuronSimulatorConfig" class="org.geppetto.core.beans.SimulatorConfig"> 
 		<property name="simulatorName" value="Neuron Simulator" />
@@ -32,7 +32,7 @@
 	
 	<!-- Add flag for External Simulation Run Mode --> 
 	<bean id="lemsExternalSimulatorConfig" class="org.geppetto.core.simulator.ExternalSimulatorConfig"> 
-		<property name="simulatorPath" value="REPLACE_WITH_LOCAL_PATH_TO_JNEUROML" />
+		<property name="simulatorPath" value="/home/developer/nrn-7.3/x86_64/bin/" />
 	</bean>
 	
 	<!-- Add flag for Simulation Run Mode --> 

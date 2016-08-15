@@ -16,6 +16,7 @@ RUN cd nrn-7.3/src/nrnpython && sudo python setup.py install
 
 ENV NEURON_HOME /home/developer/nrn-7.3/x86_64/bin/
 COPY app-config.xml /home/developer/workspace/org.geppetto.simulator.external/src/main/java/META-INF/spring/
+copy aws.credentials /home/developer/geppetto/
 RUN sudo chmod +x /home/developer/nrn-7.3/bin/*
 RUN cd workspace/org.geppetto.simulator.external && mvn install
 ADD config.json workspace/org.geppetto/utilities/source_setup/
