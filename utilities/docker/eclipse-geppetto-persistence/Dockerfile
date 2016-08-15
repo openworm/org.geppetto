@@ -7,7 +7,6 @@ RUN cd ~/workspace/ && git clone http://github.com/openworm/org.geppetto.persist
   && cd org.geppetto.persistence && mvn install
 
 ADD config.json workspace/org.geppetto/utilities/source_setup/
-RUN cd ~/workspace/org.geppetto/utilities/source_setup && python update_server.py eclipse
 
 RUN mkdir -p geppetto/
 ADD db.properties geppetto/
