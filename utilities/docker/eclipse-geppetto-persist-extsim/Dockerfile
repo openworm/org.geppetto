@@ -25,4 +25,8 @@ RUN cd workspace && tar -xvzf workspace.tar.gz
 
 RUN cd workspace/org.geppetto.simulator.external && mvn install
 ADD config.json workspace/org.geppetto/utilities/source_setup/
-RUN cd ~/workspace/org.geppetto/utilities/source_setup && python update_server.py eclipse
+
+#Entrypoint from the inherited dockerfile; will run python update_server.py eclipse
+# using the new config.json from above
+CMD /home/developer/geppetto/entrypoint.sh
+
