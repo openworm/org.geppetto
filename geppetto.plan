@@ -7,19 +7,19 @@
             http://www.springsource.org/schema/dm-server/plan/springsource-dm-server-plan.xsd">
 
 
-    <artifact type="bundle" name="org.geppetto.model" version="0.3.0"/>
-    <artifact type="bundle" name="org.geppetto.core" version="0.3.0"/>
-    <artifact type="bundle" name="org.geppetto.model.neuroml" version="0.3.0"/>
-    <artifact type="bundle" name="org.geppetto.model.swc" version="0.3.0"/>
-    <artifact type="bundle" name="org.geppetto.simulation" version="0.3.0"/>
-    <artifact type="bundle" name="org.geppetto.frontend" version="0.3.0"/>
+    <artifact type="bundle" name="org.geppetto.model" version="0.3.1"/>
+    <artifact type="bundle" name="org.geppetto.core" version="0.3.1"/>
+    <artifact type="bundle" name="org.geppetto.model.neuroml" version="0.3.1"/>
+    <artifact type="bundle" name="org.geppetto.model.swc" version="0.3.1"/>
+    <artifact type="bundle" name="org.geppetto.simulation" version="0.3.1"/>
+    <artifact type="bundle" name="org.geppetto.frontend" version="0.3.1"/>
     
     <!-- 
-    <artifact type="bundle" name="org.geppetto.simulator.external" version="0.3.0"/>
-    <artifact type="bundle" name="org.geppetto.datasources" version="0.3.0"/>
-    <artifact type="bundle" name="org.geppetto.persistence" version="0.3.0"/>
-    <artifact type="bundle" name="org.geppetto.model.nwb" version="0.3.0"/> 
-    <artifact type="bundle" name="org.geppetto.testbackend" version="0.3.0"/> -->
+    <artifact type="bundle" name="org.geppetto.simulator.external" version="0.3.1"/>
+    <artifact type="bundle" name="org.geppetto.datasources" version="0.3.1"/>
+    <artifact type="bundle" name="org.geppetto.persistence" version="0.3.1"/>
+    <artifact type="bundle" name="org.geppetto.model.nwb" version="0.3.1"/> 
+    <artifact type="bundle" name="org.geppetto.testbackend" version="0.3.1"/> -->
     
     
     
