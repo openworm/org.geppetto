@@ -1,0 +1,33 @@
+{
+	"sourcesdir":"../../../",
+	"repos":[
+		{
+			"name":"org.geppetto.model",
+			"url":"https://github.com/openworm/org.geppetto.model.git"
+		},
+		{
+			"name":"org.geppetto.core",
+			"url":"https://github.com/openworm/org.geppetto.core.git"
+		},
+		{
+			"name":"org.geppetto.model.neuroml",
+			"url":"https://github.com/openworm/org.geppetto.model.neuroml.git"
+		},
+		{
+			"name":"org.geppetto.simulation",
+			"url":"https://github.com/openworm/org.geppetto.simulation.git"
+		},
+		{
+			"name":"org.geppetto.frontend",
+			"url":"https://github.com/openworm/org.geppetto.frontend.git"
+		},
+		{
+			"name":"org.geppetto.model.swc",
+			"url":"https://github.com/openworm/org.geppetto.model.swc"
+		},
+		{
+			"name":"org.geppetto.persistence",
+			"url":"https://github.com/openworm/org.geppetto.persistence"
+		}
+	]
+}
