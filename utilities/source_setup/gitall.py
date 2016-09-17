@@ -42,9 +42,9 @@ def main(argv):
 
 	elif(argv[0] == 'reset'):
         	command = ['git','reset','--hard','HEAD']
-	
+
 	elif(argv[0] == 'status'):
-		command = ['git',argv[0]]		
+		command = ['git',argv[0]]
 
 	elif(argv[0] == 'remote'):
 		for repo in config['repos']:
@@ -74,7 +74,11 @@ def main(argv):
 		incorrectInput(argv, 'Unrecognized command')
 
 	for repo in config['repos']:
-		print repo['name']+'  '+subprocess.check_output(command, cwd = os.path.join(config['sourcesdir'], repo['name']))
+		try:
+			print repo['name']+'  '+subprocess.check_output(command, cwd = os.path.join(config['sourcesdir'], repo['name']))
+		except subprocess.CalledProcessError:
+			print "error -- trying next repo"
+
 
 if __name__ == "__main__":
 	main(sys.argv[1:])

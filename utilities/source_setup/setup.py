@@ -8,7 +8,7 @@
 #	model, frontend and simulation are
 #	included automatically.
 #	The user can chose to select the rest of the repos
-#	or automatically include them
+#	or automatically include those listed in config,json
 #
 
 import os, sys, subprocess, json
