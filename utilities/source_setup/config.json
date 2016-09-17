@@ -1,6 +1,6 @@
-{
+'{
 	
-	"sourcesdir":"../../../",
+	"sourcesdir":"..//..//..//",
 	"repos":[
 	{
 		"name":"org.geppetto.core",
@@ -55,4 +55,4 @@
 		"url":"https://github.com/openworm/org.geppetto.model.swc.git",
 		"auto_install":"no"
 	}]
-}
+}'
