@@ -76,8 +76,8 @@ def main(argv):
 	for repo in config['repos']:
 		try:
 			print repo['name']+'  '+subprocess.check_output(command, cwd = os.path.join(config['sourcesdir'], repo['name']))
-		except subprocess.CalledProcessError:
-			print "error -- trying next repo"
+		except:
+			print "Error -- trying next repo"
 
 
 if __name__ == "__main__":
