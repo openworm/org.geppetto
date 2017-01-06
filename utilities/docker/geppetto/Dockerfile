@@ -33,16 +33,18 @@ USER root
 RUN mkdir -p workspace && cd workspace && git clone http://github.com/openworm/org.geppetto
 RUN chmod -R 777 workspace
 USER developer
-RUN cd workspace/org.geppetto/utilities/source_setup && python setup.py
+RUN cd workspace/org.geppetto/utilities/source_setup && python setup.py && python gitall.py pull && python gitall.py reset && python gitall.py checkout development
 RUN sudo chmod -R 777 workspace
 
-#RUN cd workspace/org.geppetto && mvn install
+RUN cd workspace/org.geppetto && mvn install
 #END GET GEPPETTO SOURCES
 
 RUN mkdir -p geppetto/
 
-COPY entrypoint.sh geppetto/
-COPY check_update.sh geppetto/
-RUN sudo chmod +x geppetto/*.sh
+#COPY entrypoint.sh geppetto/
+#COPY check_update.sh geppetto/
+#RUN sudo chmod +x geppetto/*.sh
 
-CMD /home/developer/geppetto/entrypoint.sh
+RUN cd /home/developer/workspace/org.geppetto/utilities/source_setup && python update_server.py
+
+CMD /home/developer/virgo/bin/startup.sh
