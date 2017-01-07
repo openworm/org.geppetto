@@ -30,10 +30,10 @@ ENV SERVER_HOME /home/developer/virgo
 
 #GET GEPPETTO SOURCES
 USER root
-RUN mkdir -p workspace && cd workspace && git clone http://github.com/openworm/org.geppetto
+RUN mkdir -p workspace && cd workspace && git clone http://github.com/openworm/org.geppetto && cd org.geppetto && git checkout development
 RUN chmod -R 777 workspace
 USER developer
-RUN cd workspace/org.geppetto/utilities/source_setup && python setup.py && python gitall.py pull && python gitall.py reset && python gitall.py checkout development
+RUN cd workspace/org.geppetto/utilities/source_setup && yes n | python setup.py && python gitall.py pull && python gitall.py reset && python gitall.py checkout development
 RUN sudo chmod -R 777 workspace
 
 RUN cd workspace/org.geppetto && mvn install
