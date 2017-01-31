@@ -75,6 +75,8 @@ def main(argv):
 	else:
 		incorrectInput(argv, 'Unrecognized command')
 	
+	# Note we are using default_repo rather than auto_install
+	
 	print "Would you like to choose your repositories?"
 	custom_repo = raw_input().lower()
 

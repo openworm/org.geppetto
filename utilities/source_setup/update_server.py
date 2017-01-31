@@ -31,6 +31,8 @@ def main(argv):
     print "Would you like to automatically update repositories?"
     custom_repo = raw_input().lower()
     
+    # Note the change to default_repo rather than auto_install
+    
     if custom_repo in yes:
     	for repo in config['repos']:
 		if repo['default_repo'] == "yes":

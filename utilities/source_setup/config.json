@@ -45,7 +45,7 @@
 	}, {
 		"name":"org.geppetto.simulator.external",
 		"url":"https://github.com/openworm/org.geppetto.simulator.external.git",
-		"default_repo":"no"
+		"default_repo":"yes"
 	}, {
 		"name":"org.geppetto.frontend",
 		"url":"https://github.com/openworm/org.geppetto.frontend.git",

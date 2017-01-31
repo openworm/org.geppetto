@@ -30,6 +30,8 @@ def main(argv):
     shutil.rmtree(buildir, ignore_errors=True)     
     os.makedirs(buildir)
     
+    # Note we are using default_repo rather than auto_install
+
     print "Would you like to customise repositories for your build?"
     custom_repo = raw_input().lower()
 
