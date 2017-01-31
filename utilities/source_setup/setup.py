@@ -105,7 +105,7 @@ def main(argv):
 
 	if custom_repo in yes:
 		for repo in config['repos']:
-			if repo['auto_install'] == "yes":
+			if repo['default_repo'] == "yes":
 				print "Geppetto repository automatically cloned", repo['url']
 				subprocess.call(['git','clone',repo['url']], cwd = target_dir)
 				#Once the repos are cloned, write to pom.xml
@@ -123,7 +123,7 @@ def main(argv):
 	
 	else:
 		for repo in config['repos']:
-			if repo['auto_install'] == "yes":
+			if repo['default_repo'] == "yes":
 				print "Geppetto repository automatically cloned", repo['url']
 				subprocess.call(['git','clone',repo['url']], cwd = target_dir)
 				#Once the repos are cloned, write to pom.xml
