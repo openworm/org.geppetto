@@ -31,6 +31,7 @@ def main(argv):
     os.makedirs(buildir)
     
     # Note we are using default_repo rather than auto_install
+    # Depends on the value of default_repo in config.json    
 
     print "Would you like to customise repositories for your build?"
     custom_repo = raw_input().lower()

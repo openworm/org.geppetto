@@ -102,14 +102,14 @@ def main(argv):
 
 	for repo in config['repos']:
 		if repo['auto_install'] == "yes":
-			print "Geppetto repository automatically cloned", repo['url']
+			print "Geppetto repository cloned by default", repo['url']
 			subprocess.call(['git','clone',repo['url']], cwd = target_dir)
 			#Once the repos are cloned, write to pom.xml
 			writeToPomXML(repo)	
 			writeToPlan(repo)			
 		else:
-			print "Geppetto repository not automatically cloned", repo['url']
-			print "Would you like to include this repository anyway?"
+			print "Geppetto repository not cloned by default", repo['url']
+			print "Would you like to clone this repository?"
 			repository = raw_input().lower()
 			
 			if repository in yes:
@@ -118,7 +118,7 @@ def main(argv):
 				writeToPlan(repo)
 				
 	#Then add the new repo into geppetto.plan and pom.xml
-	print "All Geppetto repositories copied"
+	print "All Geppetto repositories cloned"
 
 if __name__ == "__main__":
 	main(sys.argv[1:])
