@@ -23,7 +23,9 @@ def incorrectInput(argv, msg):
 	sys.exit()
 
 def main(argv):
-
+	
+	yes = set(['yes','y'])
+	
 	command = []
 	if(len(argv) == 0):
 		incorrectInput(argv, 'Too few paramaters')
@@ -72,12 +74,35 @@ def main(argv):
 
 	else:
 		incorrectInput(argv, 'Unrecognized command')
+	
+	print "Would you like to choose your repositories?"
+	custom_repo = raw_input().lower()
 
-	for repo in config['repos']:
-		try:
-			print repo['name']+'  '+subprocess.check_output(command, cwd = os.path.join(config['sourcesdir'], repo['name']))
-		except subprocess.CalledProcessError:
-			print "error -- trying next repo"
+	if custom_repo in yes:
+		for repo in config['repos']:
+			if repo['default_repo'] == "yes":
+				try:
+					print repo['name']+'  '+subprocess.check_output(command, cwd = os.path.join(config['sourcesdir'], repo['name']))
+				except subprocess.CalledProcessError:
+					print "error -- trying next repo"
+			else:
+				print "Geppetto repository not automatically updated"
+				print "Would you like to update this repository anyway?"
+				repository = raw_input().lower()
+
+				if repository in yes:
+					try:
+						print repo['name']+'  '+subprocess.check_output(command, cwd = os.path.join(config['sourcesdir'], repo['name']))
+					except subprocess.CalledProcessError:
+						print "error -- trying next repo"
+	else:
+		for repo in config['repos']:
+			if repo['default_repo'] == "yes":
+				try:
+					print repo['name']+'  '+subprocess.check_output(command, cwd = os.path.join(config['sourcesdir'], repo['name']))
+				except subprocess.CalledProcessError:
+					print "error -- trying next repo"
+		
 
 
 if __name__ == "__main__":
