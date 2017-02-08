@@ -14,16 +14,19 @@
 
 Geppetto is a web-based multi-algorithm, multi-scale simulation platform engineered to support the simulation of complex biological systems and their surrounding environment. 
 
-Although Geppetto was designed with systems biology in mind, thanks to its generic architecture Geppetto can be used anywhere there is need to rely on a backend to perform any kind of simulation which then needs to be streamed to a web client, allowing the user to interact with the simulation remotely and through an API (accessible from an embedded Javascript console) and a set of customisable widget which allows visualising data in different ways.
+Although Geppetto was designed with biology in mind, thanks to its generic architecture Geppetto can be used anywhere there is need to rely on a backend to perform any kind of simulation which then needs to be streamed to a web client, allowing the user to interact with the simulation remotely and through an API (accessible from an embedded Javascript console) and a set of customisable widget which allows visualising data in different ways.
 
-Geppetto is a modular platform based on Java, OSGi and Spring and different modules (also named bundles) provide different functionalities.
+
 
 This is the umbrella project that keeps together all the different modules currently available:
+
+####Java backend
+The Java backend is used in client-server deployments of Geppetto. The Java backend is modular allowing each deployment to be customised only with the relevant bundles.
  * Essential
    * [org.geppetto.model](https://github.com/openworm/org.geppetto.model) [![Build Status](https://travis-ci.org/openworm/org.geppetto.model.png?branch=master)](https://travis-ci.org/openworm/org.geppetto.model)
    * [org.geppetto.core](https://github.com/openworm/org.geppetto.core) [![Build Status](https://travis-ci.org/openworm/org.geppetto.core.png?branch=master)](https://travis-ci.org/openworm/org.geppetto.core)
    * [org.geppetto.simulation](https://github.com/openworm/org.geppetto.simulation) [![Build Status](https://travis-ci.org/openworm/org.geppetto.simulation.png?branch=master)](https://travis-ci.org/openworm/org.geppetto.simulation)
-   * [org.geppetto.frontend](https://github.com/openworm/org.geppetto.frontend) [![Build Status](https://travis-ci.org/openworm/org.geppetto.frontend.png?branch=master)](https://travis-ci.org/openworm/org.geppetto.frontend)
+   * [org.geppetto.frontend](https://github.com/openworm/org.geppetto.frontend) [![Build Status](https://travis-ci.org/openworm/org.geppetto.frontend.png?branch=master)](https://travis-ci.org/openworm/org.geppetto.frontend) (Note: The frontend is resused on all backends)
  * Optional
     * [org.geppetto.persistence](https://github.com/openworm/org.geppetto.persistence) [![Build Status](https://travis-ci.org/openworm/org.geppetto.persistence.png?branch=master)](https://travis-ci.org/openworm/org.geppetto.persistence)
     * [org.geppetto.datasources](https://github.com/openworm/org.geppetto.datasources) [![Build Status](https://travis-ci.org/openworm/org.geppetto.datasources.png?branch=master)](https://travis-ci.org/openworm/org.geppetto.datasources)
@@ -33,10 +36,18 @@ This is the umbrella project that keeps together all the different modules curre
      * [org.geppetto.simulator.external](https://github.com/openworm/org.geppetto.simulator.external) [![Build Status](https://travis-ci.org/openworm/org.geppetto.simulator.external.png?branch=master)](https://travis-ci.org/openworm/org.geppetto.simulator.external)
      * [org.geppetto.model.swc](https://github.com/openworm/org.geppetto.model.swc) [![Build Status](https://travis-ci.org/openworm/org.geppetto.model.swc.png?branch=master)](https://travis-ci.org/openworm/org.geppetto.model.swc)
      * [org.geppetto.model.nwb](https://github.com/openworm/org.geppetto.model.nwb) [![Build Status](https://travis-ci.org/openworm/org.geppetto.model.nwb.png?branch=master)](https://travis-ci.org/openworm/org.geppetto.model.nwb)
- * Other Backends(Experimental)
+     
+     
+####Python Backend (prototype)
+The Python backend is based on a Geppetto Jupyter extension which allows the user to interact with the Geppetto frontend from Python. This deployment makes it ideal to use Geppetto as a visualization/computational local playground.
    * [org.geppetto.frontend.jupyter](https://github.com/openworm/org.geppetto.frontend.jupyter) [![Build Status](https://travis-ci.org/openworm/org.geppetto.frontend.jupyter.png?branch=master)](https://travis-ci.org/openworm/org.geppetto.frontend.jupyter)
+   * [pyGeppetto](https://github.com/openworm/pygeppetto) 
+
+####Node.js Backend (proof of concept)
    * [org.geppetto.frontend.nodejs](https://github.com/openworm/org.geppetto.frontend.nodejs) [![Build Status](https://travis-ci.org/openworm/org.geppetto.frontend.nodejs.png?branch=master)](https://travis-ci.org/openworm/org.geppetto.frontend.nodejs)
- * Previous releases
+
+
+* Previous releases
     * Neuronal domain
      * [org.geppetto.simulator.jlems](https://github.com/openworm/org.geppetto.simulator.jlems) [![Build Status](https://travis-ci.org/openworm/org.geppetto.simulator.jlems.png?branch=master)](https://travis-ci.org/openworm/org.geppetto.simulator.jlems)
    * Fluid mechanics  (Release 0.2.7)
