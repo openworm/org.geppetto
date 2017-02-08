@@ -36,7 +36,13 @@ The Java backend is used in client-server deployments of Geppetto. The Java back
      * [org.geppetto.simulator.external](https://github.com/openworm/org.geppetto.simulator.external) [![Build Status](https://travis-ci.org/openworm/org.geppetto.simulator.external.png?branch=master)](https://travis-ci.org/openworm/org.geppetto.simulator.external)
      * [org.geppetto.model.swc](https://github.com/openworm/org.geppetto.model.swc) [![Build Status](https://travis-ci.org/openworm/org.geppetto.model.swc.png?branch=master)](https://travis-ci.org/openworm/org.geppetto.model.swc)
      * [org.geppetto.model.nwb](https://github.com/openworm/org.geppetto.model.nwb) [![Build Status](https://travis-ci.org/openworm/org.geppetto.model.nwb.png?branch=master)](https://travis-ci.org/openworm/org.geppetto.model.nwb)
-     
+ * Previous releases (not currently supported)
+  * Neuronal domain
+     * [org.geppetto.simulator.jlems](https://github.com/openworm/org.geppetto.simulator.jlems) [![Build Status](https://travis-ci.org/openworm/org.geppetto.simulator.jlems.png?branch=master)](https://travis-ci.org/openworm/org.geppetto.simulator.jlems)
+   * Fluid mechanics 
+      * [org.geppetto.model.sph](https://github.com/openworm/org.geppetto.model.sph) [![Build Status](https://travis-ci.org/openworm/org.geppetto.model.sph.png?branch=master)](https://travis-ci.org/openworm/org.geppetto.model.sph)
+     * [org.geppetto.solver.sph](https://github.com/openworm/org.geppetto.solver.sph) [![Build Status](https://travis-ci.org/openworm/org.geppetto.solver.sph.png?branch=master)](https://travis-ci.org/openworm/org.geppetto.solver.sph)
+     * [org.geppetto.simulator.sph](https://github.com/openworm/org.geppetto.simulator.sph) [![Build Status](https://travis-ci.org/openworm/org.geppetto.simulator.sph.png?branch=master)](https://travis-ci.org/openworm/org.geppetto.simulator.sph)
      
 ####Python Backend (prototype)
 The Python backend is based on a Geppetto Jupyter extension which allows the user to interact with the Geppetto frontend from Python. This deployment makes it ideal to use Geppetto as a visualization/computational local playground.
@@ -47,13 +53,7 @@ The Python backend is based on a Geppetto Jupyter extension which allows the use
    * [org.geppetto.frontend.nodejs](https://github.com/openworm/org.geppetto.frontend.nodejs) [![Build Status](https://travis-ci.org/openworm/org.geppetto.frontend.nodejs.png?branch=master)](https://travis-ci.org/openworm/org.geppetto.frontend.nodejs)
 
 
-* Previous releases
-    * Neuronal domain
-     * [org.geppetto.simulator.jlems](https://github.com/openworm/org.geppetto.simulator.jlems) [![Build Status](https://travis-ci.org/openworm/org.geppetto.simulator.jlems.png?branch=master)](https://travis-ci.org/openworm/org.geppetto.simulator.jlems)
-   * Fluid mechanics  (Release 0.2.7)
-      * [org.geppetto.model.sph](https://github.com/openworm/org.geppetto.model.sph) [![Build Status](https://travis-ci.org/openworm/org.geppetto.model.sph.png?branch=master)](https://travis-ci.org/openworm/org.geppetto.model.sph)
-     * [org.geppetto.solver.sph](https://github.com/openworm/org.geppetto.solver.sph) [![Build Status](https://travis-ci.org/openworm/org.geppetto.solver.sph.png?branch=master)](https://travis-ci.org/openworm/org.geppetto.solver.sph)
-     * [org.geppetto.simulator.sph](https://github.com/openworm/org.geppetto.simulator.sph) [![Build Status](https://travis-ci.org/openworm/org.geppetto.simulator.sph.png?branch=master)](https://travis-ci.org/openworm/org.geppetto.simulator.sph)
+
 
   
 Geppetto is an open-source project with a growing community, if you want to contribute (with either new simulators support, visualisation widgets or backend magic) please do get in touch at <info@geppetto.org> or fork any of the bundles and do what you please.
