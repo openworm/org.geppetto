@@ -16,6 +16,7 @@
 Although Geppetto was designed with neuroscience and biology in mind, Geppetto can be used anywhere there is need to rely on a backend to perform any kind of simulation and allow the user to interact with it through a web application.
 
 **If you just want to play with a sample Geppetto deployment you don't need to install anything, just visit <https://live.geppetto.org>.**
+
 If you want to setup your own Geppetto deployment from sources use our [Setup Instructions](http://docs.geppetto.org/en/latest/osxlinuxsetup.html). If you need help designing your own custom Geppetto deployment or want to join the project as a contributor you can [send an email](mailto:matteo@geppetto.org) or just interact with us through GitHub!
 
 This is the umbrella project that keeps together all the different modules currently available:
@@ -53,13 +54,10 @@ The Python backend is based on a Geppetto Jupyter extension which allows the use
    * [org.geppetto.frontend.nodejs](https://github.com/openworm/org.geppetto.frontend.nodejs) [![Build Status](https://travis-ci.org/openworm/org.geppetto.frontend.nodejs.png?branch=master)](https://travis-ci.org/openworm/org.geppetto.frontend.nodejs)
 
 
-
-
-  
 Geppetto is an open-source project with a growing community, if you want to contribute (with either new simulators support, visualisation widgets or backend magic) please do get in touch at <info@geppetto.org> or fork any of the bundles and do what you please.
 
 
-#### [Website](http://www.geppetto.org/) | [Documentation](http://docs.geppetto.org/) | [Install Instructions](http://docs.geppetto.org/en/latest/install.html) | [Releases](https://github.com/openworm/org.geppetto/releases/)
+#### [Website](http://www.geppetto.org/) | [Documentation](http://docs.geppetto.org/) | [Releases](https://github.com/openworm/org.geppetto/releases/)
 #### [Contribution guidelines](http://docs.geppetto.org/en/latest/contribute.html#how-to-contribute-code-to-geppetto) | [Development progress](https://waffle.io/openworm/org.geppetto)
 
 Geppetto is released under the [MIT](http://opensource.org/licenses/MIT) license.
