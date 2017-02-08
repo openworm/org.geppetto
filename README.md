@@ -8,15 +8,14 @@
 [![Stories in Ready](https://badge.waffle.io/openworm/org.geppetto.png?label=ready&title=Ready)](https://waffle.io/openworm/org.geppetto)
 [![StackShare](http://img.shields.io/badge/tech-stack-0690fa.svg?style=flat)](http://stackshare.io/tarelli/geppetto)
 
-#### [Website](http://www.geppetto.org/) | [Documentation](http://docs.geppetto.org/) | [Install Instructions](http://docs.geppetto.org/en/latest/install.html) | [Releases](https://github.com/openworm/org.geppetto/releases/)
+#### [Website](http://www.geppetto.org/) | [Documentation](http://docs.geppetto.org/) | [Releases](https://github.com/openworm/org.geppetto/releases/)
 #### [Contribution guidelines](http://docs.geppetto.org/en/latest/contribute.html#how-to-contribute-code-to-geppetto) | [Development progress](https://waffle.io/openworm/org.geppetto)
 
+Geppetto is a web-based platform to visualise and simulate biological models. 
 
-Geppetto is a web-based multi-algorithm, multi-scale simulation platform engineered to support the simulation of complex biological systems and their surrounding environment. 
+Although Geppetto was designed with neuroscience and biology in mind, Geppetto can be used anywhere there is need to rely on a backend to perform any kind of simulation and allow the user to interact with it through a web application.
 
-Although Geppetto was designed with biology in mind, thanks to its generic architecture Geppetto can be used anywhere there is need to rely on a backend to perform any kind of simulation which then needs to be streamed to a web client, allowing the user to interact with the simulation remotely and through an API (accessible from an embedded Javascript console) and a set of customisable widget which allows visualising data in different ways.
-
-
+If you just want to play with a sample Geppetto deployment you don't need to install anything, just visit <https://live.geppetto.org>. If you want to setup your own Geppetto dpeloyment from sources use our [Setup Instructions](http://docs.geppetto.org/en/latest/osxlinuxsetup.html). If you need help designing your own custom Geppetto deployment or want to join the project as a contributor you can [send an email](mailto:matteo@geppetto.org) or just interact with us through GitHub!
 
 This is the umbrella project that keeps together all the different modules currently available:
 
