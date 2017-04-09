@@ -4,13 +4,11 @@
 	<groupId>org.geppetto</groupId>
 	<artifactId>org.geppetto</artifactId>
 	<name>Geppetto</name>
-	<version>0.2.9</version>
+	<version>0.3.4</version>
 	<packaging>pom</packaging>
 	<modules>
 		<module>../org.geppetto.model</module>
 		<module>../org.geppetto.core</module>
-		<module>../org.geppetto.model.neuroml</module>
-		<module>../org.geppetto.model.swc</module>
 		<module>../org.geppetto.simulation</module>
 		<module>../org.geppetto.frontend</module>
 	</modules>
