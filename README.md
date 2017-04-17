@@ -21,7 +21,7 @@ If you want to setup your own Geppetto deployment from sources use our [Setup In
 
 This is the umbrella project that keeps together all the different modules currently available:
 
-####Java backend
+#### Java backend
 The Java backend is used in client-server deployments of Geppetto. The Java backend is modular allowing each deployment to be customised only with the relevant bundles.
  * Essential
    * [org.geppetto.model](https://github.com/openworm/org.geppetto.model) [![Build Status](https://travis-ci.org/openworm/org.geppetto.model.png?branch=master)](https://travis-ci.org/openworm/org.geppetto.model)
@@ -45,12 +45,12 @@ The Java backend is used in client-server deployments of Geppetto. The Java back
      * [org.geppetto.solver.sph](https://github.com/openworm/org.geppetto.solver.sph) [![Build Status](https://travis-ci.org/openworm/org.geppetto.solver.sph.png?branch=master)](https://travis-ci.org/openworm/org.geppetto.solver.sph)
      * [org.geppetto.simulator.sph](https://github.com/openworm/org.geppetto.simulator.sph) [![Build Status](https://travis-ci.org/openworm/org.geppetto.simulator.sph.png?branch=master)](https://travis-ci.org/openworm/org.geppetto.simulator.sph)
      
-####Python Backend (prototype)
+#### Python Backend (prototype)
 The Python backend is based on a Geppetto Jupyter extension which allows the user to interact with the Geppetto frontend from Python. This deployment makes it ideal to use Geppetto as a visualization/computational local playground.
    * [org.geppetto.frontend.jupyter](https://github.com/openworm/org.geppetto.frontend.jupyter) [![Build Status](https://travis-ci.org/openworm/org.geppetto.frontend.jupyter.png?branch=master)](https://travis-ci.org/openworm/org.geppetto.frontend.jupyter)
    * [pyGeppetto](https://github.com/openworm/pygeppetto) 
 
-####Node.js Backend (proof of concept)
+#### Node.js Backend (proof of concept)
    * [org.geppetto.frontend.nodejs](https://github.com/openworm/org.geppetto.frontend.nodejs) [![Build Status](https://travis-ci.org/openworm/org.geppetto.frontend.nodejs.png?branch=master)](https://travis-ci.org/openworm/org.geppetto.frontend.nodejs)
 
 
