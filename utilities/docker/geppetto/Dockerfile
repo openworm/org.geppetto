@@ -3,6 +3,10 @@ MAINTAINER Stephen Larson "slarson@openworm.org"
 
 RUN apt-get update && apt-get install -y sudo
 
+# Install maven
+RUN apt-get update
+RUN apt-get install -y maven
+
 RUN useradd -ms /bin/bash developer
 
 RUN mkdir -p /home/developer && mkdir -p /etc/sudoers.d \
