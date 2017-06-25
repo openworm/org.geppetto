@@ -7,6 +7,8 @@ RUN apt-get update && apt-get install -y sudo
 RUN apt-get update
 RUN apt-get install -y maven
 
+mvn -v
+
 RUN useradd -ms /bin/bash developer
 
 RUN mkdir -p /home/developer && mkdir -p /etc/sudoers.d \
