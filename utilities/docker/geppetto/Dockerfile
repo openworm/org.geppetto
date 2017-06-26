@@ -13,14 +13,52 @@ RUN mkdir -p /home/developer && mkdir -p /etc/sudoers.d \
     chown developer:developer -R /home/developer && \
     chown root:root /usr/bin/sudo && chmod 4755 /usr/bin/sudo
 
-RUN sudo apt-get install -y gdebi
-RUN wget http://ppa.launchpad.net/natecarlson/maven3/ubuntu/pool/main/m/maven3/maven3_3.2.1-0~ppa1_all.deb
-RUN sudo dpkg -i maven3_3.2.1-0~ppa1_all.deb
-RUN sudo ln -s /usr/share/maven3/bin/mvn /usr/bin/maven
+USER developer
+ENV HOME /home/developer
+WORKDIR /home/developer
 
-RUN M2_HOME=/usr/share/maven3 
-RUN	 export M2_HOME 
-RUN	 M2=$M2_HOME/bin
-RUN export M2
+# get maven 3.2.2
+RUN wget --no-verbose -O /tmp/apache-maven-3.2.2.tar.gz http://archive.apache.org/dist/maven/maven-3/3.2.2/binaries/apache-maven-3.2.2-bin.tar.gz
 
+# verify checksum
+RUN echo "87e5cc81bc4ab9b83986b3e77e6b3095 /tmp/apache-maven-3.2.2.tar.gz" | md5sum -c
+
+# install maven
+RUN tar xzf /tmp/apache-maven-3.2.2.tar.gz -C /opt/
+RUN ln -s /opt/apache-maven-3.2.2 /opt/maven
+RUN ln -s /opt/maven/bin/mvn /usr/local/bin
+RUN rm -f /tmp/apache-maven-3.2.2.tar.gz
+ENV MAVEN_HOME /opt/maven
+RUN echo $PATH
 RUN mvn --version
+
+#VIRGO INSTALL
+USER root
+RUN apt-get update && apt-get install -y curl bsdtar maven
+USER developer
+RUN mkdir -p /home/developer/virgo
+RUN curl -L 'http://www.eclipse.org/downloads/download.php?file=/virgo/release/VP/3.6.4.RELEASE/virgo-tomcat-server-3.6.4.RELEASE.zip&mirror_id=580&r=1' | bsdtar --strip-components 1 -C /home/developer/virgo -xzf -
+RUN chmod u+x /home/developer/virgo/bin/*.sh
+ENV SERVER_HOME /home/developer/virgo
+#VOLUME /home/developer/virgo
+#END VIRGO INSTALL
+
+#GET GEPPETTO SOURCES
+USER root
+RUN mkdir -p workspace && cd workspace && git clone http://github.com/openworm/org.geppetto && cd org.geppetto && git checkout development
+RUN chmod -R 777 workspace
+USER developer
+RUN cd workspace/org.geppetto/utilities/source_setup && yes n | python setup.py && python gitall.py pull \
+    && python gitall.py reset && python gitall.py checkout development && cd ../../../.. && sudo chmod -R 777 workspace \
+    && cd workspace/org.geppetto && mvn install
+#END GET GEPPETTO SOURCES
+
+RUN mkdir -p geppetto/
+
+#COPY entrypoint.sh geppetto/
+#COPY check_update.sh geppetto/
+#RUN sudo chmod +x geppetto/*.sh
+
+RUN cd /home/developer/workspace/org.geppetto/utilities/source_setup && python update_server.py
+
+CMD /home/developer/virgo/bin/startup.sh
