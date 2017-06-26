@@ -20,20 +20,16 @@ WORKDIR /home/developer
 # get maven 3.5.0
 RUN sudo wget --no-verbose -O /tmp/apache-maven-3.5.0-bin.tar.gz http://archive.apache.org/dist/maven/maven-3/3.5.0/binaries/apache-maven-3.5.0-bin.tar.gz
 
-# verify checksum
-RUN echo "87e5cc81bc4ab9b83986b3e77e6b3095 /tmp/apache-maven-3.5.0-bin.tar.gz" | md5sum -c
-
 # install maven
 RUN sudo tar xzf /tmp/apache-maven-3.5.0-bin.tar.gz -C /opt/
-RUN sudo ln -s /opt/apache-maven-3.5.0-bin.tar.gz /opt/maven
+RUN sudo ln -s /opt/apache-maven-3.5.0 /opt/maven
 RUN sudo ln -s /opt/maven/bin/mvn /usr/local/bin
 RUN sudo rm -f /tmp/apache-maven-3.5.0-bin.tar.gz
 ENV MAVEN_HOME /opt/maven
-RUN mvn --version
 
 #VIRGO INSTALL
 USER root
-RUN apt-get update && apt-get install -y curl bsdtar maven
+RUN apt-get update && apt-get install -y curl bsdtar
 USER developer
 RUN mkdir -p /home/developer/virgo
 RUN curl -L 'http://www.eclipse.org/downloads/download.php?file=/virgo/release/VP/3.6.4.RELEASE/virgo-tomcat-server-3.6.4.RELEASE.zip&mirror_id=580&r=1' | bsdtar --strip-components 1 -C /home/developer/virgo -xzf -
@@ -41,6 +37,8 @@ RUN chmod u+x /home/developer/virgo/bin/*.sh
 ENV SERVER_HOME /home/developer/virgo
 #VOLUME /home/developer/virgo
 #END VIRGO INSTALL
+
+RUN mvn --version
 
 #GET GEPPETTO SOURCES
 USER root
