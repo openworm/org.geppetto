@@ -18,9 +18,9 @@ RUN wget http://ppa.launchpad.net/natecarlson/maven3/ubuntu/pool/main/m/maven3/m
 RUN sudo dpkg -i maven3_3.2.1-0~ppa1_all.deb
 RUN sudo ln -s /usr/share/maven3/bin/mvn /usr/bin/maven
 
-RUN M2_HOME=/usr/share/maven3
-	&& export M2_HOME
-	&& M2=$M2_HOME/bin
-	&& export M2
+RUN M2_HOME=/usr/share/maven3 \
+	 export M2_HOME && \
+	 M2=$M2_HOME/bin && \
+	 export M2
 
 RUN mvn --version
