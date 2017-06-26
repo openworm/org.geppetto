@@ -33,7 +33,7 @@ ENV MAVEN_HOME /opt/maven
 
 #VIRGO INSTALL
 USER root
-RUN apt-get update && apt-get install -y curl bsdtar maven
+RUN apt-get update && apt-get install -y curl bsdtar
 USER developer
 RUN mkdir -p /home/developer/virgo
 RUN curl -L 'http://www.eclipse.org/downloads/download.php?file=/virgo/release/VP/3.6.4.RELEASE/virgo-tomcat-server-3.6.4.RELEASE.zip&mirror_id=580&r=1' | bsdtar --strip-components 1 -C /home/developer/virgo -xzf -
