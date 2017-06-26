@@ -13,7 +13,7 @@ RUN mkdir -p /home/developer && mkdir -p /etc/sudoers.d \
     chown developer:developer -R /home/developer && \
     chown root:root /usr/bin/sudo && chmod 4755 /usr/bin/sudo
 
-RUN sudo apt-get install gdebi
+RUN sudo apt-get install -y gdebi
 RUN wget http://ppa.launchpad.net/natecarlson/maven3/ubuntu/pool/main/m/maven3/maven3_3.2.1-0~ppa1_all.deb
 RUN sudo gdebi maven3_3.2.1-0~ppa1_all.deb
 RUN sudo ln -s /usr/share/maven3/bin/mvn /usr/bin/maven
