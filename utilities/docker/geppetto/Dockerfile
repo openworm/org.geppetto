@@ -15,7 +15,7 @@ RUN mkdir -p /home/developer && mkdir -p /etc/sudoers.d \
 
 RUN sudo apt-get install -y gdebi
 RUN wget http://ppa.launchpad.net/natecarlson/maven3/ubuntu/pool/main/m/maven3/maven3_3.2.1-0~ppa1_all.deb
-RUN sudo -y gdebi maven3_3.2.1-0~ppa1_all.deb
+RUN sudo gdebi -y maven3_3.2.1-0~ppa1_all.deb
 RUN sudo ln -s /usr/share/maven3/bin/mvn /usr/bin/maven
 
 RUN mvn --version
