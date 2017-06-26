@@ -57,7 +57,7 @@ RUN cd workspace/org.geppetto/utilities/source_setup && yes n | python setup.py 
 	&& python gitall.py reset && python gitall.py checkout development
 RUN sudo chmod -R 777 workspace
 
-RUN cd workspace/org.geppetto && mvn install
+RUN cd workspace/org.geppetto && mvn install --quiet
 #END GET GEPPETTO SOURCES
 
 #INSTALL MYSQL
@@ -93,7 +93,7 @@ RUN service mysql start && mysql -uroot < /home/developer/geppetto/init.sql
 #END SETUP MYSQL INITIAL DATA
 
 USER developer
-RUN cd /home/developer/workspace/org.geppetto.persistence && mvn install && mvn install
+RUN cd /home/developer/workspace/org.geppetto.persistence && mvn install --quiet && mvn install --quiet
 
 RUN sudo service mysql start && cd /home/developer/workspace/org.geppetto.persistence && mvn exec:java -Dexec.mainClass="org.geppetto.persistence.util.DBTestData" -Dexec.classpathScope=runtime
 
