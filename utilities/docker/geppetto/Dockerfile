@@ -1,7 +1,7 @@
 FROM java:7
 MAINTAINER Stephen Larson "slarson@openworm.org"
 
-RUN apt-get update && apt-get install -y sudo
+RUN apt-get update && apt-get install -y sudo xvfb
 
 RUN useradd -ms /bin/bash developer
 
@@ -26,10 +26,11 @@ RUN sudo ln -s /opt/apache-maven-3.5.0 /opt/maven
 RUN sudo ln -s /opt/maven/bin/mvn /usr/local/bin
 RUN sudo rm -f /tmp/apache-maven-3.5.0-bin.tar.gz
 ENV MAVEN_HOME /opt/maven
+RUN mvn --version
 
 #VIRGO INSTALL
 USER root
-RUN apt-get update && apt-get install -y curl bsdtar
+RUN apt-get update && apt-get install -y curl bsdtar locate
 USER developer
 RUN mkdir -p /home/developer/virgo
 RUN curl -L 'http://www.eclipse.org/downloads/download.php?file=/virgo/release/VP/3.6.4.RELEASE/virgo-tomcat-server-3.6.4.RELEASE.zip&mirror_id=580&r=1' | bsdtar --strip-components 1 -C /home/developer/virgo -xzf -
@@ -47,7 +48,7 @@ RUN chmod -R 777 workspace
 USER developer
 RUN cd workspace/org.geppetto/utilities/source_setup && yes n | python setup.py && python gitall.py pull \
     && python gitall.py reset && python gitall.py checkout development && cd ../../../.. && sudo chmod -R 777 workspace \
-    && cd workspace/org.geppetto && mvn install --quiet
+    && cd workspace/org.geppetto && mvn  install 
 #END GET GEPPETTO SOURCES
 
 RUN mkdir -p geppetto/
@@ -59,3 +60,26 @@ RUN mkdir -p geppetto/
 RUN cd /home/developer/workspace/org.geppetto/utilities/source_setup && python update_server.py
 
 CMD /home/developer/virgo/bin/startup.sh
+
+# install node and npm plus update firefox
+RUN sudo apt-get install -y nodejs npm
+RUN sudo apt-get install -y nodejs-legacy
+RUN sudo apt-get install -y xvfb libxrender-dev libasound2 libdbus-glib-1-2 libgtk2.0-0 bzip2
+RUN cd /usr/local && sudo wget --no-verbose -O /tmp/firefox-50.0.tar.bz2 http://ftp.mozilla.org/pub/firefox/releases/50.0/linux-x86_64/en-US/firefox-50.0.tar.bz2
+RUN sudo tar xvjf /tmp/firefox-50.0.tar.bz2
+RUN cd ~ && sudo ln -s firefox-50.0.tar.bz2
+
+# install casperjs needed libraries
+RUN sudo npm install --silent -g phantomjs
+RUN sudo npm install --silent -g casperjs
+
+# set up dir for running caspers tests
+RUN sudo curl -k -O https://download.slimerjs.org/releases/0.10.3/slimerjs-0.10.3.tar.bz2
+RUN sudo pwd && tar -xjpvf slimerjs-0.10.3.tar.bz2
+RUN sudo rm slimerjs-0.10.3.tar.bz2
+WORKDIR /home/developer/workspace/org.geppetto.frontend/src/main/webapp/js/pages/tests/casperjs
+RUN casperjs --version
+RUN sudo apt-get install -y libgtk-3-dev
+ENV SLIMERJSLAUNCHER  /home/developer/firefox/firefox
+ENV SLIMERJS_EXECUTABLE /home/developer/slimerjs-0.10.3/slimerjs
+RUN xvfb-run -a  casperjs test --includes=CoreTestsUtility.js CoreTests.js --engine=slimerjs
