@@ -25,6 +25,7 @@ RUN sudo apt-get install -y libgtk-3-dev lshw
 ENV SLIMERJSLAUNCHER  /home/developer/firefox/firefox
 ENV SLIMERJS_EXECUTABLE /home/developer/slimerjs-0.10.3/slimerjs
 ENV LD_LIBRARY_PATH /usr/lib/x86_64-linux-gnu/
+RUN slimerjs --version
 
 RUN sudo apt install -y net-tools
 
