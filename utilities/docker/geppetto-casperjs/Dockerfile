@@ -40,5 +40,7 @@ ENV SLIMERJS_EXECUTABLE /home/developer/slimerjs-0.10.3/slimerjs
 ENV LD_LIBRARY_PATH /usr/lib/x86_64-linux-gnu/
 RUN sudo apt install -y net-tools
 
-RUN sudo echo $(netstat -nr | grep '^0\.0\.0\.0' | awk '{print $2}') dockerhost >> sudo /etc/hosts
 RUN xvfb-run -a casperjs test --includes=CoreTestsUtility.js CoreTests.js --engine=slimerjs --debug=yes
+
+RUN /home/developer/firefox/firefox --version
+RUN slimerjs --version
