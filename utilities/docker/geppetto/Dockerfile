@@ -60,4 +60,5 @@ RUN mkdir -p geppetto/
 RUN cd /home/developer/workspace/org.geppetto/utilities/source_setup && python update_server.py
 
 EXPOSE 8080
+RUN sed -i "s/^127.0.0.1/127.0.0.1 $(hostname) /" /etc/hosts
 CMD su /home/developer/virgo/bin/startup.sh
