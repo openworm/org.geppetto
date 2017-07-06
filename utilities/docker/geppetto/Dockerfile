@@ -48,7 +48,7 @@ RUN chmod -R 777 workspace
 USER developer
 RUN cd workspace/org.geppetto/utilities/source_setup && yes n | python setup.py && python gitall.py pull \
     && python gitall.py reset && python gitall.py checkout development && cd ../../../.. && sudo chmod -R 777 workspace \
-    && cd workspace/org.geppetto && mvn  install 
+    && cd workspace/org.geppetto && mvn --quiet install 
 #END GET GEPPETTO SOURCES
 
 RUN mkdir -p geppetto/
@@ -59,4 +59,5 @@ RUN mkdir -p geppetto/
 
 RUN cd /home/developer/workspace/org.geppetto/utilities/source_setup && python update_server.py
 
-CMD /home/developer/virgo/bin/startup.sh
+EXPOSE 8080
+CMD su /home/developer/virgo/bin/startup.sh
