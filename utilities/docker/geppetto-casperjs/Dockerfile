@@ -1,0 +1,34 @@
+FROM java:7
+MAINTAINER Stephen Larson "slarson@openworm.org"
+
+RUN apt-get update && apt-get install -y sudo xvfb
+
+# install node and npm plus update firefox
+RUN sudo apt-get install -y nodejs npm
+RUN sudo apt-get install -y nodejs-legacy
+RUN sudo apt-get install -y xvfb libxrender-dev libasound2 libdbus-glib-1-2 libgtk2.0-0 bzip2
+RUN cd /usr/local && sudo wget --no-verbose -O /tmp/firefox-50.0.tar.bz2 http://ftp.mozilla.org/pub/firefox/releases/50.0/linux-x86_64/en-US/firefox-50.0.tar.bz2
+RUN sudo tar xvjf /tmp/firefox-50.0.tar.bz2
+RUN cd ~ && sudo ln -s firefox-50.0.tar.bz2
+
+# install casperjs needed libraries
+RUN sudo npm install --silent -g phantomjs
+RUN sudo npm install --silent -g casperjs
+
+# set up dir for running caspers tests
+RUN sudo curl -k -O https://download.slimerjs.org/releases/0.10.3/slimerjs-0.10.3.tar.bz2
+RUN sudo pwd && tar -xjpvf slimerjs-0.10.3.tar.bz2
+RUN sudo rm slimerjs-0.10.3.tar.bz2
+WORKDIR /home/developer/workspace/org.geppetto.frontend/src/main/webapp/js/pages/tests/casperjs
+RUN casperjs --version
+RUN sudo apt-get install -y libgtk-3-dev lshw
+ENV SLIMERJSLAUNCHER  /home/developer/firefox/firefox
+ENV SLIMERJS_EXECUTABLE /home/developer/slimerjs-0.10.3/slimerjs
+ENV LD_LIBRARY_PATH /usr/lib/x86_64-linux-gnu/
+
+RUN sudo apt install -y net-tools
+
+RUN sudo echo $(netstat -nr | grep '^0\.0\.0\.0' | awk '{print $2}') dockerhost >> sudo /etc/hosts
+RUN sudo curl -L 'http://localhost:8080'
+RUN sudo curl -L 'http://127.0.0.1:8080'
+RUN xvfb-run -a casperjs test --includes=CoreTestsUtility.js CoreTests.js --engine=slimerjs --debug=yes
