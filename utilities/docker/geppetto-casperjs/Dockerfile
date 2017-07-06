@@ -2,9 +2,6 @@ FROM java:7
 
 RUN apt-get update && apt-get install -y sudo xvfb
 
-RUN cd /home/developer
-RUN ls
-
 RUN useradd -ms /bin/bash developer
 
 RUN mkdir -p /home/developer && mkdir -p /etc/sudoers.d \

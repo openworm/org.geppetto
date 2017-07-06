@@ -1,0 +1,18 @@
+language: java
+env:
+  global:
+    secure: dn0FPQ5IG4M/3kdwnyI78ElQ308Vc3QnKAvkWfwMFb8QxDqxQdnTo7AV1qTMtbLrDNkeEWIgi4nc7jmXNtvGTwOfhAULVh6606Qs5B+ezTdwzajbbFMI8SKQx/pnTojOMu8dx7V4lMoR/YWcojR0VC1IWVC62TGbSB1k5BDGgH0=
+
+install:
+- npm install --silent -g phantomjs npm install --silent -g casperjs npm install --silent -g slimerjs
+
+sudo: required
+
+services:
+  - docker
+  
+script:
+  - docker build -t="geppetto" https://github.com/openworm/org.geppetto.git#docker-casperjs:utilities/docker/geppetto/
+  - docker run  -t -dit --name=geppetto_container -p  8080:8080 geppetto
+  - docker build https://github.com/openworm/org.geppetto.git#docker-casperjs:utilities/docker/geppetto-casperjs/
+  - docker stop $(docker ps -a -q)
