@@ -61,4 +61,4 @@ RUN cd /home/developer/workspace/org.geppetto/utilities/source_setup && python u
 
 EXPOSE 8080
 RUN sudo sed -i "s/^127.0.0.1/127.0.0.1 $(hostname) /" /etc/hosts
-CMD su /home/developer/virgo/bin/startup.sh
+CMD ["/home/developer/virgo/bin/startup.sh"]
