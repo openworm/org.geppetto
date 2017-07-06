@@ -1,5 +1,4 @@
 FROM java:7
-MAINTAINER Stephen Larson "slarson@openworm.org"
 
 RUN apt-get update && apt-get install -y sudo xvfb
 
