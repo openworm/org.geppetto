@@ -60,4 +60,4 @@ RUN mkdir -p geppetto/
 RUN cd /home/developer/workspace/org.geppetto/utilities/source_setup && python update_server.py
 
 EXPOSE 8080
-CMD ["/home/developer/virgo/bin/startup.sh &"]
+CMD ["/home/developer/virgo/bin/startup.sh"]
