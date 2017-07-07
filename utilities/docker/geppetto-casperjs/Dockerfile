@@ -39,6 +39,6 @@ ENV SLIMERJSLAUNCHER  /home/developer/firefox/firefox
 ENV SLIMERJS_EXECUTABLE /home/developer/slimerjs-0.10.3/slimerjs
 ENV LD_LIBRARY_PATH /usr/lib/x86_64-linux-gnu/
 RUN sudo apt install -y net-tools
-RUN  pwd
+RUN  ls -l
 
 RUN xvfb-run -a casperjs test --includes=CoreTestsUtility.js CoreTests.js --engine=slimerjs --debug=yes
