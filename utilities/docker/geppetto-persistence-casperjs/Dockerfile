@@ -24,10 +24,7 @@ RUN sudo apt-get install -y libgtk-3-dev lshw
 ENV SLIMERJSLAUNCHER  /home/developer/firefox/firefox
 ENV SLIMERJS_EXECUTABLE /home/developer/slimerjs-0.10.3/slimerjs
 ENV LD_LIBRARY_PATH /usr/lib/x86_64-linux-gnu/
-
 RUN sudo apt install -y net-tools
+RUN cd /home && ls
 
-RUN sudo echo $(netstat -nr | grep '^0\.0\.0\.0' | awk '{print $2}') dockerhost >> sudo /etc/hosts
-RUN sudo curl -L 'http://localhost:8080'
-RUN sudo curl -L 'http://127.0.0.1:8080'
-RUN xvfb-run -a casperjs test --includes=CoreTestsUtility.js CoreTests.js --engine=slimerjs --debug=yes
+CMD xvfb-run -a casperjs test --includes=CoreTestsUtility.js CoreTests.js --engine=slimerjs --debug=yes

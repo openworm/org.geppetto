@@ -102,4 +102,5 @@ RUN sudo service mysql start && cd /home/developer/workspace/org.geppetto.persis
 
 RUN cd /home/developer/workspace/org.geppetto/utilities/source_setup && python update_server.py
 
-CMD sudo service mysql start && /home/developer/virgo/bin/startup.sh
+EXPOSE 8080
+CMD ["/home/developer/virgo/bin/startup.sh"]
