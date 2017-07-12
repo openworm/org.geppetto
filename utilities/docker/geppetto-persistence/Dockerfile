@@ -3,10 +3,6 @@ MAINTAINER Stephen Larson "slarson@openworm.org"
 
 RUN apt-get update && apt-get install -y sudo
 
-# Install maven
-RUN apt-get update
-RUN apt-get install -y maven
-
 RUN useradd -ms /bin/bash developer
 
 RUN mkdir -p /home/developer && mkdir -p /etc/sudoers.d \
@@ -21,19 +17,9 @@ USER developer
 ENV HOME /home/developer
 WORKDIR /home/developer
 
-# get maven 3.5.0
-RUN sudo wget --no-verbose -O /tmp/apache-maven-3.5.0-bin.tar.gz http://archive.apache.org/dist/maven/maven-3/3.5.0/binaries/apache-maven-3.5.0-bin.tar.gz
-
-# install maven
-RUN sudo tar xzf /tmp/apache-maven-3.5.0-bin.tar.gz -C /opt/
-RUN sudo ln -s /opt/apache-maven-3.5.0 /opt/maven
-RUN sudo ln -s /opt/maven/bin/mvn /usr/local/bin
-RUN sudo rm -f /tmp/apache-maven-3.5.0-bin.tar.gz
-ENV MAVEN_HOME /opt/maven
-
 #VIRGO INSTALL
 USER root
-RUN apt-get update && apt-get install -y curl bsdtar
+RUN apt-get update && apt-get install -y curl bsdtar maven
 USER developer
 RUN mkdir -p /home/developer/virgo
 RUN curl -L 'http://www.eclipse.org/downloads/download.php?file=/virgo/release/VP/3.6.4.RELEASE/virgo-tomcat-server-3.6.4.RELEASE.zip&mirror_id=580&r=1' | bsdtar --strip-components 1 -C /home/developer/virgo -xzf -
@@ -41,8 +27,6 @@ RUN chmod u+x /home/developer/virgo/bin/*.sh
 ENV SERVER_HOME /home/developer/virgo
 #VOLUME /home/developer/virgo
 #END VIRGO INSTALL
-
-RUN mvn --version
 
 #GET GEPPETTO SOURCES
 USER root
@@ -57,7 +41,7 @@ RUN cd workspace/org.geppetto/utilities/source_setup && yes n | python setup.py 
 	&& python gitall.py reset && python gitall.py checkout development
 RUN sudo chmod -R 777 workspace
 
-RUN cd workspace/org.geppetto && mvn install --quiet
+RUN cd workspace/org.geppetto && mvn install
 #END GET GEPPETTO SOURCES
 
 #INSTALL MYSQL
@@ -93,7 +77,7 @@ RUN service mysql start && mysql -uroot < /home/developer/geppetto/init.sql
 #END SETUP MYSQL INITIAL DATA
 
 USER developer
-RUN cd /home/developer/workspace/org.geppetto.persistence && mvn install --quiet && mvn install --quiet
+RUN cd /home/developer/workspace/org.geppetto.persistence && mvn install && mvn install
 
 RUN sudo service mysql start && cd /home/developer/workspace/org.geppetto.persistence && mvn exec:java -Dexec.mainClass="org.geppetto.persistence.util.DBTestData" -Dexec.classpathScope=runtime
 
@@ -102,5 +86,4 @@ RUN sudo service mysql start && cd /home/developer/workspace/org.geppetto.persis
 
 RUN cd /home/developer/workspace/org.geppetto/utilities/source_setup && python update_server.py
 
-EXPOSE 8080
-CMD ["/home/developer/virgo/bin/startup.sh"]
+CMD sudo service mysql start && /home/developer/virgo/bin/startup.sh
