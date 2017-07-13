@@ -1,11 +1,10 @@
 FROM java:7
 MAINTAINER Stephen Larson "slarson@openworm.org"
 
-RUN apt-get update && apt-get install -y sudo
+RUN apt-get update && apt-get install -qq -y sudo
 
 # Install maven
 RUN apt-get update
-RUN apt-get install -y maven
 
 RUN useradd -ms /bin/bash developer
 
@@ -33,7 +32,7 @@ ENV MAVEN_HOME /opt/maven
 
 #VIRGO INSTALL
 USER root
-RUN apt-get update && apt-get install -y curl bsdtar
+RUN apt-get update && apt-get install -y -qq curl bsdtar
 USER developer
 RUN mkdir -p /home/developer/virgo
 RUN curl -L 'http://www.eclipse.org/downloads/download.php?file=/virgo/release/VP/3.6.4.RELEASE/virgo-tomcat-server-3.6.4.RELEASE.zip&mirror_id=580&r=1' | bsdtar --strip-components 1 -C /home/developer/virgo -xzf -
@@ -68,7 +67,7 @@ ENV MYSQL_USER=mysql \
     MYSQL_LOG_DIR=/var/log/mysql
 
 RUN apt-get update \
- && DEBIAN_FRONTEND=noninteractive apt-get install -y mysql-server \
+ && DEBIAN_FRONTEND=noninteractive apt-get install -qq -y mysql-server \
  && rm -rf ${MYSQL_DATA_DIR} \
  && rm -rf /var/lib/apt/lists/*
 
