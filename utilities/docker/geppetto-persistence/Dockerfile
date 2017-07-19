@@ -102,7 +102,7 @@ RUN sudo service mysql start && cd /home/developer/workspace/org.geppetto.persis
 
 RUN cd /home/developer/workspace/org.geppetto/utilities/source_setup && python update_server.py
 
-RUN chmod u+x /home/developer/geppetto/aws.credentials
+RUN sudo chmod u+x /home/developer/geppetto/aws.credentials
 RUN sudo echo "accessKey=${aKey}" >> /home/developer/geppetto/aws.credentials
 RUN sudo echo "secretKey=${sKey}" >> /home/developer/geppetto/aws.credentials
 
