@@ -80,7 +80,6 @@ USER developer
 RUN mkdir -p geppetto/
 COPY db.properties geppetto/
 COPY init.sql geppetto/
-COPY aws.credentials geppetto/
 #COPY entrypoint.sh geppetto/
 #RUN sudo chmod +x geppetto/entrypoint.sh
 #END SETUP MYSQL CONFIG
@@ -102,9 +101,8 @@ RUN sudo service mysql start && cd /home/developer/workspace/org.geppetto.persis
 
 RUN cd /home/developer/workspace/org.geppetto/utilities/source_setup && python update_server.py
 
-RUN sudo chmod u+x /home/developer/geppetto/aws.credentials
-RUN sudo echo "accessKey=${aKey}" >> /home/developer/geppetto/aws.credentials
-RUN sudo echo "secretKey=${sKey}" >> /home/developer/geppetto/aws.credentials
+RUN sudo bash -c 'echo "accessKey=${aKey}" >> /home/developer/geppetto/aws.credentials'
+RUN sudo bash -c 'echo "secretKey=${sKey}" >> /home/developer/geppetto/aws.credentials'
 
 RUN sudo tail /home/developer/geppetto/aws.credentials
 
