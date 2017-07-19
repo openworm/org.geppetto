@@ -1,6 +1,11 @@
 FROM java:7
 MAINTAINER Stephen Larson "slarson@openworm.org"
 
+ARG aKey=local
+ENV aKey ${aKey}
+ARG sKey=local
+ENV sKey ${sKey}
+
 RUN apt-get update && apt-get install -qq -y sudo
 
 # Install maven
@@ -100,6 +105,9 @@ RUN sudo service mysql start && cd /home/developer/workspace/org.geppetto.persis
 #END INSTALL MYSQL
 
 RUN cd /home/developer/workspace/org.geppetto/utilities/source_setup && python update_server.py
+
+RUN echo $aKey
+RUN echo $sKey
 
 RUN sudo bash -c 'echo "accessKey=${aKey}" >> /home/developer/geppetto/aws.credentials'
 RUN sudo bash -c 'echo "secretKey=${sKey}" >> /home/developer/geppetto/aws.credentials'
