@@ -1,9 +1,9 @@
 FROM java:7
 MAINTAINER Stephen Larson "slarson@openworm.org"
 
-ARG aaKey=local
+ARG aaKey
 ENV aaKey ${aKey}
-ARG ssKey=local
+ARG ssKey
 ENV ssKey ${sKey}
 
 RUN apt-get update && apt-get install -qq -y sudo
