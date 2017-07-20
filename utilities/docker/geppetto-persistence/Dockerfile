@@ -109,8 +109,8 @@ RUN cd /home/developer/workspace/org.geppetto/utilities/source_setup && python u
 RUN echo $aKey
 RUN echo $sKey
 
-RUN sudo bash -c 'echo "accessKey=${aKey}" >> /home/developer/geppetto/aws.credentials'
-RUN sudo bash -c 'echo "secretKey=${sKey}" >> /home/developer/geppetto/aws.credentials'
+RUN sudo bash -c 'echo "accessKey=$aKey" >> /home/developer/geppetto/aws.credentials'
+RUN sudo bash -c 'echo "secretKey=$sKey" >> /home/developer/geppetto/aws.credentials'
 
 RUN sudo tail /home/developer/geppetto/aws.credentials
 
