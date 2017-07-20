@@ -8,11 +8,6 @@ ENV sKey=${sKey}
 
 RUN apt-get update && apt-get install -qq -y sudo
 
-RUN sudo echo "accessKey=$aKey" > /etc/aws.credentials
-RUN sudo echo "secretKey=$sKey" >> /etc/aws.credentials
-
-RUN sudo tail /etc/aws.credentials
-
 # Install maven
 RUN apt-get update
 
@@ -106,12 +101,12 @@ RUN cd /home/developer/workspace/org.geppetto.persistence && mvn install --quiet
 
 RUN sudo service mysql start && cd /home/developer/workspace/org.geppetto.persistence && mvn exec:java -Dexec.mainClass="org.geppetto.persistence.util.DBTestData" -Dexec.classpathScope=runtime
 
-
 #END INSTALL MYSQL
 
 RUN cd /home/developer/workspace/org.geppetto/utilities/source_setup && python update_server.py
 
-COPY /etc/aws.credentials /home/developer/geppetto
+RUN sudo echo "accessKey=$aKey" > /home/developer/geppetto/aws.credentials
+RUN sudo echo "secretKey=$sKey" >> /home/developer/geppetto/aws.credentials
 RUN sudo tail /home/developer/geppetto/aws.credentials
 
 EXPOSE 8080
