@@ -1,10 +1,10 @@
 FROM java:7
 MAINTAINER Stephen Larson "slarson@openworm.org"
 
-ARG aKey=local
-ENV aKey ${aKey}
-ARG sKey=local
-ENV sKey ${sKey}
+ARG aaKey=local
+ENV aaKey ${aKey}
+ARG ssKey=local
+ENV ssKey ${sKey}
 
 RUN apt-get update && apt-get install -qq -y sudo
 
@@ -106,11 +106,11 @@ RUN sudo service mysql start && cd /home/developer/workspace/org.geppetto.persis
 
 RUN cd /home/developer/workspace/org.geppetto/utilities/source_setup && python update_server.py
 
-RUN echo $aKey
-RUN echo $sKey
+RUN echo $aaKey
+RUN echo $ssKey
 
-RUN sudo bash -c 'echo "accessKey=$aKey" >> /home/developer/geppetto/aws.credentials'
-RUN sudo bash -c 'echo "secretKey=$sKey" >> /home/developer/geppetto/aws.credentials'
+RUN sudo bash -c 'echo "accessKey=$aaKey" >> /home/developer/geppetto/aws.credentials'
+RUN sudo bash -c 'echo "secretKey=$ssKey" >> /home/developer/geppetto/aws.credentials'
 
 RUN sudo tail /home/developer/geppetto/aws.credentials
 
