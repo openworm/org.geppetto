@@ -9,7 +9,7 @@ ENV sKey=${sKey}
 RUN apt-get update && apt-get install -qq -y sudo
 
 RUN sudo echo "accessKey=$aKey" > /etc/aws.credentials
-RUN sudo echo "secretKey=$sKey" > /etc/aws.credentials
+RUN sudo echo "secretKey=$sKey" >> /etc/aws.credentials
 
 RUN sudo tail /etc/aws.credentials
 
