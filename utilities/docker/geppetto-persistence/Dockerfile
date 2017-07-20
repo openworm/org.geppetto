@@ -1,12 +1,17 @@
 FROM java:7
 MAINTAINER Stephen Larson "slarson@openworm.org"
 
-ARG aaKey
-ENV aaKey ${aKey}
-ARG ssKey
-ENV ssKey ${sKey}
+ARG aKey
+ENV aKey=${aKey}
+ARG sKey
+ENV sKey=${sKey}
 
 RUN apt-get update && apt-get install -qq -y sudo
+
+RUN sudo echo "accessKey=$aKey" > /etc/aws.credentials
+RUN sudo echo "secretKey=$sKey" > /etc/aws.credentials
+
+RUN sudo tail /etc/aws.credentials
 
 # Install maven
 RUN apt-get update
@@ -106,12 +111,7 @@ RUN sudo service mysql start && cd /home/developer/workspace/org.geppetto.persis
 
 RUN cd /home/developer/workspace/org.geppetto/utilities/source_setup && python update_server.py
 
-RUN echo $aaKey
-RUN echo $ssKey
-
-RUN sudo bash -c 'echo "accessKey=$aaKey" >> /home/developer/geppetto/aws.credentials'
-RUN sudo bash -c 'echo "secretKey=$ssKey" >> /home/developer/geppetto/aws.credentials'
-
+COPY /etc/aws.credentials /home/developer/geppetto
 RUN sudo tail /home/developer/geppetto/aws.credentials
 
 EXPOSE 8080
