@@ -107,7 +107,6 @@ RUN cd /home/developer/workspace/org.geppetto/utilities/source_setup && python u
 
 RUN sudo echo "accessKey=$aKey" > /home/developer/geppetto/aws.credentials
 RUN sudo echo "secretKey=$sKey" >> /home/developer/geppetto/aws.credentials
-RUN sudo tail /home/developer/geppetto/aws.credentials
 
 EXPOSE 8080
 CMD sudo service mysql start && /home/developer/virgo/bin/startup.sh
