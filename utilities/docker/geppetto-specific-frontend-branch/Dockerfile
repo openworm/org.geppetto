@@ -49,6 +49,7 @@ USER root
 RUN mkdir -p workspace && cd workspace && git clone http://github.com/openworm/org.geppetto && cd org.geppetto && git checkout development
 RUN chmod -R 777 workspace
 USER developer
+RUN cd ..
 RUN git clone https://github.com/openworm/org.geppetto.model.git --quiet -b development
 RUN git clone https://github.com/openworm/org.geppetto.core.git --quiet -b development
 RUN git clone https://github.com/openworm/org.geppetto.model.neuroml.git --quiet -b development
