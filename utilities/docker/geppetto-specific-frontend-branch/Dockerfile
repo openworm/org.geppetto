@@ -55,6 +55,8 @@ RUN git clone https://github.com/openworm/org.geppetto.core.git --quiet -b devel
 RUN git clone https://github.com/openworm/org.geppetto.model.neuroml.git --quiet -b development
 RUN git clone https://github.com/openworm/org.geppetto.simulation.git --quiet -b development
 RUN git clone https://github.com/openworm/org.geppetto.frontend.git --quiet -b $frontendBranch
+RUN ls
+RUN sudo pwd
 
 RUN sudo chmod -R 777 workspace \
     && cd workspace/org.geppetto && mvn --quiet install 
