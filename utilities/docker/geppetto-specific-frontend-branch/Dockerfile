@@ -47,8 +47,8 @@ RUN mvn --version
 #GET GEPPETTO SOURCES
 USER root
 RUN mkdir -p workspace && cd workspace && git clone http://github.com/openworm/org.geppetto && cd org.geppetto && git checkout development
-RUN chmod -R 777 workspace
-USER developer
+RUN ls
+RUN sudo pwd
 RUN git clone https://github.com/openworm/org.geppetto.model.git --quiet -b development
 RUN git clone https://github.com/openworm/org.geppetto.core.git --quiet -b development
 RUN git clone https://github.com/openworm/org.geppetto.model.neuroml.git --quiet -b development
@@ -56,7 +56,7 @@ RUN git clone https://github.com/openworm/org.geppetto.simulation.git --quiet -b
 RUN git clone https://github.com/openworm/org.geppetto.frontend.git --quiet -b $frontendBranch
 RUN ls
 RUN sudo pwd
-
+USER developer
 RUN sudo chmod -R 777 workspace \
     && cd workspace/org.geppetto && mvn --quiet install 
 #END GET GEPPETTO SOURCES
