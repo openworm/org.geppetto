@@ -1,6 +1,9 @@
 FROM java:7
 MAINTAINER Stephen Larson "slarson@openworm.org"
 
+ARG frontendBranch
+ENV frontendBranch=${frontendBranch}
+
 RUN apt-get update && apt-get install -qq -y sudo xvfb
 
 RUN useradd -ms /bin/bash developer
@@ -46,8 +49,13 @@ USER root
 RUN mkdir -p workspace && cd workspace && git clone http://github.com/openworm/org.geppetto && cd org.geppetto && git checkout development
 RUN chmod -R 777 workspace
 USER developer
-RUN cd workspace/org.geppetto/utilities/source_setup && yes n | python setup.py && python gitall.py pull \
-    && python gitall.py reset && python gitall.py checkout development && cd ../../../.. && sudo chmod -R 777 workspace \
+
+RUN cd workspace && git clone https://github.com/openworm/org.geppetto.model.git && cd org.geppetto.model && git checkout development
+RUN cd workspace && git clone https://github.com/openworm/org.geppetto.core.git && cd org.geppetto.core && git checkout development
+RUN cd workspace && git clone https://github.com/openworm/org.geppetto.model.neuroml.git && cd org.geppetto.model.neuroml && git checkout development
+RUN cd workspace && git clone https://github.com/openworm/org.geppetto.simulation.git && cd org.geppetto.simulation && git checkout development
+RUN cd workspace && git clone https://github.com/openworm/org.geppetto.frontend.git && cd org.geppetto.frontend && git checkout $frontendBranch
+RUN sudo chmod -R 777 workspace \
     && cd workspace/org.geppetto && mvn --quiet install 
 #END GET GEPPETTO SOURCES
 
