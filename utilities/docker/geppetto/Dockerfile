@@ -48,7 +48,7 @@ RUN chmod -R 777 workspace
 USER developer
 RUN cd workspace/org.geppetto/utilities/source_setup && yes n | python setup.py && python gitall.py pull \
     && python gitall.py reset && python gitall.py checkout development && cd ../../../.. && sudo chmod -R 777 workspace \
-    && cd workspace/org.geppetto && mvn install 
+    && cd workspace/org.geppetto && mvn --quiet install 
 #END GET GEPPETTO SOURCES
 
 RUN mkdir -p geppetto/
