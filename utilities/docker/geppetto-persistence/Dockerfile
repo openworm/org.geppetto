@@ -5,11 +5,11 @@ ARG aKey
 ENV aKey=${aKey}
 ARG sKey
 ENV sKey=${sKey}
-ARG persistenceBranch
-ENV persistenceBranch=${persistenceBranch}
-
-RUN if ["$persistenceBranch" == null]; then $persistenceBranch = "development"; fi;
-RUN echo "$persistenceBranch";
+ARG travisBranch
+ENV travisBranch=${travisBranch}
+RUN echo "$travisBranch";
+RUN if ["$travisBranch" == null]; then $travisBranch = "development"; fi;
+RUN echo "$travisBranch";
 
 RUN apt-get update && apt-get install -qq -y sudo
 
@@ -67,8 +67,8 @@ RUN cd workspace && git clone https://github.com/openworm/org.geppetto.core.git 
 RUN cd workspace && git clone https://github.com/openworm/org.geppetto.model.neuroml.git && cd org.geppetto.model.neuroml && git checkout development
 RUN cd workspace && git clone https://github.com/openworm/org.geppetto.model.swc.git && cd org.geppetto.model.swc && git checkout development
 RUN cd workspace && git clone https://github.com/openworm/org.geppetto.simulation.git && cd org.geppetto.simulation && git checkout development
-RUN cd workspace && git clone https://github.com/openworm/org.geppetto.frontend.git && cd org.geppetto.frontend && git checkout development
-RUN cd workspace && git clone https://github.com/openworm/org.geppetto.persistence.git && cd org.geppetto.persistence && git checkout $persistenceBranch
+RUN cd workspace && git clone https://github.com/openworm/org.geppetto.frontend.git && cd org.geppetto.frontend && git checkout $travisBranch
+RUN cd workspace && git clone https://github.com/openworm/org.geppetto.persistence.git && cd org.geppetto.persistence && git checkout $travisBranch
 
 RUN sudo chmod -R 777 workspace \
     && cd workspace/org.geppetto && mvn --quiet install
