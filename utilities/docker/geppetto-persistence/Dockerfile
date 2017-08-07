@@ -10,10 +10,10 @@ ENV persistenceBranch=${persistenceBranch}
 ARG frontendBranch
 ENV frontendBranch=${frontendBranch}
 RUN echo "$frontendBranch";
-RUN if ["$frontendBranch" == null]||["$frontendBranch" == ""]; then $frontendBranch = "development"; fi;
+RUN if [-z "$frontendBranch"]; then $frontendBranch = "development"; fi;
 RUN echo "$frontendBranch";
 RUN echo "$persistenceBranch";
-RUN if ["$persistenceBranch" == null]||["$frontendBranch" == ""]; then $persistenceBranch = "development"; fi;
+RUN if [-z "$persistenceBranch"]; then $persistenceBranch = "development"; fi;
 RUN echo "$persistenceBranch";
 
 RUN apt-get update && apt-get install -qq -y sudo
