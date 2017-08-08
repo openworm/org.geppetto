@@ -72,7 +72,7 @@ RUN cd workspace && git clone https://github.com/openworm/org.geppetto.frontend.
 RUN cd workspace && git clone https://github.com/openworm/org.geppetto.persistence.git && cd org.geppetto.persistence && git checkout $persistenceBranch
 
 RUN sudo chmod -R 777 workspace \
-    && cd workspace/org.geppetto && mvn --quiet install
+    && cd workspace/org.geppetto && mvn install
 #END GET GEPPETTO SOURCES
 
 #INSTALL MYSQL
