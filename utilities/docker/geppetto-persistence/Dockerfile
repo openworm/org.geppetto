@@ -5,9 +5,9 @@ ARG aKey
 ENV aKey=${aKey}
 ARG sKey
 ENV sKey=${sKey}
-ARG persistenceBranch
+ARG persistenceBranch=development
 ENV persistenceBranch=${persistenceBranch}
-ARG frontendBranch
+ARG frontendBranch=development
 ENV frontendBranch=${frontendBranch}
 RUN echo "$frontendBranch";
 RUN echo "$persistenceBranch";
