@@ -5,6 +5,12 @@ ARG aKey
 ENV aKey=${aKey}
 ARG sKey
 ENV sKey=${sKey}
+ARG persistenceBranch=development
+ENV persistenceBranch=${persistenceBranch}
+ARG frontendBranch=development
+ENV frontendBranch=${frontendBranch}
+RUN echo "$frontendBranch";
+RUN echo "$persistenceBranch";
 
 RUN apt-get update && apt-get install -qq -y sudo
 
@@ -57,11 +63,15 @@ USER developer
 COPY config.json workspace/org.geppetto/utilities/source_setup/
 COPY geppetto.plan workspace/org.geppetto/
 
-RUN cd workspace/org.geppetto/utilities/source_setup && yes n | python setup.py && python gitall.py pull \
-	&& python gitall.py reset && python gitall.py checkout development
-RUN sudo chmod -R 777 workspace
+RUN sudo chmod -R 777 workspace;
+RUN cd workspace && git clone https://github.com/openworm/org.geppetto.model.git && cd org.geppetto.model && git checkout development && mvn --quiet install;
+RUN cd workspace && git clone https://github.com/openworm/org.geppetto.core.git && cd org.geppetto.core && git checkout development && mvn --quiet install;
+RUN cd workspace && git clone https://github.com/openworm/org.geppetto.model.neuroml.git && cd org.geppetto.model.neuroml && git checkout development && mvn --quiet install;
+RUN cd workspace && git clone https://github.com/openworm/org.geppetto.model.swc.git && cd org.geppetto.model.swc && git checkout development && mvn --quiet install;
+RUN cd workspace && git clone https://github.com/openworm/org.geppetto.simulation.git && cd org.geppetto.simulation && git checkout development && mvn --quiet install;
+RUN cd workspace && git clone https://github.com/openworm/org.geppetto.frontend.git && cd org.geppetto.frontend && git checkout $frontendBranch && mvn --quiet install;
+RUN cd workspace && git clone https://github.com/openworm/org.geppetto.persistence.git && cd org.geppetto.persistence && git checkout $persistenceBranch && mvn --quiet install;
 
-RUN cd workspace/org.geppetto && mvn install --quiet
 #END GET GEPPETTO SOURCES
 
 #INSTALL MYSQL
