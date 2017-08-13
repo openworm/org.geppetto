@@ -102,11 +102,13 @@ def main(argv):
 	
 	print "Would you like to customise your repositories?"
 	custom_repo = raw_input().lower()
-
+	
+	# Note the change to default_repo rather than auto_install
+	
 	if custom_repo in yes:
 		for repo in config['repos']:
-			if repo['auto_install'] == "yes":
-				print "Geppetto repository cloned by default", repo['url']
+			if repo['default_repo'] == "yes":
+				print "Geppetto repository automatically cloned", repo['url']
 				subprocess.call(['git','clone',repo['url']], cwd = target_dir)
 				#Once the repos are cloned, write to pom.xml
 				writeToPomXML(repo)	
@@ -123,8 +125,8 @@ def main(argv):
 	
 	else:
 		for repo in config['repos']:
-			if repo['auto_install'] == "yes":
-				print "Geppetto repository cloned by default", repo['url']
+			if repo['default_repo'] == "yes":
+				print "Geppetto repository automatically cloned", repo['url']
 				subprocess.call(['git','clone',repo['url']], cwd = target_dir)
 				#Once the repos are cloned, write to pom.xml
 				writeToPomXML(repo)	

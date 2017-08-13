@@ -25,18 +25,50 @@ def zipdir(path, zip):
             zip.write(filepath, os.path.basename(filepath))
 
 def main(argv):
+    yes = set(['yes','y'])
     
     shutil.rmtree(buildir, ignore_errors=True)     
     os.makedirs(buildir)
+    
+    # Note we are using default_repo rather than auto_install
+    # Depends on the value of default_repo in config.json    
 
-    for repo in config['repos']:
-        print 'Copying libraries for' , repo['name']
-        targetdir = os.path.join(sourcesdir, repo['name'], 'target')
+    print "Would you like to customise repositories for your build?"
+    custom_repo = raw_input().lower()
 
-        copyext(targetdir, 'jar')
-        copyext(targetdir, 'war')
-        copyext(os.path.join(targetdir, 'classes', 'lib'), 'jar')
-        copyext(os.path.join(targetdir, 'classes', 'lib'), 'war')
+    if custom_repo in yes:    
+	for repo in config['repos']:
+		if repo['default_repo'] == "yes":
+        		print 'Copying libraries for' , repo['name']
+        		targetdir = os.path.join(sourcesdir, repo['name'], 'target')
+
+        		copyext(targetdir, 'jar')
+        		copyext(targetdir, 'war')
+        		copyext(os.path.join(targetdir, 'classes', 'lib'), 'jar')
+        		copyext(os.path.join(targetdir, 'classes', 'lib'), 'war')
+		else:
+			print "Repository not included by default"
+			print "Would you like to include this repository in this build?"
+			repository = raw_input().lower()
+
+			if repository in yes:
+        			print 'Copying libraries for' , repo['name']
+        			targetdir = os.path.join(sourcesdir, repo['name'], 'target')
+
+        			copyext(targetdir, 'jar')
+	        		copyext(targetdir, 'war')
+        			copyext(os.path.join(targetdir, 'classes', 'lib'), 'jar')
+        			copyext(os.path.join(targetdir, 'classes', 'lib'), 'war')
+    else:
+	for repo in config['repos']:
+		if repo['default_repo'] == "yes":			
+			print 'Copying libraries for' , repo['name']
+        		targetdir = os.path.join(sourcesdir, repo['name'], 'target')
+
+        		copyext(targetdir, 'jar')
+        		copyext(targetdir, 'war')
+        		copyext(os.path.join(targetdir, 'classes', 'lib'), 'jar')
+        		copyext(os.path.join(targetdir, 'classes', 'lib'), 'war')
 
 
     shutil.copy2(os.path.join(sourcesdir, 'org.geppetto', 'geppetto.plan'), buildir)
