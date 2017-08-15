@@ -1,7 +1,11 @@
 FROM java:7
 MAINTAINER Stephen Larson "slarson@openworm.org"
 
-RUN apt-get update && apt-get install -y sudo
+ARG frontendBranch=development
+ENV frontendBranch=${frontendBranch}
+RUN echo "$frontendBranch";
+
+RUN apt-get update && apt-get install -qq -y sudo xvfb
 
 RUN useradd -ms /bin/bash developer
 
@@ -17,9 +21,20 @@ USER developer
 ENV HOME /home/developer
 WORKDIR /home/developer
 
+# get maven 3.5.0
+RUN sudo wget -q --no-verbose -O /tmp/apache-maven-3.5.0-bin.tar.gz http://archive.apache.org/dist/maven/maven-3/3.5.0/binaries/apache-maven-3.5.0-bin.tar.gz
+
+# install maven
+RUN sudo tar xzf /tmp/apache-maven-3.5.0-bin.tar.gz -C /opt/
+RUN sudo ln -s /opt/apache-maven-3.5.0 /opt/maven
+RUN sudo ln -s /opt/maven/bin/mvn /usr/local/bin
+RUN sudo rm -f /tmp/apache-maven-3.5.0-bin.tar.gz
+ENV MAVEN_HOME /opt/maven
+RUN mvn --version
+
 #VIRGO INSTALL
 USER root
-RUN apt-get update && apt-get install -y curl bsdtar maven
+RUN apt-get update && apt-get install -qq -y curl bsdtar locate
 USER developer
 RUN mkdir -p /home/developer/virgo
 RUN curl -L 'http://www.eclipse.org/downloads/download.php?file=/virgo/release/VP/3.6.4.RELEASE/virgo-tomcat-server-3.6.4.RELEASE.zip&mirror_id=580&r=1' | bsdtar --strip-components 1 -C /home/developer/virgo -xzf -
@@ -28,14 +43,21 @@ ENV SERVER_HOME /home/developer/virgo
 #VOLUME /home/developer/virgo
 #END VIRGO INSTALL
 
+RUN mvn --version
+
 #GET GEPPETTO SOURCES
 USER root
 RUN mkdir -p workspace && cd workspace && git clone http://github.com/openworm/org.geppetto && cd org.geppetto && git checkout development
 RUN chmod -R 777 workspace
 USER developer
-RUN cd workspace/org.geppetto/utilities/source_setup && yes n | python setup.py && python gitall.py pull \
-    && python gitall.py reset && python gitall.py checkout development && cd ../../../.. && sudo chmod -R 777 workspace \
-    && cd workspace/org.geppetto && mvn install
+
+RUN cd workspace && git clone https://github.com/openworm/org.geppetto.model.git && cd org.geppetto.model && git checkout development
+RUN cd workspace && git clone https://github.com/openworm/org.geppetto.core.git && cd org.geppetto.core && git checkout development
+RUN cd workspace && git clone https://github.com/openworm/org.geppetto.model.neuroml.git && cd org.geppetto.model.neuroml && git checkout development
+RUN cd workspace && git clone https://github.com/openworm/org.geppetto.simulation.git && cd org.geppetto.simulation && git checkout development
+RUN cd workspace && git clone https://github.com/openworm/org.geppetto.frontend.git && cd org.geppetto.frontend && git checkout $frontendBranch
+RUN sudo chmod -R 777 workspace \
+    && cd workspace/org.geppetto && mvn --quiet install 
 #END GET GEPPETTO SOURCES
 
 RUN mkdir -p geppetto/
@@ -46,4 +68,5 @@ RUN mkdir -p geppetto/
 
 RUN cd /home/developer/workspace/org.geppetto/utilities/source_setup && python update_server.py
 
-CMD /home/developer/virgo/bin/startup.sh
+EXPOSE 8080
+CMD ["/home/developer/virgo/bin/startup.sh"]
