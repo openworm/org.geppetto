@@ -31,14 +31,14 @@ USER developer
 ENV HOME /home/developer
 WORKDIR /home/developer
 
-# get maven 3.5.0
-RUN sudo wget --no-verbose -O /tmp/apache-maven-3.5.0-bin.tar.gz http://archive.apache.org/dist/maven/maven-3/3.5.0/binaries/apache-maven-3.5.0-bin.tar.gz
+# get maven 3.5.2
+RUN sudo wget --no-verbose -O /tmp/apache-maven-3.5.2-bin.tar.gz http://archive.apache.org/dist/maven/maven-3/3.5.2/binaries/apache-maven-3.5.2-bin.tar.gz
 
 # install maven
-RUN sudo tar xzf /tmp/apache-maven-3.5.0-bin.tar.gz -C /opt/
-RUN sudo ln -s /opt/apache-maven-3.5.0 /opt/maven
+RUN sudo tar xzf /tmp/apache-maven-3.5.2-bin.tar.gz -C /opt/
+RUN sudo ln -s /opt/apache-maven-3.5.2 /opt/maven
 RUN sudo ln -s /opt/maven/bin/mvn /usr/local/bin
-RUN sudo rm -f /tmp/apache-maven-3.5.0-bin.tar.gz
+RUN sudo rm -f /tmp/apache-maven-3.5.2-bin.tar.gz
 ENV MAVEN_HOME /opt/maven
 
 #VIRGO INSTALL
