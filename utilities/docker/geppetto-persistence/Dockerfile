@@ -5,17 +5,15 @@ ARG aKey
 ENV aKey=${aKey}
 ARG sKey
 ENV sKey=${sKey}
-ARG persistenceBranch
-ENV persistenceBranch=${persistenceBranchVar}
-ARG frontendBranch
-ENV frontendBranch=${frontendBranchVar}
+ARG persistenceBranch=casper-qunit
+ENV persistenceBranch=${persistenceBranch}
+ARG frontendBranch=casper-qunit
+ENV frontendBranch=${frontendBranch}
 RUN echo "$frontendBranch";
 RUN echo "$persistenceBranch";
 
 RUN echo $frontendBranch;
 RUN echo $persistenceBranch;
-
-RUN if $frontendBranch -eq ""; then export frontendBranch=development; fi 
 
 RUN apt-get update && apt-get install -qq -y sudo
 
