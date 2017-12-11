@@ -5,12 +5,17 @@ ARG aKey
 ENV aKey=${aKey}
 ARG sKey
 ENV sKey=${sKey}
-ARG persistenceBranch=development
-ENV persistenceBranch=${persistenceBranch}
-ARG frontendBranch=development
-ENV frontendBranch=${frontendBranch}
+ARG persistenceBranch
+ENV persistenceBranch=${persistenceBranchVar}
+ARG frontendBranch
+ENV frontendBranch=${frontendBranchVar}
 RUN echo "$frontendBranch";
 RUN echo "$persistenceBranch";
+
+RUN echo "$frontendBranch";
+RUN echo "$persistenceBranch";
+
+RUN if [ "x$frontendBranch" = "x" ] ; then echo Argument not provided ; else echo Argument is $arg ; fi
 
 RUN apt-get update && apt-get install -qq -y sudo
 
