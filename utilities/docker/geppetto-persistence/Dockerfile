@@ -12,10 +12,10 @@ ENV frontendBranch=${frontendBranchVar}
 RUN echo "$frontendBranch";
 RUN echo "$persistenceBranch";
 
-RUN echo "$frontendBranch";
-RUN echo "$persistenceBranch";
+RUN echo $frontendBranch;
+RUN echo $persistenceBranch;
 
-RUN if [ "x$frontendBranch" = "x" ] ; then echo Argument not provided ; else echo Argument is $arg ; fi
+RUN if $frontendBranch -eq ""; then export frontendBranch=development; fi 
 
 RUN apt-get update && apt-get install -qq -y sudo
 
