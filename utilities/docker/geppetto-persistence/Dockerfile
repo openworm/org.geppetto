@@ -5,15 +5,12 @@ ARG aKey
 ENV aKey=${aKey}
 ARG sKey
 ENV sKey=${sKey}
-ARG persistenceBranch=casper-qunit
+ARG persistenceBranch=development
 ENV persistenceBranch=${persistenceBranch}
-ARG frontendBranch=casper-qunit
+ARG frontendBranch=development
 ENV frontendBranch=${frontendBranch}
 RUN echo "$frontendBranch";
 RUN echo "$persistenceBranch";
-
-RUN echo $frontendBranch;
-RUN echo $persistenceBranch;
 
 RUN apt-get update && apt-get install -qq -y sudo
 
@@ -34,14 +31,14 @@ USER developer
 ENV HOME /home/developer
 WORKDIR /home/developer
 
-# get maven 3.5.2
-RUN sudo wget --no-verbose -O /tmp/apache-maven-3.5.2-bin.tar.gz http://archive.apache.org/dist/maven/maven-3/3.5.2/binaries/apache-maven-3.5.2-bin.tar.gz
+# get maven 3.5.0
+RUN sudo wget --no-verbose -O /tmp/apache-maven-3.5.0-bin.tar.gz http://archive.apache.org/dist/maven/maven-3/3.5.0/binaries/apache-maven-3.5.0-bin.tar.gz
 
 # install maven
-RUN sudo tar xzf /tmp/apache-maven-3.5.2-bin.tar.gz -C /opt/
-RUN sudo ln -s /opt/apache-maven-3.5.2 /opt/maven
+RUN sudo tar xzf /tmp/apache-maven-3.5.0-bin.tar.gz -C /opt/
+RUN sudo ln -s /opt/apache-maven-3.5.0 /opt/maven
 RUN sudo ln -s /opt/maven/bin/mvn /usr/local/bin
-RUN sudo rm -f /tmp/apache-maven-3.5.2-bin.tar.gz
+RUN sudo rm -f /tmp/apache-maven-3.5.0-bin.tar.gz
 ENV MAVEN_HOME /opt/maven
 
 #VIRGO INSTALL
@@ -64,14 +61,17 @@ RUN chmod -R 777 workspace
 USER developer
 
 COPY config.json workspace/org.geppetto/utilities/source_setup/
-COPY geppetto.plan workspace/org.geppetto/
+
+RUN echo $frontendBranch;
+RUN echo $persistenceBranch;
 
 RUN sudo chmod -R 777 workspace;
 RUN cd workspace && git clone https://github.com/openworm/org.geppetto.model.git && cd org.geppetto.model && git checkout development && mvn --quiet install;
 RUN cd workspace && git clone https://github.com/openworm/org.geppetto.core.git && cd org.geppetto.core && git checkout development && mvn --quiet install;
 RUN cd workspace && git clone https://github.com/openworm/org.geppetto.model.neuroml.git && cd org.geppetto.model.neuroml && git checkout development && mvn --quiet install;
+RUN cd workspace && git clone https://github.com/openworm/org.geppetto.model.swc.git && cd org.geppetto.model.swc && git checkout development && mvn --quiet install;
 RUN cd workspace && git clone https://github.com/openworm/org.geppetto.simulation.git && cd org.geppetto.simulation && git checkout development && mvn --quiet install;
-RUN cd workspace && git clone https://github.com/openworm/org.geppetto.frontend.git && cd org.geppetto.frontend && git checkout $frontendBranch && mvn install;
+RUN cd workspace && git clone https://github.com/openworm/org.geppetto.frontend.git && cd org.geppetto.frontend && git checkout $frontendBranch && mvn --quiet install;
 RUN cd workspace && git clone https://github.com/openworm/org.geppetto.persistence.git && cd org.geppetto.persistence && git checkout $persistenceBranch && mvn --quiet install;
 
 #END GET GEPPETTO SOURCES
@@ -105,7 +105,9 @@ COPY init.sql geppetto/
 USER root
 RUN mysql_install_db --user=mysql >/dev/null 2>&1
 RUN sed 's/password = .*/password = /g' -i /etc/mysql/debian.cnf
-RUN service mysql start && mysql -uroot < /home/developer/geppetto/init.sql
+RUN cd /home/developer/geppetto
+RUN ls
+RUN sudo service mysql start && mysql -uroot < /home/developer/geppetto/init.sql
 #END SETUP MYSQL INITIAL DATA
 
 USER developer
