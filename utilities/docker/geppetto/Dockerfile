@@ -57,7 +57,7 @@ RUN cd workspace && git clone https://github.com/openworm/org.geppetto.model.neu
 RUN cd workspace && git clone https://github.com/openworm/org.geppetto.simulation.git && cd org.geppetto.simulation && git checkout development
 RUN cd workspace && git clone https://github.com/openworm/org.geppetto.frontend.git && cd org.geppetto.frontend && git checkout $frontendBranch
 RUN sudo chmod -R 777 workspace \
-    && cd workspace/org.geppetto && mvn --quiet install 
+    && cd workspace/org.geppetto && mvn install 
 #END GET GEPPETTO SOURCES
 
 RUN mkdir -p geppetto/
