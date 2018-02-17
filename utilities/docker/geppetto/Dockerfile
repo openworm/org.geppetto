@@ -39,6 +39,7 @@ USER developer
 RUN mkdir -p /home/developer/virgo
 RUN curl -L 'http://www.eclipse.org/downloads/download.php?file=/virgo/release/VP/3.6.4.RELEASE/virgo-tomcat-server-3.6.4.RELEASE.zip&mirror_id=580&r=1' | bsdtar --strip-components 1 -C /home/developer/virgo -xzf -
 RUN chmod u+x /home/developer/virgo/bin/*.sh
+ADD dmk.sh /home/developer/virgo/bin/
 ENV SERVER_HOME /home/developer/virgo
 #VOLUME /home/developer/virgo
 #END VIRGO INSTALL
