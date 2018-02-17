@@ -21,14 +21,14 @@ USER developer
 ENV HOME /home/developer
 WORKDIR /home/developer
 
-# get maven 3.5.0
-RUN sudo wget -q --no-verbose -O /tmp/apache-maven-3.5.0-bin.tar.gz http://archive.apache.org/dist/maven/maven-3/3.5.0/binaries/apache-maven-3.5.0-bin.tar.gz
+# get maven 3.5.2
+RUN sudo wget -q --no-verbose -O /tmp/apache-maven-3.5.2-bin.tar.gz http://archive.apache.org/dist/maven/maven-3/3.5.2/binaries/apache-maven-3.5.2-bin.tar.gz
 
 # install maven
-RUN sudo tar xzf /tmp/apache-maven-3.5.0-bin.tar.gz -C /opt/
-RUN sudo ln -s /opt/apache-maven-3.5.0 /opt/maven
+RUN sudo tar xzf /tmp/apache-maven-3.5.2-bin.tar.gz -C /opt/
+RUN sudo ln -s /opt/apache-maven-3.5.2 /opt/maven
 RUN sudo ln -s /opt/maven/bin/mvn /usr/local/bin
-RUN sudo rm -f /tmp/apache-maven-3.5.0-bin.tar.gz
+RUN sudo rm -f /tmp/apache-maven-3.5.2-bin.tar.gz
 ENV MAVEN_HOME /opt/maven
 RUN mvn --version
 
@@ -52,9 +52,13 @@ RUN chmod -R 777 workspace
 USER developer
 
 RUN cd workspace && git clone https://github.com/openworm/org.geppetto.model.git && cd org.geppetto.model && git checkout development
+RUN cd workspace && cd org.geppetto.model && git checkout $frontendBranch ; exit 0
 RUN cd workspace && git clone https://github.com/openworm/org.geppetto.core.git && cd org.geppetto.core && git checkout development
+RUN cd workspace && cd org.geppetto.core && git checkout $frontendBranch ; exit 0
 RUN cd workspace && git clone https://github.com/openworm/org.geppetto.model.neuroml.git && cd org.geppetto.model.neuroml && git checkout development
+RUN cd workspace && cd org.geppetto.model.neuroml && git checkout $frontendBranch ; exit 0
 RUN cd workspace && git clone https://github.com/openworm/org.geppetto.simulation.git && cd org.geppetto.simulation && git checkout development
+RUN cd workspace && cd org.geppetto.simulation && git checkout $frontendBranch ; exit 0
 RUN cd workspace && git clone https://github.com/openworm/org.geppetto.frontend.git && cd org.geppetto.frontend && git checkout $frontendBranch
 RUN sudo chmod -R 777 workspace \
     && cd workspace/org.geppetto && mvn --quiet install 
