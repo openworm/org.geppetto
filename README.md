@@ -4,7 +4,6 @@
 
 # [Geppetto](http://www.geppetto.org/)
 
-[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/openworm/org.geppetto?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![Stories in Ready](https://badge.waffle.io/openworm/org.geppetto.png?label=ready&title=Ready)](https://waffle.io/openworm/org.geppetto)
 [![StackShare](http://img.shields.io/badge/tech-stack-0690fa.svg?style=flat)](http://stackshare.io/tarelli/geppetto)
 
@@ -15,9 +14,9 @@
 
 **If you just want to play with a demo Geppetto deployment you don't need to install anything, just visit <https://live.geppetto.org>.**
 
-If you want to setup your own Geppetto deployment from sources use our [Setup Instructions](http://docs.geppetto.org/en/latest/osxlinuxsetup.html). If you need help building a neuroscience application using Geppetto or you want to join the project as a contributor you can [send an email](mailto:matteo@geppetto.org) or just interact with us through GitHub!
+If you want to setup your own Geppetto deployment from sources use our [Setup Instructions](http://docs.geppetto.org/en/latest/osxlinuxsetup.html). If you need help building a neuroscience application using Geppetto or if you want to join the project as a contributor you can [send an email](mailto:matteo@geppetto.org) or just interact with us through GitHub! 
 
-This is the umbrella project that keeps together all the different modules currently available:
+This is the umbrella project that keeps together all the different Geppetto modules currently available:
 
 #### Java backend
 The Java backend is used in client-server deployments of Geppetto. The Java backend is modular allowing each deployment to be customised only with the relevant bundles.
