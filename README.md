@@ -39,8 +39,8 @@ The Java backend is used in client-server deployments of Geppetto. The Java back
      * [org.geppetto.model.nwb](https://github.com/openworm/org.geppetto.model.nwb) [![Build Status](https://travis-ci.org/openworm/org.geppetto.model.nwb.png?branch=master)](https://travis-ci.org/openworm/org.geppetto.model.nwb)
  * Currently in development
    * Fluid mechanics 
-      * [org.geppetto.sibernetic](https://github.com/openworm/org.geppetto.sibernetic) [![Build Status](https://travis-
-     
+      * [org.geppetto.sibernetic](https://github.com/openworm/org.geppetto.sibernetic) [![Build Status](https://travis-ci.org/openworm/org.geppetto.sibernetic.png?branch=master)](https://travis-ci.org/openworm/org.geppetto.sibernetic)
+      
 #### Python Backend (prototype)
 The Python backend is based on a Geppetto Jupyter extension which allows the user to interact with the Geppetto frontend from Python. This deployment makes it ideal to use Geppetto as a visualization/computational local playground.
    * [org.geppetto.frontend.jupyter](https://github.com/openworm/org.geppetto.frontend.jupyter) [![Build Status](https://travis-ci.org/openworm/org.geppetto.frontend.jupyter.png?branch=master)](https://travis-ci.org/openworm/org.geppetto.frontend.jupyter)
