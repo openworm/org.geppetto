@@ -38,6 +38,10 @@ RUN apt-get update && apt-get install -qq -y curl bsdtar locate
 USER developer
 RUN mkdir -p /home/developer/virgo
 RUN curl -L 'http://www.eclipse.org/downloads/download.php?file=/virgo/release/VP/3.6.4.RELEASE/virgo-tomcat-server-3.6.4.RELEASE.zip&mirror_id=580&r=1' | bsdtar --strip-components 1 -C /home/developer/virgo -xzf -
+ADD dmk.sh /home/developer/virgo/bin/
+USER root
+RUN chown developer /home/developer/virgo/bin/dmk.sh
+USER developer
 RUN chmod u+x /home/developer/virgo/bin/*.sh
 ENV SERVER_HOME /home/developer/virgo
 #VOLUME /home/developer/virgo
@@ -52,9 +56,13 @@ RUN chmod -R 777 workspace
 USER developer
 
 RUN cd workspace && git clone https://github.com/openworm/org.geppetto.model.git && cd org.geppetto.model && git checkout development
+RUN cd workspace && cd org.geppetto.model && git checkout $frontendBranch ; exit 0
 RUN cd workspace && git clone https://github.com/openworm/org.geppetto.core.git && cd org.geppetto.core && git checkout development
+RUN cd workspace && cd org.geppetto.core && git checkout $frontendBranch ; exit 0
 RUN cd workspace && git clone https://github.com/openworm/org.geppetto.model.neuroml.git && cd org.geppetto.model.neuroml && git checkout development
+RUN cd workspace && cd org.geppetto.model.neuroml && git checkout $frontendBranch ; exit 0
 RUN cd workspace && git clone https://github.com/openworm/org.geppetto.simulation.git && cd org.geppetto.simulation && git checkout development
+RUN cd workspace && cd org.geppetto.simulation && git checkout $frontendBranch ; exit 0
 RUN cd workspace && git clone https://github.com/openworm/org.geppetto.frontend.git && cd org.geppetto.frontend && git checkout $frontendBranch
 RUN sudo chmod -R 777 workspace \
     && cd workspace/org.geppetto && mvn --quiet install 

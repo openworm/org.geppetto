@@ -5,12 +5,13 @@ ARG aKey
 ENV aKey=${aKey}
 ARG sKey
 ENV sKey=${sKey}
-ARG persistenceBranch=development
-ENV persistenceBranch=${persistenceBranch}
-ARG frontendBranch=development
-ENV frontendBranch=${frontendBranch}
-RUN echo "$frontendBranch";
-RUN echo "$persistenceBranch";
+ARG persistenceBranch
+ENV persistenceBranch=${persistenceBranch:-development}
+ARG frontendBranch
+ENV frontendBranch=${frontendBranch:-development}
+
+RUN echo $frontendBranch;
+RUN echo $persistenceBranch;
 
 RUN apt-get update && apt-get install -qq -y sudo
 
@@ -43,10 +44,14 @@ ENV MAVEN_HOME /opt/maven
 
 #VIRGO INSTALL
 USER root
-RUN apt-get update && apt-get install -y -qq curl bsdtar
+RUN apt-get update && apt-get install -qq -y curl bsdtar locate
 USER developer
 RUN mkdir -p /home/developer/virgo
 RUN curl -L 'http://www.eclipse.org/downloads/download.php?file=/virgo/release/VP/3.6.4.RELEASE/virgo-tomcat-server-3.6.4.RELEASE.zip&mirror_id=580&r=1' | bsdtar --strip-components 1 -C /home/developer/virgo -xzf -
+ADD dmk.sh /home/developer/virgo/bin/
+USER root
+RUN chown developer /home/developer/virgo/bin/dmk.sh
+USER developer
 RUN chmod u+x /home/developer/virgo/bin/*.sh
 ENV SERVER_HOME /home/developer/virgo
 #VOLUME /home/developer/virgo
@@ -61,6 +66,8 @@ RUN chmod -R 777 workspace
 USER developer
 
 COPY config.json workspace/org.geppetto/utilities/source_setup/
+RUN sudo mv /home/developer/workspace/org.geppetto/utilities/docker/geppetto-persistence/geppetto.plan /home/developer
+
 COPY geppetto.plan workspace/org.geppetto/
 
 RUN sudo chmod -R 777 workspace;
