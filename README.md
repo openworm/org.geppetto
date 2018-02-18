@@ -13,11 +13,9 @@
 
 **Geppetto is an open-source platform to build web-based applications to visualize and simulate neuroscience data and models.**
 
-Although Geppetto was designed with neuroscience and biology in mind, Geppetto can be used anywhere there is need to rely on a backend to perform any kind of simulation and allow the user to interact with it through a web application.
-
 **If you just want to play with a demo Geppetto deployment you don't need to install anything, just visit <https://live.geppetto.org>.**
 
-If you want to setup your own Geppetto deployment from sources use our [Setup Instructions](http://docs.geppetto.org/en/latest/osxlinuxsetup.html). If you need help designing your own custom Geppetto deployment or want to join the project as a contributor you can [send an email](mailto:matteo@geppetto.org) or just interact with us through GitHub!
+If you want to setup your own Geppetto deployment from sources use our [Setup Instructions](http://docs.geppetto.org/en/latest/osxlinuxsetup.html). If you need help building a neuroscience application using Geppetto or you want to join the project as a contributor you can [send an email](mailto:matteo@geppetto.org) or just interact with us through GitHub!
 
 This is the umbrella project that keeps together all the different modules currently available:
 
