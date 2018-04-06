@@ -10,12 +10,12 @@
 import os, sys, getopt, subprocess, json, shutil
 from subprocess import call
 
-config = json.loads(open(os.path.join(os.path.dirname(__file__), 
+config = json.loads(open(os.path.join(os.path.dirname(__file__),
 					'../source_setup/config.json')).read())
 sourcesdir = config['sourcesdir']
 target_dir = os.path.abspath(config['sourcesdir'])
 doc_dir = os.path.join(target_dir, 'org.geppetto.docs')
-java_doc = os.path.join(doc_dir, 'source', 'javadoc')
+java_doc = os.path.join(doc_dir, 'source', '_static', 'javadoc')
 yes = set(['yes','y'])
 
 def clone_repos():
@@ -35,11 +35,11 @@ def clone_repos():
 			else:
 				repo['auto_install'] = "no"
 		else:
-			repo['auto_install'] = "yes"	
+			repo['auto_install'] = "yes"
 
 def clone_docs():
 	if not os.path.exists(doc_dir):
-		subprocess.call(['git','clone','https://github.com/openworm/org.geppetto.docs'], 
+		subprocess.call(['git','clone','https://github.com/openworm/org.geppetto.docs'],
 						cwd=target_dir)
 	else:
 		if os.path.exists(java_doc):
@@ -73,16 +73,16 @@ def commit_and_push():
 	commit_message = raw_input("Please, insert your commit message\n> ")
 	subprocess.call(['git',
 					 'add',
-					 '.'], 
+					 '.'],
 					 cwd=java_doc)
 	subprocess.call(['git',
 					 'commit',
-					 '-m', 
-					 '{}'.format(commit_message)], 
+					 '-m',
+					 '{}'.format(commit_message)],
 					 cwd=java_doc)
 	subprocess.call(['git',
 					 'push',
-					 'origin'], 
+					 'origin'],
 					 cwd=java_doc)
 
 def main(argv):
