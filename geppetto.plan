@@ -7,11 +7,11 @@
             http://www.springsource.org/schema/dm-server/plan/springsource-dm-server-plan.xsd">
 
 
-    <artifact type="bundle" name="org.geppetto.model" version="0.3.9"/>
-    <artifact type="bundle" name="org.geppetto.core" version="0.3.9"/>
-    <artifact type="bundle" name="org.geppetto.model.neuroml" version="0.3.9"/>
-    <artifact type="bundle" name="org.geppetto.simulation" version="0.3.9"/>
-    <artifact type="bundle" name="org.geppetto.frontend" version="0.3.9"/>
+    <artifact type="bundle" name="org.geppetto.model" version="0.4.0"/>
+    <artifact type="bundle" name="org.geppetto.core" version="0.4.0"/>
+    <artifact type="bundle" name="org.geppetto.model.neuroml" version="0.4.0"/>
+    <artifact type="bundle" name="org.geppetto.simulation" version="0.4.0"/>
+    <artifact type="bundle" name="org.geppetto.frontend" version="0.4.0"/>
 
 
 </plan>
