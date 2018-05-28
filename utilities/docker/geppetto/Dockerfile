@@ -5,7 +5,8 @@ ARG frontendBranch=development
 ENV frontendBranch=${frontendBranch}
 RUN echo "$frontendBranch";
 
-RUN apt-get update && apt-get install -qq -y sudo xvfb oracle-java8-installer 
+RUN apt-get update && apt-get install -qq -y sudo xvfb 
+RUN apt-get update && apt-get install -qq -y oracle-java8-installer 
 
 RUN useradd -ms /bin/bash developer
 
