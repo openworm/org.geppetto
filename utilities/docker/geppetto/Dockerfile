@@ -1,7 +1,7 @@
 FROM java:7
 MAINTAINER Stephen Larson "slarson@openworm.org"
 
-ARG frontendBranch=development
+ARG frontendBranch=update-virgo-tests
 ENV frontendBranch=${frontendBranch}
 RUN echo "$frontendBranch";
 
@@ -51,7 +51,7 @@ RUN mvn --version
 
 #GET GEPPETTO SOURCES
 USER root
-RUN mkdir -p workspace && cd workspace && git clone http://github.com/openworm/org.geppetto && cd org.geppetto && git checkout development
+RUN mkdir -p workspace && cd workspace && git clone -b update-virgo http://github.com/openworm/org.geppetto && cd org.geppetto && git checkout development
 RUN chmod -R 777 workspace
 USER developer
 
