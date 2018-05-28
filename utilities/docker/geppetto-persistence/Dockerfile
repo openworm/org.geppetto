@@ -1,4 +1,4 @@
-FROM java:7
+FROM java:8
 MAINTAINER Stephen Larson "slarson@openworm.org"
 
 ARG aKey
@@ -61,7 +61,7 @@ RUN mvn --version
 
 #GET GEPPETTO SOURCES
 USER root
-RUN mkdir -p workspace && cd workspace && git clone http://github.com/openworm/org.geppetto && cd org.geppetto && git checkout development
+RUN mkdir -p workspace && cd workspace && git clone http://github.com/openworm/org.geppetto && cd org.geppetto && git checkout update-virgo
 RUN chmod -R 777 workspace
 USER developer
 
