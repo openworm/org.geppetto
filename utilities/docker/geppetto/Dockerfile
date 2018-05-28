@@ -5,7 +5,7 @@ ARG frontendBranch=development
 ENV frontendBranch=${frontendBranch}
 RUN echo "$frontendBranch";
 
-RUN apt-get update && apt-get install -qq -y sudo xvfb
+RUN apt-get update && apt-get install -qq -y sudo xvfb oracle-java8-installer 
 
 RUN useradd -ms /bin/bash developer
 
@@ -75,6 +75,8 @@ RUN mkdir -p geppetto/
 #RUN sudo chmod +x geppetto/*.sh
 
 RUN cd /home/developer/workspace/org.geppetto/utilities/source_setup && python update_server.py
+
+RUN java -version
 
 EXPOSE 8080
 CMD ["/home/developer/virgo/bin/startup.sh"]
