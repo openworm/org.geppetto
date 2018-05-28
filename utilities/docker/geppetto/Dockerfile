@@ -1,7 +1,7 @@
 FROM java:7
 MAINTAINER Stephen Larson "slarson@openworm.org"
 
-ARG frontendBranch=update-virgo-tests
+ARG frontendBranch=development
 ENV frontendBranch=${frontendBranch}
 RUN echo "$frontendBranch";
 
