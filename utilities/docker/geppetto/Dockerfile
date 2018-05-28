@@ -1,4 +1,4 @@
-FROM java:7
+FROM java:8
 MAINTAINER Stephen Larson "slarson@openworm.org"
 
 ARG frontendBranch=development
