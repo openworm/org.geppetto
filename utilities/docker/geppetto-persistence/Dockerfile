@@ -115,7 +115,7 @@ RUN service mysql start && mysql -uroot < /home/developer/geppetto/init.sql
 USER developer
 RUN cd /home/developer/workspace/org.geppetto.persistence && mvn -Dhttps.protocols=TLSv1.2 install --quiet && mvn -Dhttps.protocols=TLSv1.2 install --quiet
 
-RUN sudo service mysql start && cd /home/developer/workspace/org.geppetto.persistence && mvn exec:java -Dexec.mainClass="org.geppetto.persistence.util.DBTestData" -Dexec.classpathScope=runtime
+RUN sudo service mysql start && cd /home/developer/workspace/org.geppetto.persistence && mvn -Dhttps.protocols=TLSv1.2 exec:java -Dexec.mainClass="org.geppetto.persistence.util.DBTestData" -Dexec.classpathScope=runtime
 
 #END INSTALL MYSQL
 
