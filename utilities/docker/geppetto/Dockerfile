@@ -3,7 +3,7 @@ MAINTAINER Stephen Larson "slarson@openworm.org"
 
 ARG frontendBranch=development
 ENV frontendBranch=${frontendBranch}
-RUN echo "$frontendBranch";
+RUN echo "ECHO BRANCH ------------  $frontendBranch";
 
 RUN apt-get update && apt-get install -qq -y sudo xvfb 
 
