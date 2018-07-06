@@ -45,6 +45,33 @@ ENV SERVER_HOME /home/developer/virgo
 
 RUN mvn --version
 
+#GET GEPPETTO SOURCES
+USER root
+RUN mkdir -p workspace && cd workspace && git clone -b update-virgo http://github.com/openworm/org.geppetto && cd org.geppetto && git checkout update-virgo
+RUN chmod -R 777 workspace
+USER developer
+
+RUN cd workspace && git clone https://github.com/openworm/org.geppetto.model.git && cd org.geppetto.model && git checkout development
+RUN cd workspace && cd org.geppetto.model && git checkout $frontendBranch ; exit 0
+RUN cd workspace && git clone https://github.com/openworm/org.geppetto.core.git && cd org.geppetto.core && git checkout development
+RUN cd workspace && cd org.geppetto.core && git checkout $frontendBranch ; exit 0
+RUN cd workspace && git clone https://github.com/openworm/org.geppetto.model.neuroml.git && cd org.geppetto.model.neuroml && git checkout development
+RUN cd workspace && cd org.geppetto.model.neuroml && git checkout $frontendBranch ; exit 0
+RUN cd workspace && git clone https://github.com/openworm/org.geppetto.simulation.git && cd org.geppetto.simulation && git checkout development
+RUN cd workspace && cd org.geppetto.simulation && git checkout $frontendBranch ; exit 0
+RUN cd workspace && git clone https://github.com/openworm/org.geppetto.frontend.git && cd org.geppetto.frontend && git checkout $frontendBranch
+RUN sudo chmod -R 777 workspace \
+    && cd workspace/org.geppetto && mvn --quiet install 
+#END GET GEPPETTO SOURCES
+
+RUN mkdir -p geppetto/
+
+#COPY entrypoint.sh geppetto/
+#COPY check_update.sh geppetto/
+#RUN sudo chmod +x geppetto/*.sh
+
+RUN cd /home/developer/workspace/org.geppetto/utilities/source_setup && python update_server.py
+
 RUN java -version
 
 EXPOSE 8080
