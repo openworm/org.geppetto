@@ -38,10 +38,6 @@ RUN apt-get update && apt-get install -qq -y curl bsdtar locate
 USER developer
 RUN mkdir -p /home/developer/virgo
 RUN curl -L 'http://www.eclipse.org/downloads/download.php?file=/virgo/release/VP/3.7.2.RELEASE/virgo-tomcat-server-3.7.2.RELEASE.zip&r=1' | bsdtar --strip-components 1 -C /home/developer/virgo -xzf -
-ADD dmk.sh /home/developer/virgo/bin/
-USER root
-RUN chown developer /home/developer/virgo/bin/dmk.sh
-USER developer
 RUN chmod u+x /home/developer/virgo/bin/*.sh
 ENV SERVER_HOME /home/developer/virgo
 #VOLUME /home/developer/virgo
