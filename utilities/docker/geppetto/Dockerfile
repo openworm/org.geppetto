@@ -65,7 +65,6 @@ RUN sudo chmod -R 777 workspace \
 #END GET GEPPETTO SOURCES
 
 RUN mkdir -p geppetto/
-RUN rm /home/developer/virgo/./repository/usr
 RUN mkdir rm /home/developer/virgo/./repository/usr
 
 #COPY entrypoint.sh geppetto/
