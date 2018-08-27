@@ -5,13 +5,9 @@ ARG aKey
 ENV aKey=${aKey}
 ARG sKey
 ENV sKey=${sKey}
-ARG persistenceBranch
-ENV persistenceBranch=${persistenceBranch:-development}
-ARG frontendBranch
-ENV frontendBranch=${frontendBranch:-development}
-
-RUN echo $frontendBranch;
-RUN echo $persistenceBranch;
+ARG mainBranch=development
+ENV mainBranch=${mainBranch}
+RUN echo "USE GIT BRANCH ------------  $mainBranch";
 
 RUN apt-get update && apt-get install -qq -y sudo
 
@@ -73,12 +69,12 @@ RUN sudo mv /home/developer/workspace/org.geppetto/utilities/docker/geppetto-per
 COPY geppetto.plan workspace/org.geppetto/
 
 RUN sudo chmod -R 777 workspace;
-RUN cd workspace && git clone https://github.com/openworm/org.geppetto.model.git && cd org.geppetto.model && git checkout $frontendBranch && mvn --quiet install;
-RUN cd workspace && git clone https://github.com/openworm/org.geppetto.core.git && cd org.geppetto.core && git checkout $frontendBranch && mvn --quiet install;
-RUN cd workspace && git clone https://github.com/openworm/org.geppetto.model.neuroml.git && cd org.geppetto.model.neuroml && git checkout $frontendBranch && mvn --quiet install;
-RUN cd workspace && git clone https://github.com/openworm/org.geppetto.simulation.git && cd org.geppetto.simulation && git checkout $frontendBranch && mvn --quiet install;
-RUN cd workspace && git clone https://github.com/openworm/org.geppetto.frontend.git && cd org.geppetto.frontend && git checkout $frontendBranch && mvn --quiet install;
-RUN cd workspace && git clone https://github.com/openworm/org.geppetto.persistence.git && cd org.geppetto.persistence && git checkout $persistenceBranch && mvn --quiet install;
+RUN cd workspace && git clone https://github.com/openworm/org.geppetto.model.git && cd org.geppetto.model && git checkout $mainBranch && mvn --quiet install;
+RUN cd workspace && git clone https://github.com/openworm/org.geppetto.core.git && cd org.geppetto.core && git checkout $mainBranch && mvn --quiet install;
+RUN cd workspace && git clone https://github.com/openworm/org.geppetto.model.neuroml.git && cd org.geppetto.model.neuroml && git checkout $mainBranch && mvn --quiet install;
+RUN cd workspace && git clone https://github.com/openworm/org.geppetto.simulation.git && cd org.geppetto.simulation && git checkout $mainBranch && mvn --quiet install;
+RUN cd workspace && git clone https://github.com/openworm/org.geppetto.frontend.git && cd org.geppetto.frontend && git checkout $mainBranch && mvn --quiet install;
+RUN cd workspace && git clone https://github.com/openworm/org.geppetto.persistence.git && cd org.geppetto.persistence && git checkout $mainBranch && mvn --quiet install;
 
 #END GET GEPPETTO SOURCES
 
