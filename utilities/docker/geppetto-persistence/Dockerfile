@@ -101,6 +101,7 @@ USER developer
 
 #SETUP MYSQL CONFIG
 RUN mkdir -p geppetto/
+RUN mkdir rm /home/developer/virgo/./repository/usr
 COPY db.properties geppetto/
 COPY init.sql geppetto/
 #COPY entrypoint.sh geppetto/
