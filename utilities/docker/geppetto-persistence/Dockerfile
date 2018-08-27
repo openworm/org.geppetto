@@ -124,4 +124,4 @@ RUN sudo echo "accessKey=$aKey" > /home/developer/geppetto/aws.credentials
 RUN sudo echo "secretKey=$sKey" >> /home/developer/geppetto/aws.credentials
 
 EXPOSE 8080
-CMD ["/home/developer/virgo/bin/startup.sh"]
+CMD sudo service mysql start && /home/developer/virgo/bin/startup.sh
