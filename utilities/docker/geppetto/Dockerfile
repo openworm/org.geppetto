@@ -81,5 +81,5 @@ RUN cd /home/developer/workspace/org.geppetto/utilities/source_setup && python u
 
 RUN java -version
 
-EXPOSE 8080
+EXPOSE 28081
 CMD ["/home/developer/virgo/bin/startup.sh"]
