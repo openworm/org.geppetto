@@ -1,9 +1,9 @@
 FROM java:8
 MAINTAINER Stephen Larson "slarson@openworm.org"
 
-ARG frontendBranch=development
-ENV frontendBranch=${frontendBranch}
-RUN echo "ECHO BRANCH ------------  $frontendBranch";
+ARG mainBranch=development
+ENV mainBranch=${mainBranch}
+RUN echo "USE GIT BRANCH ------------  $mainBranch";
 
 RUN apt-get update && apt-get install -qq -y sudo xvfb 
 
@@ -57,15 +57,11 @@ RUN mkdir -p workspace && cd workspace && git clone -b update-virgo http://githu
 RUN chmod -R 777 workspace
 USER developer
 
-RUN cd workspace && git clone https://github.com/openworm/org.geppetto.model.git && cd org.geppetto.model && git checkout development
-RUN cd workspace && cd org.geppetto.model && git checkout $frontendBranch ; exit 0
-RUN cd workspace && git clone https://github.com/openworm/org.geppetto.core.git && cd org.geppetto.core && git checkout development
-RUN cd workspace && cd org.geppetto.core && git checkout $frontendBranch ; exit 0
-RUN cd workspace && git clone https://github.com/openworm/org.geppetto.model.neuroml.git && cd org.geppetto.model.neuroml && git checkout development
-RUN cd workspace && cd org.geppetto.model.neuroml && git checkout $frontendBranch ; exit 0
-RUN cd workspace && git clone https://github.com/openworm/org.geppetto.simulation.git && cd org.geppetto.simulation && git checkout development
-RUN cd workspace && cd org.geppetto.simulation && git checkout $frontendBranch ; exit 0
-RUN cd workspace && git clone https://github.com/openworm/org.geppetto.frontend.git && cd org.geppetto.frontend && git checkout $frontendBranch
+RUN cd workspace && git clone https://github.com/openworm/org.geppetto.model.git && cd org.geppetto.model && git checkout $mainBranch
+RUN cd workspace && git clone https://github.com/openworm/org.geppetto.core.git && cd org.geppetto.core && git checkout $mainBranch
+RUN cd workspace && git clone https://github.com/openworm/org.geppetto.model.neuroml.git && cd org.geppetto.model.neuroml && git checkout $mainBranch
+RUN cd workspace && git clone https://github.com/openworm/org.geppetto.simulation.git && cd org.geppetto.simulation && git checkout $mainBranch
+RUN cd workspace && git clone https://github.com/openworm/org.geppetto.frontend.git && cd org.geppetto.frontend && git checkout $mainBranch
 RUN sudo chmod -R 777 workspace \
     && cd workspace/org.geppetto && mvn --quiet install 
 #END GET GEPPETTO SOURCES
