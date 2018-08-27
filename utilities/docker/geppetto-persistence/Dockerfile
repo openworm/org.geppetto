@@ -49,6 +49,8 @@ USER developer
 RUN mkdir -p /home/developer/virgo
 RUN curl -L 'http://www.eclipse.org/downloads/download.php?file=/virgo/release/VP/3.7.2.RELEASE/virgo-tomcat-server-3.7.2.RELEASE.zip&r=1' | bsdtar --strip-components 1 -C /home/developer/virgo -xzf -
 ADD dmk.sh /home/developer/virgo/bin/
+RUN rm /home/developer/virgo/configuration/java-server.profile
+ADD java-server.profile /home/developer/virgo/configuration/
 USER root
 RUN chown developer /home/developer/virgo/bin/dmk.sh
 USER developer
