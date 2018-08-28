@@ -1,4 +1,4 @@
-FROM java:9
+FROM java:7
 MAINTAINER Stephen Larson "slarson@openworm.org"
 
 ARG aKey
