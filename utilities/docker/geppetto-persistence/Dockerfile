@@ -1,4 +1,4 @@
-FROM java:7
+FROM java:8
 MAINTAINER Stephen Larson "slarson@openworm.org"
 
 ARG aKey
@@ -112,7 +112,7 @@ RUN service mysql start && mysql -uroot < /home/developer/geppetto/init.sql
 #END SETUP MYSQL INITIAL DATA
 
 USER developer
-RUN cd /home/developer/workspace/org.geppetto.persistence && mvn install --quiet && mvn install --quiet
+RUN cd /home/developer/workspace/org.geppetto.persistence && mvn install --quiet && mvn install
 
 RUN sudo service mysql start && cd /home/developer/workspace/org.geppetto.persistence && mvn exec:java -Dexec.mainClass="org.geppetto.persistence.util.DBTestData" -Dexec.classpathScope=runtime
 
@@ -124,4 +124,4 @@ RUN sudo echo "accessKey=$aKey" > /home/developer/geppetto/aws.credentials
 RUN sudo echo "secretKey=$sKey" >> /home/developer/geppetto/aws.credentials
 
 EXPOSE 8080
-CMD sudo service mysql start
+CMD sudo service mysql start && /home/developer/virgo/bin/startup.sh
