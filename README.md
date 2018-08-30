@@ -3,6 +3,7 @@
 </p>
 
 # [Geppetto](http://www.geppetto.org/)
+<img width="1184" alt="geppetto_in_overview" src="https://user-images.githubusercontent.com/1573896/44878488-ffa53100-ac74-11e8-9280-e7d579a7accd.png">
 
 [![Stories in Ready](https://badge.waffle.io/openworm/org.geppetto.png?label=ready&title=Ready)](https://waffle.io/openworm/org.geppetto)
 [![StackShare](http://img.shields.io/badge/tech-stack-0690fa.svg?style=flat)](http://stackshare.io/tarelli/geppetto)
@@ -14,7 +15,7 @@
 
 **If you just want to play with a demo Geppetto deployment you don't need to install anything, just visit <https://live.geppetto.org>.**
 
-If you want to setup your own Geppetto deployment from sources use our [Setup Instructions](http://docs.geppetto.org/en/latest/osxlinuxsetup.html). If you need help building a neuroscience application using Geppetto or if you want to join the project as a contributor you can [send an email](mailto:matteo@geppetto.org) or just interact with us through GitHub! 
+If you want to setup your own Geppetto deployment from sources use our [Setup Instructions](http://docs.geppetto.org/en/latest/osxlinuxsetup.html). If you need help building a neuroscience application using Geppetto or if you want to join the project as a contributor you can [send an email](mailto:matteo@geppetto.org) or just interact with us through GitHub!
 
 This is the umbrella project that keeps together all the different Geppetto modules currently available:
 
@@ -36,11 +37,11 @@ The Java backend is used in client-server deployments of Geppetto. The Java back
        * [org.geppetto.model.nwb](https://github.com/openworm/org.geppetto.model.nwb) [![Build Status](https://travis-ci.org/openworm/org.geppetto.model.nwb.png?branch=master)](https://travis-ci.org/openworm/org.geppetto.model.nwb)
      * Fluid mechanics (Currently in development)
         * [org.geppetto.sibernetic](https://github.com/openworm/org.geppetto.sibernetic) [![Build Status](https://travis-ci.org/openworm/org.geppetto.sibernetic.png?branch=master)](https://travis-ci.org/openworm/org.geppetto.sibernetic)
-      
+
 #### Python Backend (prototype, in development)
 The Python backend is based on a Geppetto Jupyter extension which allows the user to interact with the Geppetto frontend from Python. This deployment makes it ideal to use Geppetto as a visualization/computational local playground.
    * [org.geppetto.frontend.jupyter](https://github.com/openworm/org.geppetto.frontend.jupyter) [![Build Status](https://travis-ci.org/openworm/org.geppetto.frontend.jupyter.png?branch=master)](https://travis-ci.org/openworm/org.geppetto.frontend.jupyter)
-   * [pyGeppetto](https://github.com/openworm/pygeppetto) 
+   * [pyGeppetto](https://github.com/openworm/pygeppetto)
 
 #### Node.js Backend (proof of concept)
    * [org.geppetto.frontend.nodejs](https://github.com/openworm/org.geppetto.frontend.nodejs) [![Build Status](https://travis-ci.org/openworm/org.geppetto.frontend.nodejs.png?branch=master)](https://travis-ci.org/openworm/org.geppetto.frontend.nodejs)
