@@ -65,7 +65,7 @@ RUN cd workspace && git clone https://github.com/openworm/org.geppetto.simulatio
 RUN cd workspace && cd org.geppetto.simulation && git checkout $frontendBranch ; exit 0
 RUN cd workspace && git clone https://github.com/openworm/org.geppetto.frontend.git && cd org.geppetto.frontend && git checkout $frontendBranch
 RUN sudo chmod -R 777 workspace \
-    && cd workspace/org.geppetto && mvn --quiet install 
+    && cd workspace/org.geppetto && mvn -Dhttps.protocols=TLSv1.2 --quiet install 
 #END GET GEPPETTO SOURCES
 
 RUN mkdir -p geppetto/

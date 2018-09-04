@@ -71,12 +71,12 @@ RUN sudo mv /home/developer/workspace/org.geppetto/utilities/docker/geppetto-per
 COPY geppetto.plan workspace/org.geppetto/
 
 RUN sudo chmod -R 777 workspace;
-RUN cd workspace && git clone https://github.com/openworm/org.geppetto.model.git && cd org.geppetto.model && git checkout development && mvn --quiet install;
-RUN cd workspace && git clone https://github.com/openworm/org.geppetto.core.git && cd org.geppetto.core && git checkout development && mvn --quiet install;
-RUN cd workspace && git clone https://github.com/openworm/org.geppetto.model.neuroml.git && cd org.geppetto.model.neuroml && git checkout development && mvn --quiet install;
-RUN cd workspace && git clone https://github.com/openworm/org.geppetto.simulation.git && cd org.geppetto.simulation && git checkout development && mvn --quiet install;
-RUN cd workspace && git clone https://github.com/openworm/org.geppetto.frontend.git && cd org.geppetto.frontend && git checkout $frontendBranch && mvn --quiet install;
-RUN cd workspace && git clone https://github.com/openworm/org.geppetto.persistence.git && cd org.geppetto.persistence && git checkout $persistenceBranch && mvn --quiet install;
+RUN cd workspace && git clone https://github.com/openworm/org.geppetto.model.git && cd org.geppetto.model && git checkout development && mvn -Dhttps.protocols=TLSv1.2 --quiet install;
+RUN cd workspace && git clone https://github.com/openworm/org.geppetto.core.git && cd org.geppetto.core && git checkout development && mvn -Dhttps.protocols=TLSv1.2 --quiet install;
+RUN cd workspace && git clone https://github.com/openworm/org.geppetto.model.neuroml.git && cd org.geppetto.model.neuroml && git checkout development && mvn -Dhttps.protocols=TLSv1.2 --quiet install;
+RUN cd workspace && git clone https://github.com/openworm/org.geppetto.simulation.git && cd org.geppetto.simulation && git checkout development && mvn -Dhttps.protocols=TLSv1.2 --quiet install;
+RUN cd workspace && git clone https://github.com/openworm/org.geppetto.frontend.git && cd org.geppetto.frontend && git checkout $frontendBranch && mvn -Dhttps.protocols=TLSv1.2 --quiet install;
+RUN cd workspace && git clone https://github.com/openworm/org.geppetto.persistence.git && cd org.geppetto.persistence && git checkout $persistenceBranch && mvn -Dhttps.protocols=TLSv1.2 --quiet install;
 
 #END GET GEPPETTO SOURCES
 
@@ -113,9 +113,9 @@ RUN service mysql start && mysql -uroot < /home/developer/geppetto/init.sql
 #END SETUP MYSQL INITIAL DATA
 
 USER developer
-RUN cd /home/developer/workspace/org.geppetto.persistence && mvn install --quiet && mvn install --quiet
+RUN cd /home/developer/workspace/org.geppetto.persistence && mvn -Dhttps.protocols=TLSv1.2 install --quiet && mvn -Dhttps.protocols=TLSv1.2 install --quiet
 
-RUN sudo service mysql start && cd /home/developer/workspace/org.geppetto.persistence && mvn exec:java -Dexec.mainClass="org.geppetto.persistence.util.DBTestData" -Dexec.classpathScope=runtime
+RUN sudo service mysql start && cd /home/developer/workspace/org.geppetto.persistence && mvn -Dhttps.protocols=TLSv1.2 exec:java -Dexec.mainClass="org.geppetto.persistence.util.DBTestData" -Dexec.classpathScope=runtime
 
 #END INSTALL MYSQL
 
