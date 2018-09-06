@@ -31,8 +31,8 @@
                protocol="HTTP/1.1"
                connectionTimeout="20000" enableLookups="false" redirectPort="8443" />
 
-    <Connector port="8443"
-               protocol="HTTP/1.1"
+    <Connector address="0.0.0.0" port="8443"
+               protocol="org.apache.coyote.http11.Http11NioProtocol"
                sslImplementationName="org.apache.tomcat.util.net.jsse.JSSEImplementation"
                SSLEnabled="true" scheme="https" secure="true" 
                enableLookups="false" maxThreads="150">
