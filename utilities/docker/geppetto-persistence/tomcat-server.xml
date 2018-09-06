@@ -18,13 +18,12 @@
 <Server>
   <!--APR library loader. Documentation at /docs/apr.html -->
   <Listener className="org.apache.catalina.core.AprLifecycleListener" SSLEngine="on" />
-  <!--Initialize Jasper prior to webapps are loaded. Documentation at /docs/jasper-howto.html -->
-  <Listener className="org.apache.catalina.core.JasperListener" />
   <!-- Prevent memory leaks due to use of particular java/javax APIs-->
   <Listener className="org.apache.catalina.core.JreMemoryLeakPreventionListener" />
   <Listener className="org.apache.catalina.mbeans.GlobalResourcesLifecycleListener" />
   <Listener className="org.apache.catalina.core.ThreadLocalLeakPreventionListener" />
   <Listener className="org.eclipse.virgo.web.tomcat.support.ServerLifecycleLoggingListener"/>
+  <Listener className="org.apache.catalina.security.SecurityListener" />
 
   <Service name="Catalina">
     <Connector port="8080" protocol="HTTP/1.1"
