@@ -1,7 +1,7 @@
 Geppetto Utilities
 ==================
 
-##OpenWorm Development Environment Builder
+## OpenWorm Development Environment Builder
 
 File: **build_dev_environment.py**
 
@@ -40,7 +40,7 @@ After downloading Virgo Server and Eclipse, they will be extracted to a director
 - com.vmware.vfabric.ide.eclipse.tcserver.insight.feature.group
 - org.springframework.ide.eclipse.uaa.feature.feature.group
 
-###Requirements
+### Requirements
 
 
 OS: Linux, OS X
@@ -58,7 +58,7 @@ OS: Linux, OS X
 [OpenCL](http://www.khronos.org/opencl/)
 
 
-###Usage
+### Usage
 ```
 build_dev_environment.py [-h] [--clone-method CLONE_METHOD]
                                 [--virgo-version VIRGO_VERSION]
@@ -67,7 +67,7 @@ build_dev_environment.py [-h] [--clone-method CLONE_METHOD]
                                 [--skip-jdk-check SKIP_JDK_CHECK]
 ```
 
-####Runtime options
+#### Runtime options
 ```
 --clone-method
 description: Select method to clone Github repository
