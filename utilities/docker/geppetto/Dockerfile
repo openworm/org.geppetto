@@ -3,7 +3,7 @@ MAINTAINER Stephen Larson "slarson@openworm.org"
 
 ARG mainBranch=master
 ENV mainBranch=${mainBranch}
-RUN if [ -z "$mainBranch" ] ; then echo 'false'; else echo 'true'; fi
+RUN if [ -z "$mainBranch" ] ; then mainBranch=master; else echo 'true'; fi
 RUN echo "USE GIT BRANCH ------------  $mainBranch";
 
 RUN apt-get update && apt-get install -qq -y sudo xvfb 
