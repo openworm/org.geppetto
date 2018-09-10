@@ -1,7 +1,7 @@
 FROM java:8
 MAINTAINER Stephen Larson "slarson@openworm.org"
 
-ARG mainBranch=master
+ARG mainBranch=development
 ENV mainBranch=${mainBranch}
 RUN echo "USE GIT BRANCH ------------  $mainBranch";
 
