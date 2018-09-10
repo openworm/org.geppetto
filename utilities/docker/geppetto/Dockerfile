@@ -1,8 +1,9 @@
 FROM java:8
 MAINTAINER Stephen Larson "slarson@openworm.org"
 
-ARG mainBranch=development
+ARG mainBranch=master
 ENV mainBranch=${mainBranch}
+RUN if [ -z "$mainBranch" ] ; then echo 'false'; else echo 'true'; fi
 RUN echo "USE GIT BRANCH ------------  $mainBranch";
 
 RUN apt-get update && apt-get install -qq -y sudo xvfb 
