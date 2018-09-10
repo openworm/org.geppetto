@@ -41,6 +41,8 @@ RUN curl -L 'http://www.eclipse.org/downloads/download.php?file=/virgo/release/V
 ADD dmk.sh /home/developer/virgo/bin/
 RUN rm /home/developer/virgo/configuration/java-server.profile
 ADD java-server.profile /home/developer/virgo/configuration/
+RUN rm /home/developer/virgo/configuration/tomcat-server.xml
+ADD tomcat-server.xml /home/developer/virgo/configuration/
 USER root
 RUN chown developer /home/developer/virgo/bin/dmk.sh
 USER developer
