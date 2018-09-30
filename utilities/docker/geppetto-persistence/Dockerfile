@@ -119,7 +119,7 @@ RUN cd /home/developer/workspace/org.geppetto.persistence && mvn install --quiet
 RUN sudo service mysql start && cd /home/developer/workspace/org.geppetto.persistence && mvn exec:java -Dexec.mainClass="org.geppetto.persistence.util.DBTestData" -Dexec.classpathScope=runtime
 
 #END INSTALL MYSQL
-
+ 
 RUN cd /home/developer/workspace/org.geppetto/utilities/source_setup && python update_server.py
 
 RUN sudo echo "accessKey=$aKey" > /home/developer/geppetto/aws.credentials
