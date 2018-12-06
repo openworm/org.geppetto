@@ -1,11 +1,11 @@
-FROM java:7
+FROM java:8
 MAINTAINER Stephen Larson "slarson@openworm.org"
 
-ARG frontendBranch=development
-ENV frontendBranch=${frontendBranch}
-RUN echo "$frontendBranch";
+ARG mainBranch=development
+ENV mainBranch=${mainBranch}
+RUN echo "USE GIT BRANCH ------------  $mainBranch";
 
-RUN apt-get update && apt-get install -qq -y sudo xvfb
+RUN apt-get update && apt-get install -qq -y sudo xvfb 
 
 RUN useradd -ms /bin/bash developer
 
@@ -37,8 +37,12 @@ USER root
 RUN apt-get update && apt-get install -qq -y curl bsdtar locate
 USER developer
 RUN mkdir -p /home/developer/virgo
-RUN curl -L 'http://www.eclipse.org/downloads/download.php?file=/virgo/release/VP/3.6.4.RELEASE/virgo-tomcat-server-3.6.4.RELEASE.zip&r=1' | bsdtar --strip-components 1 -C /home/developer/virgo -xzf -
+RUN curl -L 'http://www.eclipse.org/downloads/download.php?file=/virgo/release/VP/3.7.2.RELEASE/virgo-tomcat-server-3.7.2.RELEASE.zip&r=1' | bsdtar --strip-components 1 -C /home/developer/virgo -xzf -
 ADD dmk.sh /home/developer/virgo/bin/
+RUN rm /home/developer/virgo/configuration/java-server.profile
+ADD java-server.profile /home/developer/virgo/configuration/
+RUN rm /home/developer/virgo/configuration/tomcat-server.xml
+ADD tomcat-server.xml /home/developer/virgo/configuration/
 USER root
 RUN chown developer /home/developer/virgo/bin/dmk.sh
 USER developer
@@ -51,30 +55,29 @@ RUN mvn --version
 
 #GET GEPPETTO SOURCES
 USER root
-RUN mkdir -p workspace && cd workspace && git clone http://github.com/openworm/org.geppetto && cd org.geppetto && git checkout development
+RUN mkdir -p workspace && cd workspace && git clone -b update-virgo http://github.com/openworm/org.geppetto && cd org.geppetto && git checkout update-virgo
 RUN chmod -R 777 workspace
 USER developer
 
-RUN cd workspace && git clone https://github.com/openworm/org.geppetto.model.git && cd org.geppetto.model && git checkout development
-RUN cd workspace && cd org.geppetto.model && git checkout $frontendBranch ; exit 0
-RUN cd workspace && git clone https://github.com/openworm/org.geppetto.core.git && cd org.geppetto.core && git checkout development
-RUN cd workspace && cd org.geppetto.core && git checkout $frontendBranch ; exit 0
-RUN cd workspace && git clone https://github.com/openworm/org.geppetto.model.neuroml.git && cd org.geppetto.model.neuroml && git checkout development
-RUN cd workspace && cd org.geppetto.model.neuroml && git checkout $frontendBranch ; exit 0
-RUN cd workspace && git clone https://github.com/openworm/org.geppetto.simulation.git && cd org.geppetto.simulation && git checkout development
-RUN cd workspace && cd org.geppetto.simulation && git checkout $frontendBranch ; exit 0
-RUN cd workspace && git clone https://github.com/openworm/org.geppetto.frontend.git && cd org.geppetto.frontend && git checkout $frontendBranch
+RUN cd workspace && git clone https://github.com/openworm/org.geppetto.model.git && cd org.geppetto.model && git checkout $mainBranch
+RUN cd workspace && git clone https://github.com/openworm/org.geppetto.core.git && cd org.geppetto.core && git checkout $mainBranch
+RUN cd workspace && git clone https://github.com/openworm/org.geppetto.model.neuroml.git && cd org.geppetto.model.neuroml && git checkout $mainBranch
+RUN cd workspace && git clone https://github.com/openworm/org.geppetto.simulation.git && cd org.geppetto.simulation && git checkout $mainBranch
+RUN cd workspace && git clone https://github.com/openworm/org.geppetto.frontend.git && cd org.geppetto.frontend && git checkout $mainBranch
 RUN sudo chmod -R 777 workspace \
     && cd workspace/org.geppetto && mvn -Dhttps.protocols=TLSv1.2 --quiet install 
 #END GET GEPPETTO SOURCES
 
 RUN mkdir -p geppetto/
+RUN mkdir rm /home/developer/virgo/./repository/usr
 
 #COPY entrypoint.sh geppetto/
 #COPY check_update.sh geppetto/
 #RUN sudo chmod +x geppetto/*.sh
 
 RUN cd /home/developer/workspace/org.geppetto/utilities/source_setup && python update_server.py
+
+RUN java -version
 
 EXPOSE 8080
 CMD ["/home/developer/virgo/bin/startup.sh"]
