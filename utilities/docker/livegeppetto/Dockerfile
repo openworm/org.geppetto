@@ -64,8 +64,8 @@ USER developer
 
 RUN cd workspace && git clone https://github.com/openworm/org.geppetto.model.git && cd org.geppetto.model && git checkout $mainBranch
 RUN cd workspace && git clone https://github.com/openworm/org.geppetto.core.git && cd org.geppetto.core && git checkout $mainBranch
-RUN cd workspace && git clone https://github.com/openworm/org.geppetto.model.neuroml.git && cd org.geppetto.model.neuroml && git checkout $mainBranch && git lfs pull
-RUN cd workspace && git clone https://github.com/openworm/org.geppetto.model.nwb.git && cd org.geppetto.model.nwb && git checkout $mainBranch
+RUN cd workspace && git clone https://github.com/openworm/org.geppetto.model.neuroml.git && cd org.geppetto.model.neuroml && git checkout $mainBranch
+RUN cd workspace && git clone https://github.com/openworm/org.geppetto.model.nwb.git && cd org.geppetto.model.nwb && git checkout $mainBranch && git lfs pull
 RUN cd workspace && git clone https://github.com/openworm/org.geppetto.simulation.git && cd org.geppetto.simulation && git checkout $mainBranch
 RUN cd workspace && git clone https://github.com/openworm/org.geppetto.frontend.git && cd org.geppetto.frontend && git checkout $mainBranch
 RUN sudo chmod -R 777 workspace \
