@@ -78,6 +78,8 @@ RUN mkdir rm /home/developer/virgo/./repository/usr
 #COPY check_update.sh geppetto/
 #RUN sudo chmod +x geppetto/*.sh
 
+RUN rm /home/developer/workspace/org.geppetto/utilities/source_setup/config.json
+ADD config.json /home/developer/workspace/org.geppetto/utilities/source_setup/
 RUN cd /home/developer/workspace/org.geppetto/utilities/source_setup && python update_server.py
 
 RUN java -version
