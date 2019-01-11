@@ -67,7 +67,10 @@ RUN cd workspace && git clone https://github.com/openworm/org.geppetto.core.git 
 RUN cd workspace && git clone https://github.com/openworm/org.geppetto.model.neuroml.git && cd org.geppetto.model.neuroml && git checkout $mainBranch && mvn -DskipTests install
 RUN cd workspace && git clone https://github.com/openworm/org.geppetto.model.nwb.git && cd org.geppetto.model.nwb && git checkout $mainBranch && git lfs pull && mvn -DskipTests install
 RUN cd workspace && git clone https://github.com/openworm/org.geppetto.simulation.git && cd org.geppetto.simulation && git checkout $mainBranch && mvn -DskipTests install
-RUN cd workspace && git clone https://github.com/openworm/org.geppetto.frontend.git && cd org.geppetto.frontend && git checkout $mainBranch && mvn -Dhttps.protocols=TLSv1.2 -DcontextPath=/ -DuseSsl=true -DskipTests install
+RUN cd workspace && git clone https://github.com/openworm/org.geppetto.frontend.git && cd org.geppetto.frontend && git checkout $mainBranch 
+RUN rm /home/developer/workspace/org.geppetto.frontend/src/main/webapp/GeppettoConfiguration.json
+ADD GeppettoConfiguration.json /home/developer/workspace/org.geppetto.frontend/src/main/webapp/
+RUN cd workspace && cd org.geppetto.frontend && mvn -Dhttps.protocols=TLSv1.2 -DcontextPath=/ -DuseSsl=true -DskipTests install
 RUN sudo chmod -R 777 workspace
 #END GET GEPPETTO SOURCES
 
