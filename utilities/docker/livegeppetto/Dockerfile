@@ -81,6 +81,8 @@ RUN mkdir rm /home/developer/virgo/./repository/usr
 #COPY check_update.sh geppetto/
 #RUN sudo chmod +x geppetto/*.sh
 
+RUN rm /home/developer/workspace/org.geppetto/geppetto.plan
+ADD geppetto.plan /home/developer/workspace/org.geppetto/
 RUN rm /home/developer/workspace/org.geppetto/utilities/source_setup/config.json
 ADD config.json /home/developer/workspace/org.geppetto/utilities/source_setup/
 RUN rm /home/developer/virgo/pickup/*.jar
