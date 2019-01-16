@@ -6,6 +6,9 @@ ENV mainBranch=${mainBranch}
 RUN echo "USE GIT BRANCH ------------  $mainBranch";
 
 RUN apt-get update && apt-get install -qq -y sudo xvfb 
+RUN curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | bash
+RUN apt-get install -y git-lfs
+RUN git lfs install
 
 RUN useradd -ms /bin/bash developer
 
@@ -55,17 +58,20 @@ RUN mvn --version
 
 #GET GEPPETTO SOURCES
 USER root
-RUN mkdir -p workspace && cd workspace && git clone -b update-virgo http://github.com/openworm/org.geppetto && cd org.geppetto && git checkout update-virgo
+RUN mkdir -p workspace && cd workspace && git clone -b update-virgo http://github.com/openworm/org.geppetto && cd org.geppetto && git checkout $mainBranch
 RUN chmod -R 777 workspace
 USER developer
 
-RUN cd workspace && git clone https://github.com/openworm/org.geppetto.model.git && cd org.geppetto.model && git checkout $mainBranch
-RUN cd workspace && git clone https://github.com/openworm/org.geppetto.core.git && cd org.geppetto.core && git checkout $mainBranch
-RUN cd workspace && git clone https://github.com/openworm/org.geppetto.model.neuroml.git && cd org.geppetto.model.neuroml && git checkout $mainBranch
-RUN cd workspace && git clone https://github.com/openworm/org.geppetto.simulation.git && cd org.geppetto.simulation && git checkout $mainBranch
-RUN cd workspace && git clone https://github.com/openworm/org.geppetto.frontend.git && cd org.geppetto.frontend && git checkout $mainBranch
-RUN sudo chmod -R 777 workspace \
-    && cd workspace/org.geppetto && mvn -Dhttps.protocols=TLSv1.2 --quiet install 
+RUN cd workspace && git clone https://github.com/openworm/org.geppetto.model.git && cd org.geppetto.model && git checkout $mainBranch && mvn -DskipTests install 
+RUN cd workspace && git clone https://github.com/openworm/org.geppetto.core.git && cd org.geppetto.core && git checkout $mainBranch && mvn -DskipTests install
+RUN cd workspace && git clone https://github.com/openworm/org.geppetto.model.neuroml.git && cd org.geppetto.model.neuroml && git checkout $mainBranch && mvn -DskipTests install
+RUN cd workspace && git clone https://github.com/openworm/org.geppetto.model.nwb.git && cd org.geppetto.model.nwb && git checkout $mainBranch && git lfs pull && mvn -DskipTests install
+RUN cd workspace && git clone https://github.com/openworm/org.geppetto.simulation.git && cd org.geppetto.simulation && git checkout $mainBranch && mvn -DskipTests install
+RUN cd workspace && git clone https://github.com/openworm/org.geppetto.frontend.git && cd org.geppetto.frontend && git checkout $mainBranch 
+RUN rm /home/developer/workspace/org.geppetto.frontend/src/main/webapp/GeppettoConfiguration.json
+ADD GeppettoConfiguration.json /home/developer/workspace/org.geppetto.frontend/src/main/webapp/
+RUN cd workspace && cd org.geppetto.frontend && mvn -Dhttps.protocols=TLSv1.2 -DcontextPath=/ -DuseSsl=true -DskipTests install
+RUN sudo chmod -R 777 workspace
 #END GET GEPPETTO SOURCES
 
 RUN mkdir -p geppetto/
@@ -75,6 +81,11 @@ RUN mkdir rm /home/developer/virgo/./repository/usr
 #COPY check_update.sh geppetto/
 #RUN sudo chmod +x geppetto/*.sh
 
+RUN rm /home/developer/workspace/org.geppetto/geppetto.plan
+ADD geppetto.plan /home/developer/workspace/org.geppetto/
+RUN rm /home/developer/workspace/org.geppetto/utilities/source_setup/config.json
+ADD config.json /home/developer/workspace/org.geppetto/utilities/source_setup/
+RUN rm /home/developer/virgo/pickup/*.jar
 RUN cd /home/developer/workspace/org.geppetto/utilities/source_setup && python update_server.py
 
 RUN java -version

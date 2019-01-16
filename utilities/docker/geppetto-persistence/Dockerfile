@@ -1,17 +1,13 @@
-FROM java:7
+FROM java:8
 MAINTAINER Stephen Larson "slarson@openworm.org"
 
 ARG aKey
 ENV aKey=${aKey}
 ARG sKey
 ENV sKey=${sKey}
-ARG persistenceBranch
-ENV persistenceBranch=${persistenceBranch:-development}
-ARG frontendBranch
-ENV frontendBranch=${frontendBranch:-development}
-
-RUN echo $frontendBranch;
-RUN echo $persistenceBranch;
+ARG mainBranch=development
+ENV mainBranch=${mainBranch}
+RUN echo "USE GIT BRANCH ------------  $mainBranch";
 
 RUN apt-get update && apt-get install -qq -y sudo
 
@@ -44,11 +40,15 @@ ENV MAVEN_HOME /opt/maven
 
 #VIRGO INSTALL
 USER root
-RUN apt-get update && apt-get install -qq -y curl bsdtar locate
+RUN apt-get update && apt-get install -qq -y curl bsdtar locate && apt-get install -qq -y net-tools
 USER developer
 RUN mkdir -p /home/developer/virgo
-RUN curl -L 'http://www.eclipse.org/downloads/download.php?file=/virgo/release/VP/3.6.4.RELEASE/virgo-tomcat-server-3.6.4.RELEASE.zip&r=1' | bsdtar --strip-components 1 -C /home/developer/virgo -xzf -
+RUN curl -L 'http://www.eclipse.org/downloads/download.php?file=/virgo/release/VP/3.7.2.RELEASE/virgo-tomcat-server-3.7.2.RELEASE.zip&r=1' | bsdtar --strip-components 1 -C /home/developer/virgo -xzf -
 ADD dmk.sh /home/developer/virgo/bin/
+RUN rm /home/developer/virgo/configuration/java-server.profile
+ADD java-server.profile /home/developer/virgo/configuration/
+RUN rm /home/developer/virgo/configuration/tomcat-server.xml
+ADD tomcat-server.xml /home/developer/virgo/configuration/
 USER root
 RUN chown developer /home/developer/virgo/bin/dmk.sh
 USER developer
@@ -61,7 +61,7 @@ RUN mvn --version
 
 #GET GEPPETTO SOURCES
 USER root
-RUN mkdir -p workspace && cd workspace && git clone http://github.com/openworm/org.geppetto && cd org.geppetto && git checkout development
+RUN mkdir -p workspace && cd workspace && git clone http://github.com/openworm/org.geppetto && cd org.geppetto && git checkout update-virgo
 RUN chmod -R 777 workspace
 USER developer
 
@@ -71,12 +71,12 @@ RUN sudo mv /home/developer/workspace/org.geppetto/utilities/docker/geppetto-per
 COPY geppetto.plan workspace/org.geppetto/
 
 RUN sudo chmod -R 777 workspace;
-RUN cd workspace && git clone https://github.com/openworm/org.geppetto.model.git && cd org.geppetto.model && git checkout development && mvn -Dhttps.protocols=TLSv1.2 --quiet install;
-RUN cd workspace && git clone https://github.com/openworm/org.geppetto.core.git && cd org.geppetto.core && git checkout development && mvn -Dhttps.protocols=TLSv1.2 --quiet install;
-RUN cd workspace && git clone https://github.com/openworm/org.geppetto.model.neuroml.git && cd org.geppetto.model.neuroml && git checkout development && mvn -Dhttps.protocols=TLSv1.2 --quiet install;
-RUN cd workspace && git clone https://github.com/openworm/org.geppetto.simulation.git && cd org.geppetto.simulation && git checkout development && mvn -Dhttps.protocols=TLSv1.2 --quiet install;
-RUN cd workspace && git clone https://github.com/openworm/org.geppetto.frontend.git && cd org.geppetto.frontend && git checkout $frontendBranch && mvn -Dhttps.protocols=TLSv1.2 --quiet install;
-RUN cd workspace && git clone https://github.com/openworm/org.geppetto.persistence.git && cd org.geppetto.persistence && git checkout $persistenceBranch && mvn -Dhttps.protocols=TLSv1.2 --quiet install;
+RUN cd workspace && git clone https://github.com/openworm/org.geppetto.model.git && cd org.geppetto.model && git checkout $mainBranch && mvn --quiet install;
+RUN cd workspace && git clone https://github.com/openworm/org.geppetto.core.git && cd org.geppetto.core && git checkout $mainBranch && mvn --quiet install;
+RUN cd workspace && git clone https://github.com/openworm/org.geppetto.model.neuroml.git && cd org.geppetto.model.neuroml && git checkout $mainBranch && mvn --quiet install;
+RUN cd workspace && git clone https://github.com/openworm/org.geppetto.simulation.git && cd org.geppetto.simulation && git checkout $mainBranch && mvn --quiet install;
+RUN cd workspace && git clone https://github.com/openworm/org.geppetto.frontend.git && cd org.geppetto.frontend && git checkout $mainBranch && mvn --quiet install;
+RUN cd workspace && git clone https://github.com/openworm/org.geppetto.persistence.git && cd org.geppetto.persistence && git checkout $mainBranch && mvn --quiet install;
 
 #END GET GEPPETTO SOURCES
 
@@ -99,6 +99,7 @@ USER developer
 
 #SETUP MYSQL CONFIG
 RUN mkdir -p geppetto/
+RUN mkdir rm /home/developer/virgo/./repository/usr
 COPY db.properties geppetto/
 COPY init.sql geppetto/
 #COPY entrypoint.sh geppetto/
@@ -113,12 +114,12 @@ RUN service mysql start && mysql -uroot < /home/developer/geppetto/init.sql
 #END SETUP MYSQL INITIAL DATA
 
 USER developer
-RUN cd /home/developer/workspace/org.geppetto.persistence && mvn -Dhttps.protocols=TLSv1.2 install --quiet && mvn -Dhttps.protocols=TLSv1.2 install --quiet
+RUN cd /home/developer/workspace/org.geppetto.persistence && mvn install --quiet && mvn install
 
-RUN sudo service mysql start && cd /home/developer/workspace/org.geppetto.persistence && mvn -Dhttps.protocols=TLSv1.2 exec:java -Dexec.mainClass="org.geppetto.persistence.util.DBTestData" -Dexec.classpathScope=runtime
+RUN sudo service mysql start && cd /home/developer/workspace/org.geppetto.persistence && mvn exec:java -Dexec.mainClass="org.geppetto.persistence.util.DBTestData" -Dexec.classpathScope=runtime
 
 #END INSTALL MYSQL
-
+ 
 RUN cd /home/developer/workspace/org.geppetto/utilities/source_setup && python update_server.py
 
 RUN sudo echo "accessKey=$aKey" > /home/developer/geppetto/aws.credentials

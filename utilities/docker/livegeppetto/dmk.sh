@@ -177,7 +177,7 @@ then
 		# Ensure that the tmp directory exists
 		mkdir -p "$TMP_DIR"
 
-        JAVA_OPTS="-Xmx1024m \
+        JAVA_OPTS="-Xmx2048m \
                     -XX:MaxPermSize=512m $JAVA_OPTS"
 
 		cd "$KERNEL_HOME"; exec $JAVA_EXECUTABLE \
