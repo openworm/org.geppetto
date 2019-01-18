@@ -55,7 +55,7 @@ RUN mvn --version
 
 #GET GEPPETTO SOURCES
 USER root
-RUN mkdir -p workspace && cd workspace && git clone -b development http://github.com/openworm/org.geppetto && cd org.geppetto && git checkout update-virgo
+RUN mkdir -p workspace && cd workspace && git clone -b development http://github.com/openworm/org.geppetto && cd org.geppetto && git checkout development
 RUN chmod -R 777 workspace
 USER developer
 
