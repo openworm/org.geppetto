@@ -59,11 +59,21 @@ RUN mkdir -p workspace && cd workspace && git clone -b development http://github
 RUN chmod -R 777 workspace
 USER developer
 
-RUN cd workspace && git clone https://github.com/openworm/org.geppetto.model.git && cd org.geppetto.model && git checkout $mainBranch
-RUN cd workspace && git clone https://github.com/openworm/org.geppetto.core.git && cd org.geppetto.core && git checkout $mainBranch
-RUN cd workspace && git clone https://github.com/openworm/org.geppetto.model.neuroml.git && cd org.geppetto.model.neuroml && git checkout $mainBranch
-RUN cd workspace && git clone https://github.com/openworm/org.geppetto.simulation.git && cd org.geppetto.simulation && git checkout $mainBranch
-RUN cd workspace && git clone https://github.com/openworm/org.geppetto.frontend.git && cd org.geppetto.frontend && git checkout $mainBranch
+# checkout $mainBranch if does not exist
+RUN cd workspace && git clone https://github.com/openworm/org.geppetto.model.git && cd org.geppetto.model && git checkout -B $mainBranch
+RUN cd workspace && git clone https://github.com/openworm/org.geppetto.core.git && cd org.geppetto.core && git checkout -B $mainBranch
+RUN cd workspace && git clone https://github.com/openworm/org.geppetto.model.neuroml.git && cd org.geppetto.model.neuroml && git checkout -B $mainBranch
+RUN cd workspace && git clone https://github.com/openworm/org.geppetto.simulation.git && cd org.geppetto.simulation && git checkout -B $mainBranch
+RUN cd workspace && git clone https://github.com/openworm/org.geppetto.frontend.git && cd org.geppetto.frontend && git checkout -B $mainBranch
+RUN cd src/main && git clone https://github.com/openworm/geppetto-application.git webapp && cd webapp && git checkout -B $mainBranch
+
+# check if $mainBranch exist in geppetto-client and modify package.json in case it does
+RUN git ls-remote --heads --tags https://github.com/openworm/geppetto-client.git \
+  | grep -E "refs/(heads|tags)/$mainBranch" > /dev/null &&\
+  if [[ "$?" -eq "0" ]]; then \
+    sed -ie 's/"@geppettoengine.*/"@geppettoengine\/geppetto-client": "openworm\/geppetto-client#'${mainBranch}'"/g' package.json; \
+  fi
+
 RUN sudo chmod -R 777 workspace \
     && cd workspace/org.geppetto && mvn -Dhttps.protocols=TLSv1.2 --quiet install 
 #END GET GEPPETTO SOURCES
