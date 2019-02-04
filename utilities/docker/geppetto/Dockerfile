@@ -91,11 +91,12 @@ RUN cd workspace/org.geppetto.frontend/src/main &&\
   git checkout $mainBranch; exit 0
 
 # check if $mainBranch exist in geppetto-client and modify package.json in case it does
-RUN git ls-remote --heads --tags https://github.com/openworm/geppetto-client.git \
-  | grep -E "refs/(heads|tags)/$mainBranch" > /dev/null &&\
-  if [[ "$?" -eq "0" ]]; then \
-    sed -ie 's/"@geppettoengine.*/"@geppettoengine\/geppetto-client": "openworm\/geppetto-client#'${mainBranch}'"/g' package.json; \
-  fi
+RUN /bin/bash -c "git ls-remote --heads --tags https://github.com/openworm/geppetto-client.git \
+  | grep -E 'refs/(heads|tags)/$mainBranch' > /dev/null &&\
+  if [[ '$?' -eq '0' ]]; then \
+    sed -ie 's/\"@geppettoengine.*/\"@geppettoengine\/geppetto-client\": \"openworm\/geppetto-client#'${mainBranch}'\"/g' package.json &&\
+    echo 'checking out ${mainBranch} for geppetto-client' \
+  fi"
 
 RUN sudo chmod -R 777 workspace \
     && cd workspace/org.geppetto && mvn -Dhttps.protocols=TLSv1.2 --quiet install 
