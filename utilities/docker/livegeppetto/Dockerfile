@@ -62,15 +62,61 @@ RUN mkdir -p workspace && cd workspace && git clone -b development http://github
 RUN chmod -R 777 workspace
 USER developer
 
-RUN cd workspace && git clone https://github.com/openworm/org.geppetto.model.git && cd org.geppetto.model && git checkout $mainBranch && mvn -DskipTests install 
-RUN cd workspace && git clone https://github.com/openworm/org.geppetto.core.git && cd org.geppetto.core && git checkout $mainBranch && mvn -DskipTests install
-RUN cd workspace && git clone https://github.com/openworm/org.geppetto.model.neuroml.git && cd org.geppetto.model.neuroml && git checkout $mainBranch && mvn -DskipTests install
-RUN cd workspace && git clone https://github.com/openworm/org.geppetto.model.nwb.git && cd org.geppetto.model.nwb && git checkout $mainBranch && git lfs pull && mvn -DskipTests install
-RUN cd workspace && git clone https://github.com/openworm/org.geppetto.simulation.git && cd org.geppetto.simulation && git checkout $mainBranch && mvn -DskipTests install
-RUN cd workspace && git clone https://github.com/openworm/org.geppetto.frontend.git && cd org.geppetto.frontend && git checkout $mainBranch 
+# &&\ will stop if prev line failed
+# ;\ will allow to continue if prev line failed
+RUN cd workspace &&\
+  git clone https://github.com/openworm/org.geppetto.model.git &&\
+  cd org.geppetto.model &&\
+  git checkout $mainBranch ;\
+  mvn -DskipTests install 
+
+RUN cd workspace &&\
+  git clone https://github.com/openworm/org.geppetto.core.git &&\
+  cd org.geppetto.core &&\
+  git checkout $mainBranch ;\
+  mvn -DskipTests install
+
+RUN cd workspace &&\
+  git clone https://github.com/openworm/org.geppetto.model.neuroml.git &&\
+  cd org.geppetto.model.neuroml &&\
+  git checkout $mainBranch ;\
+  mvn -DskipTests install
+
+RUN cd workspace &&\
+  git clone https://github.com/openworm/org.geppetto.model.nwb.git &&\
+  cd org.geppetto.model.nwb &&\
+  git checkout $mainBranch ;\
+  git lfs pull &&\
+  mvn -DskipTests install
+
+RUN cd workspace &&\
+  git clone https://github.com/openworm/org.geppetto.simulation.git &&\
+  cd org.geppetto.simulation &&\
+  git checkout $mainBranch ;\
+  mvn -DskipTests install
+
+RUN cd workspace &&\
+  git clone https://github.com/openworm/org.geppetto.frontend.git &&\
+  cd org.geppetto.frontend &&\
+  git checkout $mainBranch ; exit 0
+
+RUN cd workspace/org.geppetto.frontend/src/main &&\
+  git clone https://github.com/openworm/geppetto-application.git webapp &&\
+  cd webapp &&\
+  git checkout $mainBranch; exit 0
+
+# check if $mainBranch exist in geppetto-client and modify package.json in case it does
+RUN /bin/bash -c "cd workspace/org.geppetto.frontend/src/main/webapp &&\
+  git ls-remote --heads --tags https://github.com/openworm/geppetto-client.git \
+  | grep -E 'refs/(heads|tags)/$mainBranch' > /dev/null &&\
+  if [[ '$?' -eq '0' ]]; then \
+    sed -ie 's/\"@geppettoengine.*/\"@geppettoengine\/geppetto-client\": \"openworm\/geppetto-client#'${mainBranch}'\"/g' package.json &&\
+    echo 'checking out ${mainBranch} for geppetto-client' ; \
+  fi"
+
 RUN rm /home/developer/workspace/org.geppetto.frontend/src/main/webapp/GeppettoConfiguration.json
 ADD GeppettoConfiguration.json /home/developer/workspace/org.geppetto.frontend/src/main/webapp/
-RUN cd workspace && cd org.geppetto.frontend && mvn -Dhttps.protocols=TLSv1.2 -DcontextPath=/ -DuseSsl=true -DskipTests install
+RUN cd workspace/org.geppetto.frontend && mvn -Dhttps.protocols=TLSv1.2 -DcontextPath=/ -DuseSsl=true -DskipTests install
 RUN sudo chmod -R 777 workspace
 #END GET GEPPETTO SOURCES
 
