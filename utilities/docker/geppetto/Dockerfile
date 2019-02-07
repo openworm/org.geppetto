@@ -1,97 +1,48 @@
-FROM java:8
-MAINTAINER Stephen Larson "slarson@openworm.org"
+FROM metacell/java-virgo-maven:latest
+
+LABEL maintainer="Facundo Rodriguez <facundo@metacell.us>"
 
 ARG mainBranch=development
 ENV mainBranch=${mainBranch}
-RUN echo "USE GIT BRANCH ------------  $mainBranch";
+RUN /bin/echo -e "\e[1;35mUSE GIT BRANCH ------------ $mainBranch\e[0m"
 
-RUN apt-get update && apt-get install -qq -y sudo xvfb 
+# get geppetto
+RUN mkdir -p workspace &&\
+  cd workspace &&\
+  ../copy.sh http://github.com/openworm/org.geppetto.git ${mainBranch}
 
-RUN useradd -ms /bin/bash developer
-
-RUN mkdir -p /home/developer && mkdir -p /etc/sudoers.d \
-    echo "developer:x:1000:1000:Developer,,,:/home/developer:/bin/bash" >> /etc/passwd && \
-    echo "developer:x:1000:" >> /etc/group && \
-    echo "developer ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/developer && \
-    chmod 0440 /etc/sudoers.d/developer && \
-    chown developer:developer -R /home/developer && \
-    chown root:root /usr/bin/sudo && chmod 4755 /usr/bin/sudo
-
-USER developer
-ENV HOME /home/developer
-WORKDIR /home/developer
-
-# get maven 3.5.2
-RUN sudo wget -q --no-verbose -O /tmp/apache-maven-3.5.2-bin.tar.gz http://archive.apache.org/dist/maven/maven-3/3.5.2/binaries/apache-maven-3.5.2-bin.tar.gz
-
-# install maven
-RUN sudo tar xzf /tmp/apache-maven-3.5.2-bin.tar.gz -C /opt/
-RUN sudo ln -s /opt/apache-maven-3.5.2 /opt/maven
-RUN sudo ln -s /opt/maven/bin/mvn /usr/local/bin
-RUN sudo rm -f /tmp/apache-maven-3.5.2-bin.tar.gz
-ENV MAVEN_HOME /opt/maven
-RUN mvn --version
-
-#VIRGO INSTALL
-USER root
-RUN apt-get update && apt-get install -qq -y curl bsdtar locate
-USER developer
-RUN mkdir -p /home/developer/virgo
-RUN curl -L 'http://www.eclipse.org/downloads/download.php?file=/virgo/release/VP/3.7.2.RELEASE/virgo-tomcat-server-3.7.2.RELEASE.zip&r=1' | bsdtar --strip-components 1 -C /home/developer/virgo -xzf -
-ADD dmk.sh /home/developer/virgo/bin/
-RUN rm /home/developer/virgo/configuration/java-server.profile
-ADD java-server.profile /home/developer/virgo/configuration/
-RUN rm /home/developer/virgo/configuration/tomcat-server.xml
-ADD tomcat-server.xml /home/developer/virgo/configuration/
-USER root
-RUN chown developer /home/developer/virgo/bin/dmk.sh
-USER developer
-RUN chmod u+x /home/developer/virgo/bin/*.sh
-ENV SERVER_HOME /home/developer/virgo
-#VOLUME /home/developer/virgo
-#END VIRGO INSTALL
-
-RUN mvn --version
-
-#GET GEPPETTO SOURCES
-USER root
-RUN mkdir -p workspace && cd workspace && git clone -b development http://github.com/openworm/org.geppetto && cd org.geppetto && git checkout development
-RUN chmod -R 777 workspace
-USER developer
-
-# checkout $mainBranch and exit with 0 if $mainBranch does not exist
-RUN cd workspace &&\
-  git clone https://github.com/openworm/org.geppetto.model.git &&\
+WORKDIR $HOME/workspace
+# checkout $mainBranch
+RUN ../copy.sh https://github.com/openworm/org.geppetto.model.git ${mainBranch} &&\
   cd org.geppetto.model &&\
-  git checkout $mainBranch; exit 0
+  mvn -Dhttps.protocols=TLSv1.2 install &&\
+  rm -rf src
 
-RUN cd workspace &&\
-  git clone https://github.com/openworm/org.geppetto.core.git &&\
+RUN ../copy.sh https://github.com/openworm/org.geppetto.core.git ${mainBranch} &&\
   cd org.geppetto.core &&\
-  git checkout $mainBranch; exit 0
+  mvn -Dhttps.protocols=TLSv1.2 install &&\
+  rm -rf src
 
-RUN cd workspace &&\
-  git clone https://github.com/openworm/org.geppetto.model.neuroml.git &&\
+RUN ../copy.sh https://github.com/openworm/org.geppetto.model.neuroml.git ${mainBranch} &&\
   cd org.geppetto.model.neuroml &&\
-  git checkout $mainBranch; exit 0
+  mvn -Dhttps.protocols=TLSv1.2 install &&\
+  rm -rf src
 
-RUN cd workspace &&\
-  git clone https://github.com/openworm/org.geppetto.simulation.git &&\
+RUN ../copy.sh https://github.com/openworm/org.geppetto.simulation.git ${mainBranch} &&\
   cd org.geppetto.simulation &&\
-  git checkout $mainBranch; exit 0
+  mvn -Dhttps.protocols=TLSv1.2 install &&\
+  rm -rf src
 
-RUN cd workspace &&\
-  git clone https://github.com/openworm/org.geppetto.frontend.git &&\
-  cd org.geppetto.frontend &&\
-  git checkout $mainBranch; exit 0
+RUN ../copy.sh https://github.com/openworm/org.geppetto.frontend.git ${mainBranch}
 
-RUN cd workspace/org.geppetto.frontend/src/main &&\
+RUN cd $HOME/workspace/org.geppetto.frontend/src/main &&\
   git clone https://github.com/openworm/geppetto-application.git webapp &&\
   cd webapp &&\
-  git checkout $mainBranch; exit 0
+  git checkout $mainBranch;\
+  rm -rf .git
 
 # check if $mainBranch exist in geppetto-client and modify package.json in case it does
-RUN /bin/bash -c "cd workspace/org.geppetto.frontend/src/main/webapp &&\
+RUN /bin/bash -c "cd $HOME/workspace/org.geppetto.frontend/src/main/webapp &&\
   git ls-remote --heads --tags https://github.com/openworm/geppetto-client.git \
   | grep -E 'refs/(heads|tags)/$mainBranch' > /dev/null &&\
   if [[ '$?' -eq '0' ]]; then \
@@ -99,20 +50,15 @@ RUN /bin/bash -c "cd workspace/org.geppetto.frontend/src/main/webapp &&\
     echo 'checking out ${mainBranch} for geppetto-client' ; \
   fi"
 
-RUN sudo chmod -R 777 workspace \
-    && cd workspace/org.geppetto && mvn -Dhttps.protocols=TLSv1.2 --quiet install 
-#END GET GEPPETTO SOURCES
+RUN cd $HOME/workspace/org.geppetto.frontend &&\
+  mvn -Dhttps.protocols=TLSv1.2 install &&\
+  rm -rf src
 
-RUN mkdir -p geppetto/
-RUN mkdir rm /home/developer/virgo/./repository/usr
+WORKDIR $HOME
 
-#COPY entrypoint.sh geppetto/
-#COPY check_update.sh geppetto/
-#RUN sudo chmod +x geppetto/*.sh
+RUN mkdir rm $SERVER_HOME/./repository/usr
 
-RUN cd /home/developer/workspace/org.geppetto/utilities/source_setup && python update_server.py
-
-RUN java -version
+RUN cd $HOME/workspace/org.geppetto/utilities/source_setup && python update_server.py
 
 EXPOSE 8080
-CMD ["/home/developer/virgo/bin/startup.sh"]
+CMD [ "/bin/bash", "-c", "$SERVER_HOME/bin/startup.sh" ]
