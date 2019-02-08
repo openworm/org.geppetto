@@ -15,22 +15,22 @@ WORKDIR $HOME/workspace
 # checkout $mainBranch
 RUN ../copy.sh https://github.com/openworm/org.geppetto.model.git ${mainBranch} &&\
   cd org.geppetto.model &&\
-  mvn -Dhttps.protocols=TLSv1.2 install &&\
+  mvn -Dhttps.protocols=TLSv1.2 i--quiet nstall &&\
   rm -rf src
 
 RUN ../copy.sh https://github.com/openworm/org.geppetto.core.git ${mainBranch} &&\
   cd org.geppetto.core &&\
-  mvn -Dhttps.protocols=TLSv1.2 install &&\
+  mvn -Dhttps.protocols=TLSv1.2 --quiet install &&\
   rm -rf src
 
 RUN ../copy.sh https://github.com/openworm/org.geppetto.model.neuroml.git ${mainBranch} &&\
   cd org.geppetto.model.neuroml &&\
-  mvn -Dhttps.protocols=TLSv1.2 install &&\
+  mvn -Dhttps.protocols=TLSv1.2 --quiet install &&\
   rm -rf src
 
 RUN ../copy.sh https://github.com/openworm/org.geppetto.simulation.git ${mainBranch} &&\
   cd org.geppetto.simulation &&\
-  mvn -Dhttps.protocols=TLSv1.2 install &&\
+  mvn -Dhttps.protocols=TLSv1.2 --quiet install &&\
   rm -rf src
 
 RUN ../copy.sh https://github.com/openworm/org.geppetto.frontend.git ${mainBranch}
@@ -51,7 +51,7 @@ RUN /bin/bash -c "cd $HOME/workspace/org.geppetto.frontend/src/main/webapp &&\
   fi"
 
 RUN cd $HOME/workspace/org.geppetto.frontend &&\
-  mvn -Dhttps.protocols=TLSv1.2 install &&\
+  mvn -Dhttps.protocols=TLSv1.2 --quiet install &&\
   rm -rf src
 
 WORKDIR $HOME
