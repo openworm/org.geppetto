@@ -1,74 +1,71 @@
-FROM metacell/java-virgo-maven:latest
+FROM metacell/java-virgo-maven:development
 LABEL maintainer Stephen Larson "slarson@openworm.org"
 
 ARG aKey
 ENV aKey=${aKey}
 ARG sKey
 ENV sKey=${sKey}
-ARG mainBranch=development
-ENV mainBranch=${mainBranch}
-RUN /bin/echo -e "\e[1;35mUSE GIT BRANCH ------------ $mainBranch\e[0m"
+ARG targetBranch=master
+ARG originBranch=master
+ARG defaultBranch=master
+RUN /bin/echo -e "\e[1;35mORIGIN BRANCH ------------ $originBranch\e[0m" &&\
+  /bin/echo -e "\e[1;35mTARGET BRANCH ------------ $targetBranch\e[0m" &&\
+  /bin/echo -e "\e[1;35mDEFAULT BRANCH ------------ $defaultBranch\e[0m"
 
 # get geppetto
 RUN mkdir -p workspace &&\
   cd workspace &&\
-  ../copy.sh http://github.com/openworm/org.geppetto.git ${mainBranch}
+  ../copy.sh http://github.com/openworm/org.geppetto.git ${targetBranch} ${originBranch} ${defaultBranch}
 
 COPY config.json workspace/org.geppetto/utilities/source_setup/
 RUN sudo mv /home/developer/workspace/org.geppetto/utilities/docker/geppetto-persistence/geppetto.plan /home/developer
 COPY geppetto.plan workspace/org.geppetto/
 
 WORKDIR $HOME/workspace
-
-RUN ../copy.sh https://github.com/openworm/org.geppetto.model.git ${mainBranch} &&\
+RUN ../copy.sh https://github.com/openworm/org.geppetto.model.git ${targetBranch} ${originBranch} ${defaultBranch} &&\
   cd org.geppetto.model &&\
-  mvn -Dhttps.protocols=TLSv1.2 install &&\
+  /bin/echo -e "\e[96mMaven install org.geppetto.model\e[0m" &&\
+  mvn --quiet install &&\
   rm -rf src
 
-RUN ../copy.sh https://github.com/openworm/org.geppetto.core.git ${mainBranch} &&\
+RUN ../copy.sh https://github.com/openworm/org.geppetto.core.git ${targetBranch} ${originBranch} ${defaultBranch} &&\
   cd org.geppetto.core &&\
-  mvn -Dhttps.protocols=TLSv1.2 install &&\
+  /bin/echo -e "\e[96mMaven install org.geppetto.core\e[0m" &&\
+  mvn --quiet install &&\
   rm -rf src
 
-RUN ../copy.sh https://github.com/openworm/org.geppetto.model.neuroml.git ${mainBranch} &&\
+RUN ../copy.sh https://github.com/openworm/org.geppetto.model.neuroml.git ${targetBranch} ${originBranch} ${defaultBranch} &&\
   cd org.geppetto.model.neuroml &&\
-  mvn -Dhttps.protocols=TLSv1.2 install &&\
+  /bin/echo -e "\e[96mMaven install org.geppetto.model.neuroml\e[0m" &&\
+  mvn --quiet install &&\
   rm -rf src
 
-RUN ../copy.sh https://github.com/openworm/org.geppetto.simulation.git ${mainBranch} &&\
+RUN ../copy.sh https://github.com/openworm/org.geppetto.simulation.git ${targetBranch} ${originBranch} ${defaultBranch} &&\
   cd org.geppetto.simulation &&\
-  mvn -Dhttps.protocols=TLSv1.2 install &&\
+  /bin/echo -e "\e[96mMaven install org.geppetto.simulation\e[0m" &&\
+  mvn --quiet install &&\
   rm -rf src
 
-RUN ../copy.sh https://github.com/openworm/org.geppetto.frontend.git ${mainBranch}
+RUN ../copy.sh https://github.com/openworm/org.geppetto.frontend.git ${targetBranch} ${originBranch} ${defaultBranch}
 
 RUN cd $HOME/workspace/org.geppetto.frontend/src/main &&\
-  git clone https://github.com/openworm/geppetto-application.git webapp &&\
-  cd webapp &&\
-  git checkout $mainBranch;\
-  rm -rf .git
+  $HOME/copy.sh https://github.com/openworm/geppetto-application.git ${targetBranch} ${originBranch} ${defaultBranch} &&\
+  mv geppetto-application webapp
 
-# check if $mainBranch exist in geppetto-client and modify package.json in case it does
-RUN /bin/bash -c "cd $HOME/workspace/org.geppetto.frontend/src/main/webapp &&\
-  git ls-remote --heads --tags https://github.com/openworm/geppetto-client.git \
-  | grep -E 'refs/(heads|tags)/$mainBranch' > /dev/null &&\
-  if [[ '$?' -eq '0' ]]; then \
-    sed -ie 's/\"@geppettoengine.*/\"@geppettoengine\/geppetto-client\": \"openworm\/geppetto-client#'${mainBranch}'\"/g' package.json &&\
-    echo 'checking out ${mainBranch} for geppetto-client' ; \
-  fi"
+RUN cd $HOME/workspace/org.geppetto.frontend/src/main/webapp &&\
+  $HOME/rename.sh https://github.com/openworm/geppetto-client.git ${originBranch} ${defaultBranch}
 
 RUN cd $HOME/workspace/org.geppetto.frontend &&\
-  mvn -Dhttps.protocols=TLSv1.2 install &&\
+  mvn --quiet install &&\
+  rm -rf src
+
+RUN ../copy.sh https://github.com/openworm/org.geppetto.persistence.git ${targetBranch} ${originBranch} ${defaultBranch} &&\
+  cd org.geppetto.simulation &&\
+  /bin/echo -e "\e[96mMaven install org.geppetto.persistence\e[0m" &&\
+  mvn --quiet install &&\
   rm -rf src
 
 WORKDIR $HOME
-
-RUN cd workspace &&\
-  git clone https://github.com/openworm/org.geppetto.persistence.git &&\
-  cd org.geppetto.persistence &&\
-  git checkout $mainBranch ;\
-  mvn --quiet install;
-
 #END GET GEPPETTO SOURCES
 
 #INSTALL MYSQL

@@ -1,63 +1,62 @@
-FROM metacell/java-virgo-maven:latest
+FROM metacell/java-virgo-maven:development
 
 LABEL maintainer="Facundo Rodriguez <facundo@metacell.us>"
 
-ARG mainBranch=development
-ENV mainBranch=${mainBranch}
-RUN /bin/echo -e "\e[1;35mUSE GIT BRANCH ------------ $mainBranch\e[0m"
+ARG targetBranch=master
+ARG originBranch=master
+ARG defaultBranch=master
+
+RUN /bin/echo -e "\e[1;35mORIGIN BRANCH ------------ $originBranch\e[0m" &&\
+  /bin/echo -e "\e[1;35mTARGET BRANCH ------------ $targetBranch\e[0m" &&\
+  /bin/echo -e "\e[1;35mDEFAULT BRANCH ------------ $defaultBranch\e[0m"
 
 # get geppetto
 RUN mkdir -p workspace &&\
   cd workspace &&\
-  ../copy.sh http://github.com/openworm/org.geppetto.git ${mainBranch}
+  ../copy.sh http://github.com/openworm/org.geppetto.git ${targetBranch} ${originBranch} ${defaultBranch}
 
 WORKDIR $HOME/workspace
-# checkout $mainBranch
-RUN ../copy.sh https://github.com/openworm/org.geppetto.model.git ${mainBranch} &&\
+# checkout $targetBranch
+RUN ../copy.sh https://github.com/openworm/org.geppetto.model.git ${targetBranch} ${originBranch} ${defaultBranch} &&\
   cd org.geppetto.model &&\
-  mvn -Dhttps.protocols=TLSv1.2 i--quiet nstall &&\
+  /bin/echo -e "\e[96mMaven install org.geppetto.model\e[0m" &&\
+  mvn -Dhttps.protocols=TLSv1.2 --quiet install &&\
   rm -rf src
 
-RUN ../copy.sh https://github.com/openworm/org.geppetto.core.git ${mainBranch} &&\
+RUN ../copy.sh https://github.com/openworm/org.geppetto.core.git ${targetBranch} ${originBranch} ${defaultBranch} &&\
   cd org.geppetto.core &&\
+  /bin/echo -e "\e[96mMaven install org.geppetto.core\e[0m" &&\
   mvn -Dhttps.protocols=TLSv1.2 --quiet install &&\
   rm -rf src
 
-RUN ../copy.sh https://github.com/openworm/org.geppetto.model.neuroml.git ${mainBranch} &&\
+RUN ../copy.sh https://github.com/openworm/org.geppetto.model.neuroml.git ${targetBranch} ${originBranch} ${defaultBranch} &&\
   cd org.geppetto.model.neuroml &&\
+  /bin/echo -e "\e[96mMaven install org.geppetto.model.neuroml\e[0m" &&\
   mvn -Dhttps.protocols=TLSv1.2 --quiet install &&\
   rm -rf src
 
-RUN ../copy.sh https://github.com/openworm/org.geppetto.simulation.git ${mainBranch} &&\
+RUN ../copy.sh https://github.com/openworm/org.geppetto.simulation.git ${targetBranch} ${originBranch} ${defaultBranch} &&\
   cd org.geppetto.simulation &&\
+  /bin/echo -e "\e[96mMaven install org.geppetto.simulation\e[0m" &&\
   mvn -Dhttps.protocols=TLSv1.2 --quiet install &&\
   rm -rf src
 
-RUN ../copy.sh https://github.com/openworm/org.geppetto.frontend.git ${mainBranch}
+RUN ../copy.sh https://github.com/openworm/org.geppetto.frontend.git ${targetBranch} ${originBranch} ${defaultBranch}
 
 RUN cd $HOME/workspace/org.geppetto.frontend/src/main &&\
-  git clone https://github.com/openworm/geppetto-application.git webapp &&\
-  cd webapp &&\
-  git checkout $mainBranch;\
-  rm -rf .git
+  $HOME/copy.sh https://github.com/openworm/geppetto-application.git ${targetBranch} ${originBranch} ${defaultBranch} &&\
+  mv geppetto-application webapp
 
-# check if $mainBranch exist in geppetto-client and modify package.json in case it does
-RUN /bin/bash -c "cd $HOME/workspace/org.geppetto.frontend/src/main/webapp &&\
-  git ls-remote --heads --tags https://github.com/openworm/geppetto-client.git \
-  | grep -E 'refs/(heads|tags)/$mainBranch' > /dev/null &&\
-  if [[ '$?' -eq '0' ]]; then \
-    sed -ie 's/\"@geppettoengine.*/\"@geppettoengine\/geppetto-client\": \"openworm\/geppetto-client#'${mainBranch}'\"/g' package.json &&\
-    echo 'checking out ${mainBranch} for geppetto-client' ; \
-  fi"
+RUN cd $HOME/workspace/org.geppetto.frontend/src/main/webapp &&\
+  $HOME/rename.sh https://github.com/openworm/geppetto-client.git ${originBranch} ${defaultBranch}
 
 RUN cd $HOME/workspace/org.geppetto.frontend &&\
+  /bin/echo -e "\e[96mMaven install org.geppetto.frontend\e[0m" &&\
   mvn -Dhttps.protocols=TLSv1.2 --quiet install &&\
   rm -rf src
 
 WORKDIR $HOME
-
 RUN mkdir rm $SERVER_HOME/./repository/usr
-
 RUN cd $HOME/workspace/org.geppetto/utilities/source_setup && python update_server.py
 
 EXPOSE 8080
