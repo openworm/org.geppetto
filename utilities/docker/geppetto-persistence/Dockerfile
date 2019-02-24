@@ -15,51 +15,51 @@ RUN /bin/echo -e "\e[1;35mORIGIN BRANCH ------------ $originBranch\e[0m" &&\
 # get geppetto
 RUN mkdir -p workspace &&\
   cd workspace &&\
-  ../copy.sh http://github.com/openworm/org.geppetto.git ${targetBranch} ${originBranch} ${defaultBranch}
+  ../copy.sh http://github.com/openworm/org.geppetto.git "${targetBranch}" "${originBranch}" "${defaultBranch}"
 
 COPY config.json workspace/org.geppetto/utilities/source_setup/
 RUN sudo mv /home/developer/workspace/org.geppetto/utilities/docker/geppetto-persistence/geppetto.plan /home/developer
 COPY geppetto.plan workspace/org.geppetto/
 
 WORKDIR $HOME/workspace
-RUN ../copy.sh https://github.com/openworm/org.geppetto.model.git ${targetBranch} ${originBranch} ${defaultBranch} &&\
+RUN ../copy.sh https://github.com/openworm/org.geppetto.model.git "${targetBranch}" "${originBranch}" "${defaultBranch}" &&\
   cd org.geppetto.model &&\
   /bin/echo -e "\e[96mMaven install org.geppetto.model\e[0m" &&\
   mvn --quiet install &&\
   rm -rf src
 
-RUN ../copy.sh https://github.com/openworm/org.geppetto.core.git ${targetBranch} ${originBranch} ${defaultBranch} &&\
+RUN ../copy.sh https://github.com/openworm/org.geppetto.core.git "${targetBranch}" "${originBranch}" "${defaultBranch}" &&\
   cd org.geppetto.core &&\
   /bin/echo -e "\e[96mMaven install org.geppetto.core\e[0m" &&\
   mvn --quiet install &&\
   rm -rf src
 
-RUN ../copy.sh https://github.com/openworm/org.geppetto.model.neuroml.git ${targetBranch} ${originBranch} ${defaultBranch} &&\
+RUN ../copy.sh https://github.com/openworm/org.geppetto.model.neuroml.git "${targetBranch}" "${originBranch}" "${defaultBranch}" &&\
   cd org.geppetto.model.neuroml &&\
   /bin/echo -e "\e[96mMaven install org.geppetto.model.neuroml\e[0m" &&\
   mvn --quiet install &&\
   rm -rf src
 
-RUN ../copy.sh https://github.com/openworm/org.geppetto.simulation.git ${targetBranch} ${originBranch} ${defaultBranch} &&\
+RUN ../copy.sh https://github.com/openworm/org.geppetto.simulation.git "${targetBranch}" "${originBranch}" "${defaultBranch}" &&\
   cd org.geppetto.simulation &&\
   /bin/echo -e "\e[96mMaven install org.geppetto.simulation\e[0m" &&\
   mvn --quiet install &&\
   rm -rf src
 
-RUN ../copy.sh https://github.com/openworm/org.geppetto.frontend.git ${targetBranch} ${originBranch} ${defaultBranch}
+RUN ../copy.sh https://github.com/openworm/org.geppetto.frontend.git "${targetBranch}" "${originBranch}" "${defaultBranch}"
 
 RUN cd $HOME/workspace/org.geppetto.frontend/src/main &&\
-  $HOME/copy.sh https://github.com/openworm/geppetto-application.git ${targetBranch} ${originBranch} ${defaultBranch} &&\
+  $HOME/copy.sh https://github.com/openworm/geppetto-application.git "${targetBranch}" "${originBranch}" "${defaultBranch}" &&\
   mv geppetto-application webapp
 
 RUN cd $HOME/workspace/org.geppetto.frontend/src/main/webapp &&\
-  $HOME/rename.sh https://github.com/openworm/geppetto-client.git ${originBranch} ${defaultBranch}
+  $HOME/rename.sh https://github.com/openworm/geppetto-client.git "${originBranch}" "${defaultBranch}"
 
 RUN cd $HOME/workspace/org.geppetto.frontend &&\
   mvn --quiet install &&\
   rm -rf src
 
-RUN ../copy.sh https://github.com/openworm/org.geppetto.persistence.git ${targetBranch} ${originBranch} ${defaultBranch} &&\
+RUN ../copy.sh https://github.com/openworm/org.geppetto.persistence.git "${targetBranch}" "${originBranch}" "${defaultBranch}" &&\
   cd org.geppetto.simulation &&\
   /bin/echo -e "\e[96mMaven install org.geppetto.persistence\e[0m" &&\
   mvn --quiet install &&\
