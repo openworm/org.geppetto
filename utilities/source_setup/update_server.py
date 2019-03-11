@@ -22,13 +22,13 @@ def copyext(targetdir, extension):
 def main(argv):
     serverHome = os.environ['SERVER_HOME']
     if len(sys.argv)>1 and sys.argv[1]=='eclipse':
-        print 'Updating the virgo server, Eclipse is used'
+        print('Updating the virgo server, Eclipse is used')
         eclipse=True
     else:
-        print 'Updating the virgo server, Eclipse is not used'
+        print('Updating the virgo server, Eclipse is not used')
         eclipse=False
     for repo in config['repos']:
-        print 'Copying libraries for' , repo['name']
+        print('Copying libraries for' , repo['name'])
         targetdir = os.path.join(sourcesdir, repo['name'], 'target')
         if not eclipse:
             copyext(targetdir, 'jar')
@@ -40,7 +40,7 @@ def main(argv):
 
     if not eclipse:
 	    shutil.copy2(os.path.join(sourcesdir, 'org.geppetto', 'geppetto.plan'), os.path.join(serverHome, 'pickup'))
-    print 'Geppetto build deployed to virgo'
+    print('Geppetto build deployed to virgo')
 
 if __name__ == "__main__":
 	main(sys.argv[1:])
