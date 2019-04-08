@@ -1,5 +1,5 @@
 FROM metacell/java-virgo-maven:development
-LABEL maintainer Stephen Larson "slarson@openworm.org"
+LABEL maintainer="Facundo Rodriguez <facundo@metacell.us>"
 
 ARG aKey
 ENV aKey=${aKey}
