@@ -5,6 +5,7 @@ ARG aKey
 ENV aKey=${aKey}
 ARG sKey
 ENV sKey=${sKey}
+
 ARG targetBranch=master
 ARG originBranch=master
 ARG defaultBranch=master
@@ -75,8 +76,7 @@ ENV MYSQL_USER=mysql \
     MYSQL_RUN_DIR=/run/mysqld \
     MYSQL_LOG_DIR=/var/log/mysql
 
-RUN apt-get update \
- && DEBIAN_FRONTEND=noninteractive apt-get install -qq -y mysql-server net-tools\
+RUN apt-get -o Acquire::Check-Valid-Until=false update && apt-get install -qq -y mysql-server \
  && rm -rf ${MYSQL_DATA_DIR} \
  && rm -rf /var/lib/apt/lists/*
 
