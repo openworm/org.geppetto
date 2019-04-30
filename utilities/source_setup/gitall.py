@@ -19,66 +19,75 @@ from subprocess import call
 config = json.loads(open(os.path.join(os.path.dirname(__file__), 'config.json')).read())
 
 def incorrectInput(argv, msg):
-	print msg
-	sys.exit()
+    print(msg)
+    sys.exit()
 
 def main(argv):
 
-	command = []
-	if(len(argv) == 0):
-		incorrectInput(argv, 'Too few paramaters')
+    command = []
+    if len(argv) == 0:
+        incorrectInput(argv, 'Too few paramaters')
 
-	elif(argv[0] == 'push'):
-		command = ['git','push',argv[1],argv[2]]
+    elif argv[0] == 'push':
+        command = ['git', 'push', argv[1], argv[2]]
 
-	elif(argv[0] == 'add'):
-		command = ['git','add',argv[1]]
+    elif argv[0] == 'add':
+        command = ['git', 'add', argv[1]]
 
-	elif(argv[0] == 'commit'):
-		command = ['git','commit',argv[1],argv[2]]
+    elif argv[0] == 'commit':
+        command = ['git' ,'commit' ,argv[1], argv[2]]
 
-	elif(argv[0] == 'branches'):
-		command = ['git','rev-parse','--abbrev-ref','HEAD']
+    elif argv[0] == 'branches':
+        command = ['git', 'rev-parse', '--abbrev-ref', 'HEAD']
 
-	elif(argv[0] == 'reset'):
-        	command = ['git','reset','--hard','HEAD']
+    elif argv[0] == 'reset':
+        command = ['git','reset','--hard','HEAD']
 
-	elif(argv[0] == 'status'):
-		command = ['git',argv[0]]
+    elif argv[0] == 'status':
+        command = ['git', argv[0]]
 
-	elif(argv[0] == 'remote'):
-		for repo in config['repos']:
-			print repo['name']+'  '+subprocess.check_output(['git','remote','add','mlolson','https://github.com/mlolson/'+repo['name']+'.git'], cwd = os.path.join(config['sourcesdir'], repo['name']))
-		return
+    elif argv[0] == 'remote':
+        for repo in config['repos']:
+            if repo['name'] == "geppetto-application":
+                cwd = os.path.join(config['sourcesdir'], 'org.geppetto.frontend', 'src', 'main', 'webapp')
+            else:
+                cwd = os.path.join(config['sourcesdir'], repo['name'])
+            message = subprocess.check_output(['git','remote','add','mlolson','https://github.com/mlolson/' + repo['name'] + '.git'], cwd=cwd)
+            print(f"{repo['name']}  {message}")
+        return
 
-	elif(argv[0] == 'checkout'):
-		if(len(argv) == 2):
-			command = ['git','checkout',argv[1]]
-		elif(len(argv) == 3):
-			command = ['git','checkout',argv[1],argv[2]]
-		else:
-			incorrectInput(argv, 'Expected <=3 paramaters')
+    elif argv[0] == 'checkout':
+        if len(argv) == 2:
+            command = ['git', 'checkout', argv[1]]
+        elif len(argv) == 3:
+            command = ['git', 'checkout', argv[1], argv[2]]
+        else:
+            incorrectInput(argv, 'Expected <=3 paramaters')
 
 
-	elif(argv[0] == 'pull' or argv[0] == 'fetch'):
-		if(len(argv) == 1):
-			command = ['git',argv[0]]
-		elif(len(argv) ==2):
-			command = ['git',argv[0],argv[1]]
-		elif(len(argv) ==3):
-			command = ['git',argv[0],argv[1],argv[2]]
-		else:
-			incorrectInput(argv, 'Too many paramaters')
+    elif argv[0] == 'pull' or argv[0] == 'fetch':
+        if len(argv) == 1:
+            command = ['git', argv[0]]
+        elif len(argv) == 2:
+            command = ['git', argv[0], argv[1]]
+        elif len(argv) == 3:
+            command = ['git', argv[0], argv[1], argv[2]]
+        else:
+            incorrectInput(argv, 'Too many paramaters')
 
-	else:
-		incorrectInput(argv, 'Unrecognized command')
+    else:
+        incorrectInput(argv, 'Unrecognized command')
 
-	for repo in config['repos']:
-		try:
-			print repo['name']+'  '+subprocess.check_output(command, cwd = os.path.join(config['sourcesdir'], repo['name']))
-		except:
-			print "Error -- trying next repo"
-
+    for repo in config['repos']:
+        if repo['name'] == "geppetto-application":
+            cwd = os.path.join(config['sourcesdir'], 'org.geppetto.frontend', 'src', 'main', 'webapp')
+        else:
+            cwd = os.path.join(config['sourcesdir'], repo['name'])
+        try:
+            message = subprocess.check_output(command, cwd=cwd)
+            print(f"{repo['name']}   {message}")
+        except:
+            print("Error -- trying next repo")
 
 if __name__ == "__main__":
-	main(sys.argv[1:])
+    main(sys.argv[1:])
