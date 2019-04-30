@@ -5,8 +5,6 @@
 		<artifact name="org.geppetto.core" type="bundle" version="1.0.0"/>
 		<artifact name="org.geppetto.model.neuroml" type="bundle" version="1.0.0"/>
 		<artifact name="org.geppetto.simulation" type="bundle" version="1.0.0"/>
-		<artifact name="org.geppetto.frontend" type="bundle" version="1.0.0"/>
-		<artifact name="org.geppetto.model.nwb" type="bundle" version="1.0.0"/>
-		
+		<artifact name="org.geppetto.frontend" type="bundle" version="1.0.0"/>		
 		
 	</plan>
