@@ -3,7 +3,7 @@
 											<groupId>org.geppetto</groupId>										
 											<artifactId>org.geppetto</artifactId>										
 											<name>Geppetto</name>										
-											<version>1.0.0-alpha</version>										
+											<version>1.0.0</version>										
 											<packaging>pom</packaging>										
 											<modules>															
 																	<module>../org.geppetto.model</module>															
