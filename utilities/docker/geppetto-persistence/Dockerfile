@@ -9,11 +9,14 @@ ARG mainBranch=development
 ENV mainBranch=${mainBranch}
 RUN echo "USE GIT BRANCH ------------  $mainBranch";
 
-RUN apt-get update && apt-get install -qq -y sudo
+USER root
+
+COPY sources.list /etc/apt/sources.list
+RUN rm /etc/apt/sources.list.d/jessie-backports.list
+
+RUN apt-get -o Acquire::Check-Valid-Until=false update && apt-get install -qq -y sudo
 
 # Install maven
-RUN apt-get update
-
 RUN useradd -ms /bin/bash developer
 
 RUN mkdir -p /home/developer && mkdir -p /etc/sudoers.d \
@@ -40,7 +43,10 @@ ENV MAVEN_HOME /opt/maven
 
 #VIRGO INSTALL
 USER root
-RUN apt-get update && apt-get install -qq -y curl bsdtar locate && apt-get install -qq -y net-tools
+
+RUN apt-get -o Acquire::Check-Valid-Until=false update && apt-get install -qq -y curl bsdtar locate
+RUN apt-get -o Acquire::Check-Valid-Until=false update && apt-get install -qq -y net-tools
+
 USER developer
 RUN mkdir -p /home/developer/virgo
 RUN curl -L 'http://www.eclipse.org/downloads/download.php?file=/virgo/release/VP/3.7.2.RELEASE/virgo-tomcat-server-3.7.2.RELEASE.zip&r=1' | bsdtar --strip-components 1 -C /home/developer/virgo -xzf -
@@ -87,8 +93,8 @@ ENV MYSQL_USER=mysql \
     MYSQL_RUN_DIR=/run/mysqld \
     MYSQL_LOG_DIR=/var/log/mysql
 
-RUN apt-get update \
- && DEBIAN_FRONTEND=noninteractive apt-get install -qq -y mysql-server \
+
+RUN apt-get -o Acquire::Check-Valid-Until=false update && apt-get install -qq -y mysql-server \
  && rm -rf ${MYSQL_DATA_DIR} \
  && rm -rf /var/lib/apt/lists/*
 
