@@ -63,8 +63,7 @@ RUN cd $HOME/workspace/org.geppetto.frontend &&\
 RUN ../copy.sh https://github.com/openworm/org.geppetto.persistence.git "${targetBranch}" "${originBranch}" "${defaultBranch}" &&\
   cd org.geppetto.persistence &&\
   /bin/echo -e "\e[96mMaven install org.geppetto.persistence\e[0m" &&\
-  mvn --quiet install &&\
-  rm -rf src
+  mvn --quiet install
 
 WORKDIR $HOME
 #END GET GEPPETTO SOURCES
@@ -103,7 +102,7 @@ RUN service mysql start && mysql -uroot < /home/developer/geppetto/init.sql
 #END SETUP MYSQL INITIAL DATA
 
 USER developer
-RUN cd /home/developer/workspace/org.geppetto.persistence && mvn install --quiet && mvn install
+# RUN cd /home/developer/workspace/org.geppetto.persistence && mvn install --quiet && mvn install
 
 RUN sudo service mysql start && cd /home/developer/workspace/org.geppetto.persistence && mvn exec:java -Dexec.mainClass="org.geppetto.persistence.util.DBTestData" -Dexec.classpathScope=runtime
 
