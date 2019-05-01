@@ -36,7 +36,6 @@ RUN ../copy.sh https://github.com/openworm/org.geppetto.model.neuroml.git "${tar
 
 RUN ../copy.sh https://github.com/openworm/org.geppetto.model.nwb.git "${targetBranch}" "${originBranch}" "${defaultBranch}" &&\
   cd org.geppetto.model.nwb &&\
-  git lfs pull &&\
   /bin/echo -e "\e[96mMaven install org.geppetto.model.nwb\e[0m" &&\
   mvn -DskipTests --quiet install &&\
   rm -rf src
