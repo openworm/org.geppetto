@@ -39,7 +39,7 @@ RUN ../copy.sh https://github.com/openworm/org.geppetto.model.nwb.git "${targetB
   git lfs pull &&\
   /bin/echo -e "\e[96mMaven install org.geppetto.model.nwb\e[0m" &&\
   mvn -DskipTests --quiet install &&\
-  rm -rf src .git
+  rm -rf src
 
 RUN ../copy.sh https://github.com/openworm/org.geppetto.simulation.git "${targetBranch}" "${originBranch}" "${defaultBranch}" &&\
   cd org.geppetto.simulation &&\
