@@ -76,7 +76,8 @@ ENV MYSQL_USER=mysql \
     MYSQL_RUN_DIR=/run/mysqld \
     MYSQL_LOG_DIR=/var/log/mysql
 
-RUN apt-get -o Acquire::Check-Valid-Until=false update && apt-get install -qq -y mysql-server \
+RUN apt-get -o Acquire::Check-Valid-Until=false update \
+ && DEBIAN_FRONTEND=noninteractive apt-get install -qq -y mysql-server \
  && rm -rf ${MYSQL_DATA_DIR} \
  && rm -rf /var/lib/apt/lists/*
 
