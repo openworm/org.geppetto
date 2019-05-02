@@ -13,9 +13,9 @@
 
 **If you want to play with a demo application built with Geppetto just visit <https://live.geppetto.org>.**
 
-If you want to build your own Geppetto application follow our [Setup Instructions](http://docs.geppetto.org/en/latest/osxlinuxsetup.html) to setup the source code locally using the demo application.
+If you want to build your own Geppetto application follow these [instructions](http://docs.geppetto.org/en/latest/osxlinuxsetup.html) to setup the source code locally using the demo application.
 
-The demo application is available in [this repository](https://github.com/openworm/geppetto-application) which you can fork to build your own. Every Geppetto application has an npm dependency on [geppetto-client](https://github.com/openworm/geppetto-client/tree/development) which makes all the frontend Geppetto components and infrastructure available to the application. A Geppetto application can be deployed on different backends based on Java (via Eclipse Virgo) or Python (via Jupyter Notebook or Django).
+The demo application is available in [this repository](https://github.com/openworm/geppetto-application) which you can fork to build your own. Every Geppetto application has an npm dependency on [geppetto-client](https://github.com/openworm/geppetto-client/tree/development) which makes all the frontend Geppetto components and infrastructure available to the application. A Geppetto application can be deployed on different backends based on Java (via Eclipse Virgo) or Python (via [Jupyter Notebook](https://github.com/openworm/org.geppetto.frontend.jupyter) or [Django](https://github.com/MetaCell/pygeppetto-django)).
 
 
 #### Java backend
@@ -42,11 +42,8 @@ The Python backend is based on a Geppetto Jupyter extension which allows the use
    * [org.geppetto.frontend.jupyter](https://github.com/openworm/org.geppetto.frontend.jupyter) [![Build Status](https://travis-ci.org/openworm/org.geppetto.frontend.jupyter.png?branch=master)](https://travis-ci.org/openworm/org.geppetto.frontend.jupyter)
    * [pyGeppetto](https://github.com/openworm/pygeppetto) pyGeppetto holds the common code shared in all Python backends regardless of the specific server (Django, Jupyter, etc.). pyGeppetto contains the code to work with a Geppetto model and to implement the REST and Websockets APIs.
 
-#### Node.js Backend (proof of concept)
+#### Node.js Backend (proof of concept, not fully developed)
    * [org.geppetto.frontend.nodejs](https://github.com/openworm/org.geppetto.frontend.nodejs) [![Build Status](https://travis-ci.org/openworm/org.geppetto.frontend.nodejs.png?branch=master)](https://travis-ci.org/openworm/org.geppetto.frontend.nodejs)
-
-
-Geppetto is an open-source project with a growing community, if you want to contribute please do get in touch at <info@geppetto.org> or fork any of the bundles and do what you please.
 
 
 #### [Website](http://www.geppetto.org/) | [Documentation](http://docs.geppetto.org/) | [Releases](https://github.com/openworm/org.geppetto/releases/)
