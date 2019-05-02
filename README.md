@@ -13,7 +13,7 @@
 
 **If you want to play with a demo application built with Geppetto just visit <https://live.geppetto.org>.**
 
-If you want to build your own Geppetto application follow these [instructions](http://docs.geppetto.org/en/latest/osxlinuxsetup.html) to setup the source code locally using the demo application.
+If you want to build your own Geppetto application follow these [instructions](http://docs.geppetto.org/en/latest/build.html?highlight=application#how-do-i-create-my-own-geppetto-extension) and these steps(http://docs.geppetto.org/en/latest/osxlinuxsetup.html) to setup the source code using the Java Backend. 
 
 The demo application is available in [this repository](https://github.com/openworm/geppetto-application) which you can fork to build your own. Every Geppetto application has an npm dependency on [geppetto-client](https://github.com/openworm/geppetto-client/tree/development) which makes all the frontend Geppetto components and infrastructure available to the application. A Geppetto application can be deployed on different backends based on Java (via Eclipse Virgo) or Python (via [Jupyter Notebook](https://github.com/openworm/org.geppetto.frontend.jupyter) or [Django](https://github.com/MetaCell/pygeppetto-django)).
 
