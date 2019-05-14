@@ -2,9 +2,9 @@ FROM metacell/java-virgo-maven:development
 
 LABEL maintainer="Facundo Rodriguez <facundo@metacell.us>"
 
-ARG targetBranch=development
-ARG originBranch=development
-ARG defaultBranch=development
+ARG targetBranch=master
+ARG originBranch=master
+ARG defaultBranch=master
 
 RUN /bin/echo -e "\e[1;35mORIGIN BRANCH ------------ $originBranch\e[0m" &&\
   /bin/echo -e "\e[1;35mTARGET BRANCH ------------ $targetBranch\e[0m" &&\
@@ -58,6 +58,7 @@ RUN cd $HOME/workspace/org.geppetto.frontend &&\
 WORKDIR $HOME
 RUN mkdir rm $SERVER_HOME/./repository/usr
 RUN cd $HOME/workspace/org.geppetto/utilities/source_setup && python update_server.py
+
 
 EXPOSE 8080
 CMD [ "/bin/bash", "-c", "$SERVER_HOME/bin/startup.sh" ]

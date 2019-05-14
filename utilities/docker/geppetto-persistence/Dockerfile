@@ -6,9 +6,9 @@ ENV aKey=${aKey}
 ARG sKey
 ENV sKey=${sKey}
 
-ARG targetBranch=development
-ARG originBranch=development
-ARG defaultBranch=development
+ARG targetBranch=master
+ARG originBranch=master
+ARG defaultBranch=master
 RUN /bin/echo -e "\e[1;35mORIGIN BRANCH ------------ $originBranch\e[0m" &&\
   /bin/echo -e "\e[1;35mTARGET BRANCH ------------ $targetBranch\e[0m" &&\
   /bin/echo -e "\e[1;35mDEFAULT BRANCH ------------ $defaultBranch\e[0m"
