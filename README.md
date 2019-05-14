@@ -18,7 +18,7 @@ If you want to build your own Geppetto application follow these [instructions](h
 The demo application is available in [this repository](https://github.com/openworm/geppetto-application) which you can fork to build your own. Every Geppetto application has an npm dependency on [geppetto-client](https://github.com/openworm/geppetto-client/tree/development) which makes all the frontend Geppetto components and infrastructure available to the application. A Geppetto application can be deployed on different backends based on Java (via Eclipse Virgo) or Python (via [Jupyter Notebook](https://github.com/openworm/org.geppetto.frontend.jupyter) or [Django](https://github.com/MetaCell/pygeppetto-django)).
 
 #### Web client
-  [geppetto-client](https://github.com/openworm/geppetto-client/tree/development) Reused in all Geppetto applications, available from [npm](https://www.npmjs.com/package/@geppettoengine/geppetto-client)
+  The [Geppetto Client](https://github.com/openworm/geppetto-client/tree/development) is reused in all Geppetto applications. It contains all the GUI components, the Javascript facilities to interact with the Geppetto Model and the infrastructure to communicae with the backend. The Geppetto client is available from [npm](https://www.npmjs.com/package/@geppettoengine/geppetto-client).
 
 #### Java backend
 The Java backend is the reference backend implementation and is used in client-server deployments of Geppetto. The Java backend is modular allowing each deployment to be customised only with the relevant bundles.
