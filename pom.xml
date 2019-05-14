@@ -1,16 +1,15 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<groupId>org.geppetto</groupId>
-	<artifactId>org.geppetto</artifactId>
-	<name>Geppetto</name>
-	<version>0.4.2</version>
-	<packaging>pom</packaging>
-	<modules>
-		<module>../org.geppetto.model</module>
-		<module>../org.geppetto.core</module>
-		<module>../org.geppetto.model.neuroml</module>
-		<module>../org.geppetto.simulation</module>
-		<module>../org.geppetto.frontend</module>
-	</modules>
-</project>
+<?xml version="1.0" ?>	<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">										
+											<modelVersion>4.0.0</modelVersion>										
+											<groupId>org.geppetto</groupId>										
+											<artifactId>org.geppetto</artifactId>										
+											<name>Geppetto</name>										
+											<version>1.0.0</version>										
+											<packaging>pom</packaging>										
+											<modules>															
+																	<module>../org.geppetto.model</module>															
+																	<module>../org.geppetto.core</module>															
+																	<module>../org.geppetto.model.neuroml</module>															
+																	<module>../org.geppetto.simulation</module>															
+																	<module>../org.geppetto.frontend</module>															
+		</modules>										
+					</project>

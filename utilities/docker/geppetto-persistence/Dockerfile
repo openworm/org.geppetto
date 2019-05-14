@@ -1,83 +1,71 @@
-FROM java:8
-MAINTAINER Stephen Larson "slarson@openworm.org"
+FROM metacell/java-virgo-maven:development
+LABEL maintainer="Facundo Rodriguez <facundo@metacell.us>"
 
 ARG aKey
 ENV aKey=${aKey}
 ARG sKey
 ENV sKey=${sKey}
-ARG mainBranch=development
-ENV mainBranch=${mainBranch}
-RUN echo "USE GIT BRANCH ------------  $mainBranch";
 
-RUN apt-get update && apt-get install -qq -y sudo
+ARG targetBranch=master
+ARG originBranch=master
+ARG defaultBranch=master
+RUN /bin/echo -e "\e[1;35mORIGIN BRANCH ------------ $originBranch\e[0m" &&\
+  /bin/echo -e "\e[1;35mTARGET BRANCH ------------ $targetBranch\e[0m" &&\
+  /bin/echo -e "\e[1;35mDEFAULT BRANCH ------------ $defaultBranch\e[0m"
 
-# Install maven
-RUN apt-get update
-
-RUN useradd -ms /bin/bash developer
-
-RUN mkdir -p /home/developer && mkdir -p /etc/sudoers.d \
-    echo "developer:x:1000:1000:Developer,,,:/home/developer:/bin/bash" >> /etc/passwd && \
-    echo "developer:x:1000:" >> /etc/group && \
-    echo "developer ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/developer && \
-    chmod 0440 /etc/sudoers.d/developer && \
-    chown developer:developer -R /home/developer && \
-    chown root:root /usr/bin/sudo && chmod 4755 /usr/bin/sudo
-
-USER developer
-ENV HOME /home/developer
-WORKDIR /home/developer
-
-# get maven 3.5.2
-RUN sudo wget --no-verbose -O /tmp/apache-maven-3.5.2-bin.tar.gz http://archive.apache.org/dist/maven/maven-3/3.5.2/binaries/apache-maven-3.5.2-bin.tar.gz
-
-# install maven
-RUN sudo tar xzf /tmp/apache-maven-3.5.2-bin.tar.gz -C /opt/
-RUN sudo ln -s /opt/apache-maven-3.5.2 /opt/maven
-RUN sudo ln -s /opt/maven/bin/mvn /usr/local/bin
-RUN sudo rm -f /tmp/apache-maven-3.5.2-bin.tar.gz
-ENV MAVEN_HOME /opt/maven
-
-#VIRGO INSTALL
-USER root
-RUN apt-get update && apt-get install -qq -y curl bsdtar locate && apt-get install -qq -y net-tools
-USER developer
-RUN mkdir -p /home/developer/virgo
-RUN curl -L 'http://www.eclipse.org/downloads/download.php?file=/virgo/release/VP/3.7.2.RELEASE/virgo-tomcat-server-3.7.2.RELEASE.zip&r=1' | bsdtar --strip-components 1 -C /home/developer/virgo -xzf -
-ADD dmk.sh /home/developer/virgo/bin/
-RUN rm /home/developer/virgo/configuration/java-server.profile
-ADD java-server.profile /home/developer/virgo/configuration/
-RUN rm /home/developer/virgo/configuration/tomcat-server.xml
-ADD tomcat-server.xml /home/developer/virgo/configuration/
-USER root
-RUN chown developer /home/developer/virgo/bin/dmk.sh
-USER developer
-RUN chmod u+x /home/developer/virgo/bin/*.sh
-ENV SERVER_HOME /home/developer/virgo
-#VOLUME /home/developer/virgo
-#END VIRGO INSTALL
-
-RUN mvn --version
-
-#GET GEPPETTO SOURCES
-USER root
-RUN mkdir -p workspace && cd workspace && git clone http://github.com/openworm/org.geppetto && cd org.geppetto && git checkout master
-RUN chmod -R 777 workspace
-USER developer
+# get geppetto
+RUN mkdir -p workspace &&\
+  cd workspace &&\
+  ../copy.sh http://github.com/openworm/org.geppetto.git "${targetBranch}" "${originBranch}" "${defaultBranch}"
 
 COPY config.json workspace/org.geppetto/utilities/source_setup/
 RUN sudo mv /home/developer/workspace/org.geppetto/utilities/docker/geppetto-persistence/geppetto.plan /home/developer
-
 COPY geppetto.plan workspace/org.geppetto/
 
-RUN sudo chmod -R 777 workspace;
-RUN cd workspace && git clone https://github.com/openworm/org.geppetto.model.git && cd org.geppetto.model && git checkout $mainBranch && mvn --quiet install;
-RUN cd workspace && git clone https://github.com/openworm/org.geppetto.core.git && cd org.geppetto.core && git checkout $mainBranch && mvn --quiet install;
-RUN cd workspace && git clone https://github.com/openworm/org.geppetto.model.neuroml.git && cd org.geppetto.model.neuroml && git checkout $mainBranch && mvn --quiet install;
-RUN cd workspace && git clone https://github.com/openworm/org.geppetto.simulation.git && cd org.geppetto.simulation && git checkout $mainBranch && mvn --quiet install;
-RUN cd workspace && git clone https://github.com/openworm/org.geppetto.frontend.git && cd org.geppetto.frontend && git checkout $mainBranch && mvn --quiet install;
-RUN cd workspace && git clone https://github.com/openworm/org.geppetto.persistence.git && cd org.geppetto.persistence && git checkout $mainBranch && mvn --quiet install;
+WORKDIR $HOME/workspace
+RUN ../copy.sh https://github.com/openworm/org.geppetto.model.git "${targetBranch}" "${originBranch}" "${defaultBranch}" &&\
+  cd org.geppetto.model &&\
+  /bin/echo -e "\e[96mMaven install org.geppetto.model\e[0m" &&\
+  mvn --quiet install &&\
+  rm -rf src
 
+RUN ../copy.sh https://github.com/openworm/org.geppetto.core.git "${targetBranch}" "${originBranch}" "${defaultBranch}" &&\
+  cd org.geppetto.core &&\
+  /bin/echo -e "\e[96mMaven install org.geppetto.core\e[0m" &&\
+  mvn --quiet install &&\
+  rm -rf src
+
+RUN ../copy.sh https://github.com/openworm/org.geppetto.model.neuroml.git "${targetBranch}" "${originBranch}" "${defaultBranch}" &&\
+  cd org.geppetto.model.neuroml &&\
+  /bin/echo -e "\e[96mMaven install org.geppetto.model.neuroml\e[0m" &&\
+  mvn --quiet install &&\
+  rm -rf src
+
+RUN ../copy.sh https://github.com/openworm/org.geppetto.simulation.git "${targetBranch}" "${originBranch}" "${defaultBranch}" &&\
+  cd org.geppetto.simulation &&\
+  /bin/echo -e "\e[96mMaven install org.geppetto.simulation\e[0m" &&\
+  mvn --quiet install &&\
+  rm -rf src
+
+RUN ../copy.sh https://github.com/openworm/org.geppetto.frontend.git "${targetBranch}" "${originBranch}" "${defaultBranch}"
+
+RUN cd $HOME/workspace/org.geppetto.frontend/src/main &&\
+  $HOME/copy.sh https://github.com/openworm/geppetto-application.git "${targetBranch}" "${originBranch}" "${defaultBranch}" &&\
+  mv geppetto-application webapp
+
+RUN cd $HOME/workspace/org.geppetto.frontend/src/main/webapp &&\
+  $HOME/rename.sh https://github.com/openworm/geppetto-client.git "${targetBranch}" "${originBranch}" "${defaultBranch}"
+
+RUN cd $HOME/workspace/org.geppetto.frontend &&\
+  mvn --quiet install &&\
+  rm -rf src
+
+RUN ../copy.sh https://github.com/openworm/org.geppetto.persistence.git "${targetBranch}" "${originBranch}" "${defaultBranch}" &&\
+  cd org.geppetto.persistence &&\
+  /bin/echo -e "\e[96mMaven install org.geppetto.persistence\e[0m" &&\
+  mvn --quiet install
+
+WORKDIR $HOME
 #END GET GEPPETTO SOURCES
 
 #INSTALL MYSQL
@@ -87,7 +75,7 @@ ENV MYSQL_USER=mysql \
     MYSQL_RUN_DIR=/run/mysqld \
     MYSQL_LOG_DIR=/var/log/mysql
 
-RUN apt-get update \
+RUN apt-get -o Acquire::Check-Valid-Until=false update \
  && DEBIAN_FRONTEND=noninteractive apt-get install -qq -y mysql-server \
  && rm -rf ${MYSQL_DATA_DIR} \
  && rm -rf /var/lib/apt/lists/*
@@ -114,7 +102,7 @@ RUN service mysql start && mysql -uroot < /home/developer/geppetto/init.sql
 #END SETUP MYSQL INITIAL DATA
 
 USER developer
-RUN cd /home/developer/workspace/org.geppetto.persistence && mvn install --quiet && mvn install
+# RUN cd /home/developer/workspace/org.geppetto.persistence && mvn install --quiet && mvn install
 
 RUN sudo service mysql start && cd /home/developer/workspace/org.geppetto.persistence && mvn exec:java -Dexec.mainClass="org.geppetto.persistence.util.DBTestData" -Dexec.classpathScope=runtime
 
