@@ -60,7 +60,7 @@ RUN cd $HOME/workspace/org.geppetto.frontend &&\
   mvn install &&\
   rm -rf src
 
-RUN ../copy.sh https://github.com/openworm/org.geppetto.persistence.git "${targetBranch}" "${originBranch}" "${defaultBranch}" &&\
+RUN ../copy.sh https://github.com/openworm/org.geppetto.persistence.git "${targetBranch}" "${targetBranch}" "${targetBranch}" &&\
   cd org.geppetto.persistence &&\
   /bin/echo -e "\e[96mMaven install org.geppetto.persistence\e[0m" &&\
   mvn install
