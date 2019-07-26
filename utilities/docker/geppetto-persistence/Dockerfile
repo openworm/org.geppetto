@@ -57,13 +57,13 @@ RUN cd $HOME/workspace/org.geppetto.frontend/src/main/webapp &&\
   $HOME/rename.sh https://github.com/openworm/geppetto-client.git "${targetBranch}" "${originBranch}" "${defaultBranch}"
 
 RUN cd $HOME/workspace/org.geppetto.frontend &&\
-  mvn --quiet install &&\
+  mvn install &&\
   rm -rf src
 
 RUN ../copy.sh https://github.com/openworm/org.geppetto.persistence.git "${targetBranch}" "${originBranch}" "${defaultBranch}" &&\
   cd org.geppetto.persistence &&\
   /bin/echo -e "\e[96mMaven install org.geppetto.persistence\e[0m" &&\
-  mvn --quiet install
+  mvn install
 
 WORKDIR $HOME
 #END GET GEPPETTO SOURCES
