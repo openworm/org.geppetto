@@ -75,6 +75,7 @@ ENV MYSQL_USER=mysql \
     MYSQL_RUN_DIR=/run/mysqld \
     MYSQL_LOG_DIR=/var/log/mysql
 
+RUN dpkg -P --force depends mysql-server mysql-server-5.1 mysql-common mysql-server-core-5.1 php5-mysql mysql-client-5.1 mysql-client-core-5.1
 RUN apt-get -o Acquire::Check-Valid-Until=false update \
  && DEBIAN_FRONTEND=noninteractive apt-get install -qq -y mysql-server \
  && rm -rf ${MYSQL_DATA_DIR} \
