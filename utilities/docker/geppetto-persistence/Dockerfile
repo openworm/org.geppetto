@@ -50,7 +50,7 @@ RUN ../copy.sh https://github.com/openworm/org.geppetto.simulation.git "${target
 RUN ../copy.sh https://github.com/openworm/org.geppetto.frontend.git "${targetBranch}" "${originBranch}" "${defaultBranch}"
 
 RUN cd $HOME/workspace/org.geppetto.frontend/src/main &&\
-  $HOME/copy.sh https://github.com/openworm/geppetto-application.git "${targetBranch}" "${originBranch}" "${defaultBranch}" &&\
+  $HOME/copy.sh https://github.com/openworm/geppetto-application.git "feature/14" "feature/14" "feature/14" &&\
   mv geppetto-application webapp
 
 RUN cd $HOME/workspace/org.geppetto.frontend/src/main/webapp &&\
@@ -60,7 +60,7 @@ RUN cd $HOME/workspace/org.geppetto.frontend &&\
   mvn --quiet install &&\
   rm -rf src
 
-RUN ../copy.sh https://github.com/openworm/org.geppetto.persistence.git "${defaultBranch}" "${defaultBranch}" "${defaultBranch}" &&\
+RUN ../copy.sh https://github.com/openworm/org.geppetto.persistence.git "${targetBranch}" "${targetBranch}" "${targetBranch}" &&\
   cd org.geppetto.persistence &&\
   /bin/echo -e "\e[96mMaven install org.geppetto.persistence\e[0m" &&\
   mvn --quiet install
