@@ -75,6 +75,10 @@ ENV MYSQL_USER=mysql \
     MYSQL_RUN_DIR=/run/mysqld \
     MYSQL_LOG_DIR=/var/log/mysql
 
+RUN apt-get remove --purge mysql-server mysql-client mysql-common \
+	&& apt-get autoremove \
+	&& apt-get autoclean
+
 RUN apt-get -o Acquire::Check-Valid-Until=false update \
  && DEBIAN_FRONTEND=noninteractive apt-get install -qq -y mysql-server \
  && rm -rf ${MYSQL_DATA_DIR} \
@@ -100,7 +104,7 @@ RUN mysql_install_db --user=mysql >/dev/null 2>&1
 RUN sed 's/password = .*/password = /g' -i /etc/mysql/debian.cnf
 RUN tail /var/log/mysql/error.log -n 200
 RUN df -H
-RUN service /etc/init.d/mysql restart && less /var/log/mysql/error.log && service /etc/init.d/mysql start && mysql -uroot < /home/developer/geppetto/init.sql
+RUN service mysql restart && less /var/log/mysql/error.log && service mysql start && mysql -uroot < /home/developer/geppetto/init.sql
 #END SETUP MYSQL INITIAL DATA
 
 USER developer
