@@ -92,14 +92,12 @@ RUN mkdir -p geppetto/
 RUN mkdir rm /home/developer/virgo/./repository/usr
 COPY db.properties geppetto/
 COPY init.sql geppetto/
-COPY dump.sql geppetto/
 #COPY entrypoint.sh geppetto/
 #RUN sudo chmod +x geppetto/entrypoint.sh
 #END SETUP MYSQL CONFIG
 
 #SETUP MYSQL INITIAL DATA
 USER root
-RUN chown -R mysql.mysql /var/lib/mysql
 RUN mysql_install_db --user=mysql >/dev/null 2>&1
 RUN sed 's/password = .*/password = /g' -i /etc/mysql/debian.cnf
 RUN tail /var/log/mysql/error.log -n 200
@@ -107,7 +105,7 @@ RUN ls /var/lib/mysql
 RUN tail /var/log/mysql/error.log -n 60
 RUN find /var/lib/mysql -type f -exec touch {} \; && service mysql restart
 RUN tail /var/log/mysql/error.log -n 60
-RUN service mysql start && mysql -uroot < /home/developer/geppetto/init.sql
+RUN find /var/lib/mysql -type f -exec touch {} \; && service mysql restart && mysql -uroot < /home/developer/geppetto/init.sql
 #END SETUP MYSQL INITIAL DATA
 
 USER developer
