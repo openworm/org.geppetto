@@ -63,15 +63,13 @@ RUN cd $HOME/workspace/org.geppetto.frontend &&\
 RUN ../copy.sh https://github.com/openworm/org.geppetto.persistence.git "${targetBranch}" "${originBranch}" "${defaultBranch}" &&\
   cd org.geppetto.persistence &&\
   /bin/echo -e "\e[96mMaven install org.geppetto.persistence\e[0m" &&\
-  mvn install
+  mvn --quiet install
 
 WORKDIR $HOME
 #END GET GEPPETTO SOURCES
 
 #INSTALL MYSQL
 USER root
-RUN rm -rf /var/lib/mysql
-
 ENV MYSQL_USER=mysql \
     MYSQL_DATA_DIR=/var/lib/mysql \
     MYSQL_RUN_DIR=/run/mysqld \
@@ -100,10 +98,6 @@ COPY init.sql geppetto/
 USER root
 RUN mysql_install_db --user=mysql >/dev/null 2>&1
 RUN sed 's/password = .*/password = /g' -i /etc/mysql/debian.cnf
-RUN tail /var/log/mysql/error.log -n 200
-RUN ls /var/lib/mysql
-RUN tail /var/log/mysql/error.log -n 60
-RUN find /var/lib/mysql -type f -exec touch {} \; && service mysql restart
 RUN tail /var/log/mysql/error.log -n 60
 RUN find /var/lib/mysql -type f -exec touch {} \; && service mysql restart && mysql -uroot < /home/developer/geppetto/init.sql
 #END SETUP MYSQL INITIAL DATA
