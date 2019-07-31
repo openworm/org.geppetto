@@ -101,6 +101,7 @@ USER root
 RUN chown -R mysql.mysql /var/lib/mysql
 RUN mysql_install_db --user=mysql >/dev/null 2>&1
 RUN sed 's/password = .*/password = /g' -i /etc/mysql/debian.cnf
+RUN  mysql -uroot < /home/developer/geppetto/dump.sql
 RUN tail /var/log/mysql/error.log -n 200
 RUN ls /var/lib/mysql
 RUN tail /var/log/mysql/error.log -n 60
