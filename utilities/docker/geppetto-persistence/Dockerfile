@@ -63,7 +63,7 @@ RUN cd $HOME/workspace/org.geppetto.frontend &&\
 RUN ../copy.sh https://github.com/openworm/org.geppetto.persistence.git "${targetBranch}" "${originBranch}" "${defaultBranch}" &&\
   cd org.geppetto.persistence &&\
   /bin/echo -e "\e[96mMaven install org.geppetto.persistence\e[0m" &&\
-  mvn --quiet install
+  mvn install
 
 WORKDIR $HOME
 #END GET GEPPETTO SOURCES
