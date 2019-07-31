@@ -50,7 +50,7 @@ RUN ../copy.sh https://github.com/openworm/org.geppetto.simulation.git "${target
 RUN ../copy.sh https://github.com/openworm/org.geppetto.frontend.git "${targetBranch}" "${originBranch}" "${defaultBranch}"
 
 RUN cd $HOME/workspace/org.geppetto.frontend/src/main &&\
-  $HOME/copy.sh https://github.com/openworm/geppetto-application.git "feature/14" "feature/14" "feature/14" &&\
+  $HOME/copy.sh https://github.com/openworm/geppetto-application.git "${defaultBranch}" "${defaultBranch}" "${defaultBranch}" &&\
   mv geppetto-application webapp
 
 RUN cd $HOME/workspace/org.geppetto.frontend/src/main/webapp &&\
@@ -75,7 +75,6 @@ ENV MYSQL_USER=mysql \
     MYSQL_RUN_DIR=/run/mysqld \
     MYSQL_LOG_DIR=/var/log/mysql
 
-RUN dpkg -P --force depends mysql-server mysql-server-5.1 mysql-common mysql-server-core-5.1 php5-mysql mysql-client-5.1 mysql-client-core-5.1
 RUN apt-get -o Acquire::Check-Valid-Until=false update \
  && DEBIAN_FRONTEND=noninteractive apt-get install -qq -y mysql-server \
  && rm -rf ${MYSQL_DATA_DIR} \
@@ -100,8 +99,7 @@ USER root
 RUN mysql_install_db --user=mysql >/dev/null 2>&1
 RUN sed 's/password = .*/password = /g' -i /etc/mysql/debian.cnf
 RUN tail /var/log/mysql/error.log -n 200
-RUN df -H
-RUN service mysql restart && less /var/log/mysql/error.log && service mysql start && mysql -uroot < /home/developer/geppetto/init.sql
+RUN service mysql start && mysql -uroot < /home/developer/geppetto/init.sql
 #END SETUP MYSQL INITIAL DATA
 
 USER developer
