@@ -106,7 +106,6 @@ RUN tail /var/log/mysql/error.log -n 200
 RUN ls /var/lib/mysql
 RUN tail /var/log/mysql/error.log -n 60
 RUN find /var/lib/mysql -type f -exec touch {} \; && service mysql restart
-RUN mysql -uroot < /home/developer/geppetto/dump.sql
 RUN tail /var/log/mysql/error.log -n 60
 RUN service mysql start && mysql -uroot < /home/developer/geppetto/init.sql
 #END SETUP MYSQL INITIAL DATA
