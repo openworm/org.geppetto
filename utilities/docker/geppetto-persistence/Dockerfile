@@ -111,7 +111,7 @@ RUN find /var/lib/mysql -type f -exec touch {} \; && service mysql restart && my
 USER developer
 # RUN cd /home/developer/workspace/org.geppetto.persistence && mvn install --quiet && mvn install
 
-RUN find /var/lib/mysql -type f -exec touch {} \; && sudo service mysql start && cd /home/developer/workspace/org.geppetto.persistence && mvn exec:java -Dexec.mainClass="org.geppetto.persistence.util.DBTestData" -Dexec.classpathScope=runtime
+RUN sudo find /var/lib/mysql -type f -exec touch {} \; && sudo service mysql start && cd /home/developer/workspace/org.geppetto.persistence && mvn exec:java -Dexec.mainClass="org.geppetto.persistence.util.DBTestData" -Dexec.classpathScope=runtime
 
 #END INSTALL MYSQL
  
@@ -121,4 +121,4 @@ RUN sudo echo "accessKey=$aKey" > /home/developer/geppetto/aws.credentials
 RUN sudo echo "secretKey=$sKey" >> /home/developer/geppetto/aws.credentials
 
 EXPOSE 8080
-CMD find /var/lib/mysql -type f -exec touch {} \; && sudo service mysql start && /home/developer/virgo/bin/startup.sh
+CMD sudo find /var/lib/mysql -type f -exec touch {} \; && sudo service mysql start && /home/developer/virgo/bin/startup.sh
