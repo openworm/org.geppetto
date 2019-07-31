@@ -92,6 +92,7 @@ RUN mkdir -p geppetto/
 RUN mkdir rm /home/developer/virgo/./repository/usr
 COPY db.properties geppetto/
 COPY init.sql geppetto/
+COPY dump.sql geppetto/
 #COPY entrypoint.sh geppetto/
 #RUN sudo chmod +x geppetto/entrypoint.sh
 #END SETUP MYSQL CONFIG
