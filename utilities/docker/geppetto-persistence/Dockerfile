@@ -71,8 +71,6 @@ WORKDIR $HOME
 #INSTALL MYSQL
 USER root
 RUN rm -rf /var/lib/mysql
-RUN mkdir /var/lib/mysql
-RUN chown -R mysql:mysql /var/lib/mysql
 
 ENV MYSQL_USER=mysql \
     MYSQL_DATA_DIR=/var/lib/mysql \
