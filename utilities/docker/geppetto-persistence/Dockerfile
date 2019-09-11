@@ -54,7 +54,7 @@ RUN cd $HOME/workspace/org.geppetto.frontend/src/main &&\
   mv geppetto-application webapp
 
 RUN cd $HOME/workspace/org.geppetto.frontend/src/main/webapp &&\
-  $HOME/rename.sh https://github.com/openworm/geppetto-client.git "${originBranch}" "${originBranch}" "${originBranch}"
+  $HOME/rename.sh https://github.com/openworm/geppetto-client.git "${defaultBranch}" "${defaultBranch}" "${defaultBranch}"
 
 RUN cd $HOME/workspace/org.geppetto.frontend &&\
   mvn install &&\
