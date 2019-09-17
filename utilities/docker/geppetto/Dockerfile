@@ -48,7 +48,7 @@ RUN cd $HOME/workspace/org.geppetto.frontend/src/main &&\
   mv geppetto-application webapp
 
 RUN cd $HOME/workspace/org.geppetto.frontend/src/main/webapp &&\
-  $HOME/rename.sh https://github.com/openworm/geppetto-client.git "${originBranch}" "${originBranch}" "${originBranch}"
+  $HOME/copy.sh https://github.com/openworm/geppetto-client.git "feature/35" "feature/35" "feature/35"
 
 RUN cd $HOME/workspace/org.geppetto.frontend &&\
   /bin/echo -e "\e[96mMaven install org.geppetto.frontend\e[0m" &&\
