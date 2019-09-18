@@ -54,7 +54,7 @@ RUN cd $HOME/workspace/org.geppetto.frontend/src/main &&\
   mv geppetto-application webapp
 
 RUN cd $HOME/workspace/org.geppetto.frontend/src/main/webapp &&\
-  $HOME/copy.sh https://github.com/openworm/geppetto-client.git "development" "development" "development"
+  $HOME/copy.sh https://github.com/openworm/geppetto-client.git "feature/35" "feature/35" "feature/35"
 
 RUN cd $HOME/workspace/org.geppetto.frontend &&\
   ls &&\
