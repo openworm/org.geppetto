@@ -27,14 +27,15 @@
   <Listener className="org.apache.catalina.security.SecurityListener" />
 
   <Service name="Catalina">
-    <Connector port="8080" 
+    <Connector port="8080"
                protocol="org.apache.coyote.http11.Http11NioProtocol"
-               connectionTimeout="20000" enableLookups="false" redirectPort="8443" />
+               connectionTimeout="20000" enableLookups="false" redirectPort="8443"
+               compression="on" />
 
     <Connector address="0.0.0.0" port="8443"
                protocol="org.apache.coyote.http11.Http11NioProtocol"
                sslImplementationName="org.apache.tomcat.util.net.jsse.JSSEImplementation"
-               SSLEnabled="true" scheme="https" secure="true" 
+               SSLEnabled="true" scheme="https" secure="true"
                enableLookups="false" maxThreads="150">
 
       <SSLHostConfig hostName="_default_"
@@ -64,9 +65,9 @@
             deployOnStartup="false" createDirs="false">
 
         <Valve className="org.apache.catalina.valves.ErrorReportValve" showReport="false" showServerInfo="false"/>
-        
+
         <Valve className="org.apache.catalina.valves.AccessLogValve" directory="serviceability/logs/access"
-               prefix="localhost_access" suffix=".log" 
+               prefix="localhost_access" suffix=".log"
                pattern="%t %h %u %H %m %U %s %D %b"/>
 
         <Valve className="org.eclipse.virgo.web.tomcat.support.ApplicationNameTrackingValve"/>
