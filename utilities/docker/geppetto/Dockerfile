@@ -44,11 +44,11 @@ RUN ../copy.sh https://github.com/openworm/org.geppetto.simulation.git "${target
 RUN ../copy.sh https://github.com/openworm/org.geppetto.frontend.git "geppetto-application/feature/19" "geppetto-application/feature/19" "geppetto-application/feature/19"
 
 RUN cd $HOME/workspace/org.geppetto.frontend/src/main &&\
-  $HOME/copy.sh https://github.com/openworm/geppetto-application.git "feature/19" "feature/19" "feature/19" &&\
+  $HOME/copy.sh https://github.com/openworm/geppetto-application.git "feature_14" "feature_14" "feature_14" &&\
   mv geppetto-application webapp
 
 RUN cd $HOME/workspace/org.geppetto.frontend/src/main/webapp &&\
-  $HOME/copy.sh https://github.com/openworm/geppetto-client.git "${targetBranch}" "${originBranch}" "${defaultBranch}"
+  $HOME/copy.sh https://github.com/openworm/geppetto-client.git "feature/105" "feature/105" "feature/105"
 
 RUN cd $HOME/workspace/org.geppetto.frontend &&\
   /bin/echo -e "\e[96mMaven install org.geppetto.frontend\e[0m" &&\
