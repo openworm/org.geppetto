@@ -41,10 +41,10 @@ RUN ../copy.sh https://github.com/openworm/org.geppetto.simulation.git "${target
   mvn -Dhttps.protocols=TLSv1.2 --quiet install &&\
   rm -rf src
 
-RUN ../copy.sh https://github.com/openworm/org.geppetto.frontend.git "${targetBranch}" "${originBranch}" "${defaultBranch}"
+RUN ../copy.sh https://github.com/openworm/org.geppetto.frontend.git "geppetto-application/feature/19" "geppetto-application/feature/19" "geppetto-application/feature/19"
 
 RUN cd $HOME/workspace/org.geppetto.frontend/src/main &&\
-  $HOME/copy.sh https://github.com/openworm/geppetto-application.git "development" "development" "development" &&\
+  $HOME/copy.sh https://github.com/openworm/geppetto-application.git "feature/19" "feature/19" "feature/19" &&\
   mv geppetto-application webapp
 
 RUN cd $HOME/workspace/org.geppetto.frontend/src/main/webapp &&\
