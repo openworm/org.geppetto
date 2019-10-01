@@ -47,14 +47,14 @@ RUN ../copy.sh https://github.com/openworm/org.geppetto.simulation.git "${target
   mvn --quiet install &&\
   rm -rf src
 
-RUN ../copy.sh https://github.com/openworm/org.geppetto.frontend.git "geppetto-application/feature/19" "geppetto-application/feature/19" "geppetto-application/feature/19"
+RUN ../copy.sh https://github.com/openworm/org.geppetto.frontend.git "${targetBranch}" "${originBranch}" "${defaultBranch}"
 
 RUN cd $HOME/workspace/org.geppetto.frontend/src/main &&\
   $HOME/copy.sh https://github.com/openworm/geppetto-application.git "feature/14" "feature/14" "feature/14" &&\
   mv geppetto-application webapp
 
 RUN cd $HOME/workspace/org.geppetto.frontend/src/main/webapp &&\
-  $HOME/copy.sh https://github.com/openworm/geppetto-client.git "feature/35" "feature/35" "feature/35"
+  $HOME/copy.sh https://github.com/openworm/geppetto-client.git "development" "development" "development"
 
 RUN cd $HOME/workspace/org.geppetto.frontend &&\
   ls &&\
