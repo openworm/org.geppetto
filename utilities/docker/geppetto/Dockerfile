@@ -44,7 +44,7 @@ RUN ../copy.sh https://github.com/openworm/org.geppetto.simulation.git "${target
 RUN ../copy.sh https://github.com/openworm/org.geppetto.frontend.git "${targetBranch}" "${originBranch}" "${defaultBranch}"
 
 RUN cd $HOME/workspace/org.geppetto.frontend/src/main &&\
-  $HOME/copy.sh https://github.com/openworm/geppetto-application.git "development" "development" "development" &&\
+  $HOME/copy.sh https://github.com/openworm/geppetto-application.git "feature/14" "feature/14" "feature/14" &&\
   mv geppetto-application webapp
 
 RUN cd $HOME/workspace/org.geppetto.frontend/src/main/webapp &&\
