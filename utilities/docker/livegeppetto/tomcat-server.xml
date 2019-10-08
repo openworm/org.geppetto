@@ -29,7 +29,8 @@
   <Service name="Catalina">
     <Connector port="8080" 
                protocol="org.apache.coyote.http11.Http11NioProtocol"
-               connectionTimeout="20000" enableLookups="false" redirectPort="8443" />
+               connectionTimeout="20000" enableLookups="false" redirectPort="8443"
+               compression="on" />
 
     <Connector address="0.0.0.0" port="8443"
                protocol="org.apache.coyote.http11.Http11NioProtocol"
