@@ -57,7 +57,7 @@ RUN cd $HOME/workspace/org.geppetto.frontend/src/main/webapp &&\
   $HOME/rename.sh https://github.com/openworm/geppetto-client.git "${targetBranch}" "${originBranch}" "${defaultBranch}"
 
 RUN cd $HOME/workspace/org.geppetto.frontend &&\
-  mvn --quiet install &&\
+  mvn -Pmaster --quiet install &&\
   rm -rf src
 
 RUN ../copy.sh https://github.com/openworm/org.geppetto.persistence.git "${targetBranch}" "${originBranch}" "${defaultBranch}" &&\
