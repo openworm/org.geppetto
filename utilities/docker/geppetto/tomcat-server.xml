@@ -36,7 +36,8 @@
                protocol="org.apache.coyote.http11.Http11NioProtocol"
                sslImplementationName="org.apache.tomcat.util.net.jsse.JSSEImplementation"
                SSLEnabled="true" scheme="https" secure="true"
-               enableLookups="false" maxThreads="150">
+               enableLookups="false" maxThreads="150"
+               compression="on" >
 
       <SSLHostConfig hostName="_default_"
                      protocols="TLSv1.2" sslProtocol="TLSv1.2"
