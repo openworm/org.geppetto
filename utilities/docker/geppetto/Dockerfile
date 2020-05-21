@@ -50,11 +50,10 @@ RUN cd $HOME/workspace/org.geppetto.frontend/src/main &&\
 RUN cd $HOME/workspace/org.geppetto.frontend/src/main/webapp &&\
   $HOME/copy.sh https://github.com/openworm/geppetto-client.git "${targetBranch}" "${originBranch}" "${defaultBranch}"
   
-RUN cd $HOME/workspace/org.geppetto.frontend/src/main/webapp &&\
+RUN cd $HOME/workspace/org.geppetto.frontend/src/main/webapp/geppetto-client &&\
   ls &&\
-  npm install &&\
-  cd $HOME/workspace/org.geppetto.frontend/src/main/webapp/node_modules/@geppettoengine/geppetto-client &&\
-  ls &&\ 
+  cd $HOME/workspace/org.geppetto.frontend/src/main/webapp/geppetto-client &&\
+  ls
 
 RUN cd $HOME/workspace/org.geppetto.frontend &&\
   /bin/echo -e "\e[96mMaven install org.geppetto.frontend\e[0m" &&\
