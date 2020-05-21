@@ -48,7 +48,11 @@ RUN cd $HOME/workspace/org.geppetto.frontend/src/main &&\
   mv geppetto-application webapp
 
 RUN cd $HOME/workspace/org.geppetto.frontend/src/main/webapp &&\
-  $HOME/rename.sh https://github.com/openworm/geppetto-client.git "${targetBranch}" "${originBranch}" "${defaultBranch}"
+  $HOME/rename.sh https://github.com/openworm/geppetto-client.git "${targetBranch}" "${originBranch}" "${defaultBranch}" &&\
+  ls &&\
+  npm install &&\
+  cd $HOME/workspace/org.geppetto.frontend/src/main/webapp/node_modules/@geppettoengine/geppetto-client &&\
+  ls &&\
 
 RUN cd $HOME/workspace/org.geppetto.frontend &&\
   /bin/echo -e "\e[96mMaven install org.geppetto.frontend\e[0m" &&\
