@@ -2,9 +2,9 @@ FROM metacell/java-virgo-maven:development
 
 LABEL maintainer="Facundo Rodriguez <facundo@metacell.us>"
 
-ARG targetBranch=development
-ARG originBranch=development
-ARG defaultBranch=development
+ARG targetBranch=master
+ARG originBranch=master
+ARG defaultBranch=master
 
 RUN /bin/echo -e "\e[1;35mORIGIN BRANCH ------------ $originBranch\e[0m" &&\
   /bin/echo -e "\e[1;35mTARGET BRANCH ------------ $targetBranch\e[0m" &&\
@@ -57,7 +57,7 @@ RUN cd $HOME/workspace/org.geppetto.frontend/src/main/webapp/geppetto-client &&\
 
 RUN cd $HOME/workspace/org.geppetto.frontend &&\
   /bin/echo -e "\e[96mMaven install org.geppetto.frontend\e[0m" &&\
-  mvn -Dhttps.protocols=TLSv1.2 -Pmaster install &&\
+  mvn -Dhttps.protocols=TLSv1.2 -Pmaster --quiet install &&\
   rm -rf src
 
 WORKDIR $HOME
