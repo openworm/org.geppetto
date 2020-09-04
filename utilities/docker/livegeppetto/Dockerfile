@@ -55,7 +55,6 @@ RUN cd $HOME/workspace/org.geppetto.frontend/src/main &&\
 RUN cd $HOME/workspace/org.geppetto.frontend/src/main/webapp &&\
   $HOME/copy.sh https://github.com/openworm/geppetto-client.git "${targetBranch}" "${originBranch}" "${defaultBranch}"
 
-COPY --chown=1000:1000 GeppettoConfiguration.json $HOME/workspace/org.geppetto.frontend/src/main/webapp/
 RUN cd $HOME/workspace/org.geppetto.frontend &&\
   /bin/echo -e "\e[96mMaven install org.geppetto.frontend\e[0m" &&\
   mvn -Dhttps.protocols=TLSv1.2 --quiet -Pmaster install &&\
@@ -63,9 +62,6 @@ RUN cd $HOME/workspace/org.geppetto.frontend &&\
 
 WORKDIR $HOME
 RUN mkdir rm $SERVER_HOME/./repository/usr
-COPY --chown=1000:1000 geppetto.plan $HOME/workspace/org.geppetto/
-COPY --chown=1000:1000 config.json $HOME/workspace/org.geppetto/utilities/source_setup/
-RUN rm $SERVER_HOME/pickup/*.jar
 RUN cd $HOME/workspace/org.geppetto/utilities/source_setup && python update_server.py
 
 EXPOSE 8080
