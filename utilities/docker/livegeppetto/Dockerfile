@@ -57,14 +57,11 @@ RUN cd $HOME/workspace/org.geppetto.frontend/src/main/webapp &&\
 
 RUN cd $HOME/workspace/org.geppetto.frontend &&\
   /bin/echo -e "\e[96mMaven install org.geppetto.frontend\e[0m" &&\
-  mvn -Dhttps.protocols=TLSv1.2 --quiet -Pmaster install &&\
+  mvn -Dhttps.protocols=TLSv1.2 -DcontextPath=/ -DuseSsl=true -DskipTests -Pmaster --quiet install &&\
   rm -rf src
 
 WORKDIR $HOME
 RUN mkdir rm $SERVER_HOME/./repository/usr
-COPY --chown=1000:1000 geppetto.plan $HOME/workspace/org.geppetto/
-COPY --chown=1000:1000 config.json $HOME/workspace/org.geppetto/utilities/source_setup/
-RUN rm $SERVER_HOME/pickup/*.jar
 RUN cd $HOME/workspace/org.geppetto/utilities/source_setup && python update_server.py
 
 EXPOSE 8080
