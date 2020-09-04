@@ -62,6 +62,9 @@ RUN cd $HOME/workspace/org.geppetto.frontend &&\
 
 WORKDIR $HOME
 RUN mkdir rm $SERVER_HOME/./repository/usr
+COPY --chown=1000:1000 geppetto.plan $HOME/workspace/org.geppetto/
+COPY --chown=1000:1000 config.json $HOME/workspace/org.geppetto/utilities/source_setup/
+RUN rm $SERVER_HOME/pickup/*.jar
 RUN cd $HOME/workspace/org.geppetto/utilities/source_setup && python update_server.py
 
 EXPOSE 8080
