@@ -52,7 +52,7 @@ RUN cd $HOME/workspace/org.geppetto.frontend/src/main/webapp &&\
 
 RUN cd $HOME/workspace/org.geppetto.frontend &&\
   /bin/echo -e "\e[96mMaven install org.geppetto.frontend\e[0m" &&\
-  mvn -Dhttps.protocols=TLSv1.2 -Pmaster --quiet install &&\
+  mvn -Dhttps.protocols=TLSv1.2 --quiet -Pmaster install &&\
   rm -rf src
 
 WORKDIR $HOME
