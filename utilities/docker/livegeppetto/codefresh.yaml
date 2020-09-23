@@ -1,0 +1,35 @@
+version: '1.0'
+steps:
+  main_clone:
+    type: git-clone
+    title: Clone org.geppetto
+    description: latest development branch
+    working_directory: ./
+    repo: openworm/org.geppetto
+    git: github
+    revision: development
+    when:
+      branch:
+        only: 
+          - development
+  BuildingDockerImage:
+    title: Building Docker Image
+    type: build
+    image_name: live_geppetto_dev
+    working_directory: ./utilities/docker/livegeppetto/
+    tag: '${{CF_BRANCH_TAG_NORMALIZED}}'
+    dockerfile: Dockerfile
+    no_cache: true
+    no_cf_cache: true
+  RunningDeployScript:
+    title: Running Deploy Script
+    type: deploy
+    kind: kubernetes
+    cluster: geppetto-cluster@metacellllc
+    namespace: livegeppetto
+    timeout: '400'
+    when:
+      branch:
+        only:
+          - development
+    service: livegeppettodev
